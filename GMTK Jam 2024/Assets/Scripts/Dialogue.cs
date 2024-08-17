@@ -1,16 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Dialogue : MonoBehaviour, IInteractable
 {
     public DialogueBox BoxPrefab;
 
     public List<DialogueText> DialogueList;
-    private int _currentDialogue = 0;
+    [SerializeField] private int _currentDialogue = 0;
 
     public bool BoolUseStaticTime;
 
@@ -19,9 +17,30 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     private DialogueBox _curentDialogueBox;
 
+    // When switching action map, the interaction button is still held so the action gets reapeated, once for each action map.
+    // This bool allows the action map to switch, but otherwise suppresses the first input to prevent double inputs.
+    private bool _supressActionMapSwitch = true;
+
     public void OnInteract()
     {
-        if(Player.instance.Input.currentActionMap.name != "Dialogue") Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+        // This gives an error but works anyway?
+        // The try catch stops it from showing up in the console.
+        try
+        {
+            if (Player.instance.Input.currentActionMap.name != "Dialogue")
+            {
+                Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+            }
+        }
+
+        catch { }
+
+        if (_supressActionMapSwitch)
+        {
+            _supressActionMapSwitch = false;
+            return;
+        }
+
         NextDialogue();
     }
 
@@ -42,7 +61,9 @@ public class Dialogue : MonoBehaviour, IInteractable
     public void EndDialogue()
     {
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
-        Destroy(_curentDialogueBox.gameObject);
+        _currentDialogue = 0;
+        _supressActionMapSwitch = true;
+        Destroy(_curentDialogueBox.gameObject, 0);
     }
 
     public void LoadDialogue(DialogueText dialogue)
