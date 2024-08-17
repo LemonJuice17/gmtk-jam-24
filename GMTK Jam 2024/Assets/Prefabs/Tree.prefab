@@ -113,8 +113,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab603a85cb01f844fbcf110d4210efa1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4912025479166530482}
   m_SourcePrefab: {fileID: 100100000, guid: ab603a85cb01f844fbcf110d4210efa1, type: 3}
+--- !u!1 &3524357077194411751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ab603a85cb01f844fbcf110d4210efa1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4334822150210040758}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4912025479166530482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3524357077194411751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406c414deea3d514f9032c9cd0171666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionVarianceX: 0.05
+  positionVarianceY: 0.05
+  positionVarianceZ: 0
+  rotationVarianceX: 0
+  rotationVarianceY: 2
+  rotationVarianceZ: 0
+  scaleVarianceX: 0.1
+  scaleVarianceY: 0.2
+  scaleVarianceZ: 0.1
 --- !u!4 &4297235288469460061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab603a85cb01f844fbcf110d4210efa1,
