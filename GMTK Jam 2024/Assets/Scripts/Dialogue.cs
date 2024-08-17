@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Dialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour, IInteractable
 {
     public DialogueBox BoxPrefab;
 
@@ -16,51 +19,43 @@ public class Dialogue : MonoBehaviour
 
     private DialogueBox _curentDialogueBox;
 
-    private void Start()
+    public void OnInteract()
     {
-        StartDialogue();
+        if(Player.instance.Input.currentActionMap.name != "Dialogue") Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+        NextDialogue();
     }
 
-    public void StartDialogue()
+    public void NextDialogue()
     {
-        if (DialogueList.Count == 0)
+        if (DialogueList.Count == 0 || DialogueList.Count < _currentDialogue + 1)
         {
             EndDialogue();
+            return;
         }
 
-        _curentDialogueBox = LoadDialogue(DialogueList[_currentDialogue]);
-    }
+        if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(BoxPrefab, UICanvas.Transform);
+        LoadDialogue(DialogueList[_currentDialogue]);
 
-    public void Continue()
-    {
         _currentDialogue++;
-
-        if(DialogueList.Count < _currentDialogue + 1 ) 
-        {
-            EndDialogue();
-        }
     }
 
     public void EndDialogue()
     {
-        Destroy(_curentDialogueBox);
+        Player.instance.Input.SwitchCurrentActionMap("Overworld");
+        Destroy(_curentDialogueBox.gameObject);
     }
 
-    public DialogueBox LoadDialogue(DialogueText dialogue)
+    public void LoadDialogue(DialogueText dialogue)
     {
-        DialogueBox box = Instantiate(BoxPrefab, UICanvas.Transform);
-
         if (dialogue.UseCustomPositioning)
         {
-            box.transform.position = dialogue.CustomPosition;
-            box.transform.localScale = dialogue.CustomScale;
+            _curentDialogueBox.transform.position = dialogue.CustomPosition;
+            _curentDialogueBox.transform.localScale = dialogue.CustomScale;
         }
 
-        box.CharacterSprite.sprite = dialogue.CharacterSprite;
-        box.CharacterName.text = dialogue.CharacterName;
-        box.Dialogue.text = dialogue.Text;
-
-        return box;
+        _curentDialogueBox.CharacterSprite.sprite = dialogue.CharacterSprite;
+        _curentDialogueBox.CharacterName.text = dialogue.CharacterName;
+        _curentDialogueBox.Dialogue.text = dialogue.Text;
     }
 }
 
