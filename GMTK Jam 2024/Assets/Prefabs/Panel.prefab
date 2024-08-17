@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4513656025638018915}
   - component: {fileID: 793095393735192497}
   - component: {fileID: 2577342993791026000}
+  - component: {fileID: 5633564057716762288}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -136,6 +137,40 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5633564057716762288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271878612608474587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 0
+  _text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at interdum
+    sapien. Aenean scelerisque est a elit lacinia, et euismod ex imperdiet. Interdum
+    et malesuada fames ac ante ipsum primis in faucibus. '
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 98aa2b74f2918e34497bec3d12bb1795, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 3d3f660a6ecac934080cde646fb5eb59,
+    type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: 0db6ed31f113efc4284eb571e80f6657, type: 2}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
 --- !u!1 &2500976049772916403
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +205,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -441, y: 70}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 100, y: 70}
+  m_SizeDelta: {x: 1280, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8327764680835325421
 CanvasRenderer:

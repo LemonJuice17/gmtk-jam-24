@@ -219,7 +219,7 @@ MonoBehaviour:
   Strength: 1
   Magic: 1
   Charm: 1
-  MoveSpeed: 2
+  MoveSpeed: 5
 --- !u!114 &5710382563816103571
 MonoBehaviour:
   m_ObjectHideFlags: 0
