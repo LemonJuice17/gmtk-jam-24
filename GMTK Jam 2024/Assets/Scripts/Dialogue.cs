@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Dialogue : MonoBehaviour, IInteractable
 {
     public DialogueBox BoxPrefab;
 
     public List<DialogueText> DialogueList;
-    [SerializeField] private int _currentDialogue = 0;
+    [SerializeField] private int _currentDialogueIndex = 0;
+    public DialogueText CurrentDialogue { get => DialogueList[_currentDialogueIndex]; }
 
     public bool BoolUseStaticTime;
 
@@ -21,8 +23,12 @@ public class Dialogue : MonoBehaviour, IInteractable
     // This bool allows the action map to switch, but otherwise suppresses the first input to prevent double inputs.
     private bool _supressActionMapSwitch = true;
 
+    private bool WaitForContinue = false;
+
     public void OnInteract()
     {
+        if (WaitForContinue) return;
+
         // This gives an error but works anyway?
         // The try catch stops it from showing up in the console.
         try
@@ -46,22 +52,28 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void NextDialogue()
     {
-        if (DialogueList.Count == 0 || DialogueList.Count < _currentDialogue + 1)
+        WaitForContinue = false;
+
+        if (DialogueList.Count == 0 || DialogueList.Count < _currentDialogueIndex + 1)
         {
             EndDialogue();
             return;
         }
 
         if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(BoxPrefab, UICanvas.Transform);
-        LoadDialogue(DialogueList[_currentDialogue]);
+        LoadDialogue(CurrentDialogue);
 
-        _currentDialogue++;
+        if(CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
+
+        CurrentDialogue.Actions.Invoke(this);
+
+        _currentDialogueIndex++;
     }
 
     public void EndDialogue()
     {
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
-        _currentDialogue = 0;
+        _currentDialogueIndex = 0;
         _supressActionMapSwitch = true;
         Destroy(_curentDialogueBox.gameObject, 0);
     }
@@ -92,4 +104,8 @@ public class DialogueText
 
     public Vector3 CustomPosition;
     public Vector3 CustomScale;
+
+    public bool AutomaticContinueOnly = false;
+
+    public UnityEvent<Dialogue> Actions = new();
 }
