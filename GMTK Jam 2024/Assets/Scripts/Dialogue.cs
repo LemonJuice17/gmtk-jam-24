@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Dialogue : MonoBehaviour, IInteractable
 {
@@ -21,15 +19,19 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        Debug.Log(Player.instance.Input.currentActionMap);
-
-        /*
-        if (Player.instance.Input.currentActionMap.name != "Dialogue")
+        // This gives an error but works anyway?
+        // The try catch stops it from showing up in the console.
+        try
         {
-            Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+            if (Player.instance.Input.currentActionMap.name != "Dialogue")
+            {
+                Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+            }
         }
 
-        NextDialogue();*/
+        catch { }
+
+        NextDialogue();
     }
 
     public void NextDialogue()
