@@ -61,9 +61,17 @@ public class Player : MonoBehaviour
 
     private void Move(Vector3 direction)
     {
-        if (direction.magnitude == 0) return;
+        if (direction.magnitude == 0)
+        {
+            PlayerAnimator.MovementUpdate.Invoke(false);
+            return;
+        }
 
-        transform.position += direction * MoveSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        PlayerAnimator.MovementUpdate.Invoke(true);
+
+        Vector3 adjustedMoveVector = Camera.main.transform.rotation * direction * MoveSpeed * Time.deltaTime;
+        adjustedMoveVector.y = 0;
+        transform.position += adjustedMoveVector;
+        transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
     }
 }
