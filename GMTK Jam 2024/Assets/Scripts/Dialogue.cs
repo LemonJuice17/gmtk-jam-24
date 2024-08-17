@@ -21,8 +21,15 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if(Player.instance.Input.currentActionMap.name != "Dialogue") Player.instance.Input.SwitchCurrentActionMap("Dialogue");
-        NextDialogue();
+        Debug.Log(Player.instance.Input.currentActionMap);
+
+        /*
+        if (Player.instance.Input.currentActionMap.name != "Dialogue")
+        {
+            Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+        }
+
+        NextDialogue();*/
     }
 
     public void NextDialogue()
@@ -42,7 +49,8 @@ public class Dialogue : MonoBehaviour, IInteractable
     public void EndDialogue()
     {
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
-        Destroy(_curentDialogueBox.gameObject);
+        _currentDialogue = 0;
+        Destroy(_curentDialogueBox.gameObject, 0);
     }
 
     public void LoadDialogue(DialogueText dialogue)

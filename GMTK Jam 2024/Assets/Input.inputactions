@@ -134,7 +134,7 @@
                     "name": "",
                     "id": "2a842c72-53c9-45fe-a8b2-f231a455f847",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Continue",
