@@ -25,6 +25,8 @@ public class PartyMember : MonoBehaviour
 
     private NavMeshAgent _agent;
 
+    private bool _stayStill = false;
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -38,6 +40,8 @@ public class PartyMember : MonoBehaviour
 
     private void Update()
     {
+        if (_stayStill) return;
+
         if (_agent.remainingDistance > 0) BroadcastMessage("ChangeMoving", true);
         else BroadcastMessage("ChangeMoving", false);
     }
@@ -45,14 +49,16 @@ public class PartyMember : MonoBehaviour
     public void StartFollowLoop()
     {
         _agent.isStopped = false;
+        _stayStill = false;
         _targetPosition = GetNewTargetPosition();
         InvokeRepeating("FollowLoop", FollowLoopRepetitionTime, FollowLoopRepetitionTime);
     }
 
     public void StopFollowLoop()
     {
-        _agent.isStopped = true;
         CancelInvoke("FollowLoop");
+        _agent.isStopped = true;
+        _stayStill = true;
         BroadcastMessage("ChangeMoving", false);
     }
 

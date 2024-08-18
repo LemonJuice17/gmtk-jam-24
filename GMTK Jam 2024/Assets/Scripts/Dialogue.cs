@@ -25,6 +25,8 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     private bool WaitForContinue = false;
 
+    public UnityEvent<Dialogue> AfterDialogue;
+
     public void OnInteract()
     {
         if (WaitForContinue) return;
@@ -75,6 +77,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
         _currentDialogueIndex = 0;
         _supressActionMapSwitch = true;
+        AfterDialogue.Invoke(this);
         Destroy(_curentDialogueBox.gameObject, 0);
     }
 

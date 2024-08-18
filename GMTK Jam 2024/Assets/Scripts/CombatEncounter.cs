@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,22 @@ public class CombatEncounter : MonoBehaviour
 
     public float CombatantSpacing = 1;
 
+    private CinemachineVirtualCamera _camera;
+
+    private void Awake()
+    {
+        _camera = GetComponentInChildren<CinemachineVirtualCamera>();
+    }
+
     public void StartCombat(Dialogue dialogue)
     {
-        dialogue.EndDialogue();
         StartCombat();
     }
 
     public void StartCombat()
     {
         Player.instance.Input.SwitchCurrentActionMap("Combat");
+        _camera.Priority = 20;
 
         AllyCombatants.Add(Player.instance.Stats);
 
@@ -34,6 +42,17 @@ public class CombatEncounter : MonoBehaviour
         EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy));
 
         PositionCombatants();
+    }
+
+    public void StopCombat()
+    {
+        Player.instance.Input.SwitchCurrentActionMap("Overworld");
+        _camera.Priority = 1;
+
+        for (int i = 0; i < AllyCombatants.Count; i++)
+        {
+            if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
+        }
     }
 
     private void PositionCombatants()
@@ -55,9 +74,7 @@ public class CombatEncounter : MonoBehaviour
             // Position enemy
             if (EnemyCombatants[i].OverworldObject != null)
             {
-                Debug.Log(EnemyCombatants[i].OverworldObject.transform.position);
                 EnemyCombatants[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3(EnemyCombatants.Count - 1 * (CombatantSpacing * 0.5f) + ((i + 1) * CombatantSpacing), 0, 0);
-                Debug.Log(EnemyCombatants[i].OverworldObject.transform.position);
             }
         }
     }
