@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class PartyMember : MonoBehaviour
 {
+    public Combatant Stats;
+
     public Vector3 PlayerFollowPosition = new Vector3(1, 0, -1.5f);
     public Vector3 MaxFollowDeviation = new Vector3(0.5f, 0, 1f);
 
@@ -26,6 +28,7 @@ public class PartyMember : MonoBehaviour
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        Stats.OverworldObject = transform;
     }
 
     private void Start()

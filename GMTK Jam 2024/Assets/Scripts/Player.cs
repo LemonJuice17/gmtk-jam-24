@@ -6,11 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public int MaxHP = 5;
-
-    public int Strength = 1;
-    public int Magic = 1;
-    public int Charm = 1;
+    public Combatant Stats;
 
     public float MoveSpeed = 2;
 
@@ -28,6 +24,7 @@ public class Player : MonoBehaviour
         else Destroy(this);
 
         Input = GetComponent<PlayerInput>();
+        Stats.OverworldObject = transform;
     }
 
     public void Update()
