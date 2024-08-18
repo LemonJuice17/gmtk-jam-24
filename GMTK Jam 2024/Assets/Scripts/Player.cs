@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
         BroadcastMessage("ChangeMoving", true);
 
-        Vector3 adjustedMoveVector = Camera.main.transform.rotation * direction * MoveSpeed * Time.deltaTime;
+        Vector3 adjustedMoveVector = Camera.main.transform.rotation * direction.normalized * MoveSpeed * Time.deltaTime;
         adjustedMoveVector.y = 0;
         transform.position += adjustedMoveVector;
         transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
