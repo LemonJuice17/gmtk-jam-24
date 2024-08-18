@@ -57,10 +57,14 @@ public class CombatEncounter : MonoBehaviour
 
     private void PositionCombatants()
     {
+        Vector3 direction = EnemyLineOffset - AllyLineOffset;
+        direction.Normalize();
+
         for(int i = 0; i < AllyCombatants.Count; i++)
         {
-            AllyCombatants[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3(AllyCombatants.Count - 1 * (CombatantSpacing * 0.5f) + ((i + 1) * CombatantSpacing), 0, 0);
-            if(AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
+            AllyCombatants[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+            AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
         }
 
         for (int i = 0; i < EnemyCombatants.Count; i++)
@@ -74,7 +78,8 @@ public class CombatEncounter : MonoBehaviour
             // Position enemy
             if (EnemyCombatants[i].OverworldObject != null)
             {
-                EnemyCombatants[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3(EnemyCombatants.Count - 1 * (CombatantSpacing * 0.5f) + ((i + 1) * CombatantSpacing), 0, 0);
+                EnemyCombatants[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+                EnemyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(-direction, Vector3.up);
             }
         }
     }
