@@ -15,7 +15,9 @@ public class Dice : MonoBehaviour
     public float VelocityMagnitudeStopLimit = 0.05f;
     
     // An event that's called with the rolled value once the roll is finished.
-    public UnityEvent<int> RolledValue = new();
+    public UnityEvent<Combatant, int> RolledValue = new();
+
+    Combatant _roller;
 
     private void Awake()
     {
@@ -23,15 +25,12 @@ public class Dice : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-        Roll();
-    }
-
-    public void Roll() => Roll(transform.forward);
-    public void Roll(Vector3 throwDirection)
+    public void Roll(Combatant combatant) => Roll(combatant, transform.forward);
+    public void Roll(Combatant combatant, Vector3 throwDirection)
     {
         InvokeRepeating("StopCheck", 0.5f, 0.1f);
+
+        _roller = combatant;
 
         if (GameManager.instance.DiceRollup != null) Instantiate(GameManager.instance.DiceRollup);
 
@@ -68,11 +67,11 @@ public class Dice : MonoBehaviour
             }
         }
 
-        Debug.Log(SideValues[closestIndex]);
-
-        RolledValue.Invoke(SideValues[closestIndex]);
-
         CancelInvoke("StopCheck");
+
+        RolledValue.Invoke(_roller, SideValues[closestIndex]);
+
+        Destroy(gameObject, 0.5f);
     }
 
     public void OnCollisionEnter()

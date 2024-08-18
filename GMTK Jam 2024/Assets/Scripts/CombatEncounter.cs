@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CombatEncounter : MonoBehaviour
 {
-    [HideInInspector] public List<Combatant> Combatants = new();
+    public Dictionary<Combatant, int> Combatants = new();
     [HideInInspector] public List<Combatant> CombatantOrder = new();
     [HideInInspector] public List<Combatant> AllyCombatants = new();
     public List<Combatant> EnemyCombatants;
@@ -16,6 +16,8 @@ public class CombatEncounter : MonoBehaviour
     public Vector3 EnemyLineOffset = new Vector3(0, 0, 2);
 
     public float CombatantSpacing = 1;
+
+    int _rollsFinished = 0;
 
     private CinemachineVirtualCamera _camera;
 
@@ -38,10 +40,11 @@ public class CombatEncounter : MonoBehaviour
 
         GameObject.FindGameObjectsWithTag("Party Member").ToList().ForEach(obj => AllyCombatants.Add(obj.GetComponent<PartyMember>().Stats));
 
-        AllyCombatants.ForEach((ally) => Combatants.Add(ally));
-        EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy));
+        AllyCombatants.ForEach((ally) => Combatants.Add(ally, 0));
+        EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy, 0));
 
-        PositionCombatants();
+        Invoke("PositionCombatants", 1);
+        Invoke("RollForInitiative", 2);
     }
 
     public void StopCombat()
@@ -84,10 +87,38 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-    public void DiceRoll()
+    public void RollForInitiative()
     {
-        Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-        die.Roll();
+        Vector3 direction = EnemyLineOffset - AllyLineOffset;
+        direction.Normalize();
+
+        foreach(var combatant in AllyCombatants)
+        {
+            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
+            die.transform.position = combatant.OverworldObject.transform.position + direction;
+            die.Roll(combatant);
+            die.RolledValue.AddListener(AddRollResult);
+        }
+
+        foreach (var combatant in EnemyCombatants)
+        {
+            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
+            die.transform.position = combatant.OverworldObject.transform.position - direction;
+            die.Roll(combatant);
+            die.RolledValue.AddListener(AddRollResult);
+        }
+    }
+
+    private void AddRollResult(Combatant combatant, int result)
+    {
+        Combatants[combatant] = result;
+        _rollsFinished++;
+        if (_rollsFinished == Combatants.Count) InitiativeDecided();
+    }
+
+    private void InitiativeDecided()
+    {
+        Debug.Log(Combatants);
     }
 
     public void GenerateIcons(List<Combatant> combatants)
