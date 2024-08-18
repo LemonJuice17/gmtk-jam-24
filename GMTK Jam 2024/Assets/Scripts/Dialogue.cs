@@ -89,8 +89,9 @@ public class Dialogue : MonoBehaviour, IInteractable
             _curentDialogueBox.transform.localScale = dialogue.CustomScale;
         }
 
-        _curentDialogueBox.CharacterSprite.sprite = dialogue.CharacterSprite;
-        _curentDialogueBox.CharacterName.text = dialogue.CharacterName;
+        _curentDialogueBox.CharacterSprite.sprite = dialogue.character.CharacterSprite;
+        _curentDialogueBox.CharacterName.text = dialogue.character.CharacterName;
+        _curentDialogueBox.CharacterName.color = dialogue.character.CharacterColor;
         _curentDialogueBox.Dialogue.text = dialogue.Text;
     }
 }
@@ -100,8 +101,7 @@ public class DialogueText
 {
     public string Text;
 
-    public string CharacterName;
-    public Sprite CharacterSprite;
+    public Character character;
 
     public bool UseCustomPositioning;
 
