@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
   m_Name: Gillbert
   m_EditorClassIdentifier: 
-  CharacterName: You
+  CharacterName: Gillbert
   CharacterSprite: {fileID: 0}
-  CharacterColor: {r: 1, g: 1, b: 1, a: 1}
+  CharacterMainColor: {r: 0.26962438, g: 0.6886792, b: 0.41928685, a: 1}
+  CharacterBackgroundColor: {r: 0.7122642, g: 1, b: 0.8104368, a: 1}

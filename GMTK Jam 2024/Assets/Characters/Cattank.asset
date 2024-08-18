@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
   m_Name: Cattank
   m_EditorClassIdentifier: 
-  CharacterName: You
+  CharacterName: Cattank
   CharacterSprite: {fileID: 0}
-  CharacterColor: {r: 1, g: 1, b: 1, a: 1}
+  CharacterMainColor: {r: 0.49056602, g: 0.32231647, b: 0.11801351, a: 1}
+  CharacterBackgroundColor: {r: 0.8301887, g: 0.53344923, b: 0.16055535, a: 1}

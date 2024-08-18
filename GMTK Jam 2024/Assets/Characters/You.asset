@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: You
   CharacterSprite: {fileID: 0}
-  CharacterColor: {r: 1, g: 1, b: 1, a: 1}
+  CharacterMainColor: {r: 0, g: 0, b: 0, a: 1}
+  CharacterBackgroundColor: {r: 1, g: 0.9583334, b: 0.75, a: 1}

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Game Master
   CharacterSprite: {fileID: 0}
+  CharacterMainColor: {r: 0.14707753, g: 0.046101812, b: 0.26415092, a: 1}
+  CharacterBackgroundColor: {r: 0.45728743, g: 0.19824673, b: 0.764151, a: 1}
