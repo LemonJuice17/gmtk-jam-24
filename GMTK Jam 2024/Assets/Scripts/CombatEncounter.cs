@@ -21,7 +21,8 @@ public class CombatEncounter : MonoBehaviour
 
     public void DiceRoll()
     {
-
+        Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
+        die.Roll();
     }
 
     public void GenerateIcons(List<Combatant> combatants)
