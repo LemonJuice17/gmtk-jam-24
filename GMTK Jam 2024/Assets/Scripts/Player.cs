@@ -55,11 +55,11 @@ public class Player : MonoBehaviour
     {
         if (direction.magnitude == 0)
         {
-            PlayerAnimator.MovementUpdate.Invoke(false);
+            BroadcastMessage("ChangeMoving", false);
             return;
         }
 
-        PlayerAnimator.MovementUpdate.Invoke(true);
+        BroadcastMessage("ChangeMoving", true);
 
         Vector3 adjustedMoveVector = Camera.main.transform.rotation * direction * MoveSpeed * Time.deltaTime;
         adjustedMoveVector.y = 0;
