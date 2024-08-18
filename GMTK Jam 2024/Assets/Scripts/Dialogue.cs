@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.UI;
 public class Dialogue : MonoBehaviour, IInteractable
 {
     public DialogueBox BoxPrefab;
@@ -91,7 +91,8 @@ public class Dialogue : MonoBehaviour, IInteractable
 
         _curentDialogueBox.CharacterSprite.sprite = dialogue.character.CharacterSprite;
         _curentDialogueBox.CharacterName.text = dialogue.character.CharacterName;
-        _curentDialogueBox.CharacterName.color = dialogue.character.CharacterColor;
+        _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.character.CharacterBackgroundColor;
+        _curentDialogueBox.CharacterName.color = dialogue.character.CharacterMainColor;
         _curentDialogueBox.Dialogue.text = dialogue.Text;
     }
 }
