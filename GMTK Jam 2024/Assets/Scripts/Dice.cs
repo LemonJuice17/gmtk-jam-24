@@ -35,7 +35,6 @@ public class Dice : MonoBehaviour
 
     public void OnCollisionEnter()
     {
-        int val = Random.Range(0, 3);
-        if (GameManager.instance.DiceRoll[val] != null) Instantiate(GameManager.instance.DiceRoll[val]);
+        if (GameManager.instance.DiceRoll != null) Instantiate(GameManager.instance.DiceRoll);
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject D6;
 
     public SoundObject DiceRollup;
-    public SoundObject[] DiceRoll;
+    public SoundObject DiceRoll;
 
     public static GameManager instance;
 
