@@ -482,78 +482,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1001 &177238251
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 5858464383613482744, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6487051524412238914, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      propertyPath: m_Name
-      value: D6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8473383022077088709, guid: ec536303bb6886744bc1c3436be608f3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
 --- !u!1 &205038494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,7 +1610,7 @@ PrefabInstance:
     - target: {fileID: 3150204321266513536, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
       propertyPath: m_Name
-      value: NPC (1)
+      value: Asshole Shopkeeper NPC
       objectReference: {fileID: 0}
     - target: {fileID: 4863016132004641121, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
@@ -2138,6 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Combatants: []
   CombatantOrder: []
+  AllyCombatants: []
   EnemyCombatants:
   - MaxHP: 10
     HP: 10
@@ -2145,8 +2074,11 @@ MonoBehaviour:
     Magic: 0
     Charm: 2
     TurnOrderIcon: {fileID: 0}
-    OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 1696478388}
+    OverworldObject: {fileID: 1696478394}
+    CombatantPrefab: {fileID: 0}
+  AllyLineOffset: {x: 0, y: 0, z: 2}
+  EnemyLineOffset: {x: 0, y: 0, z: -2}
+  CombatantSpacing: 1
 --- !u!4 &1092199949
 Transform:
   m_ObjectHideFlags: 0
@@ -3040,7 +2972,7 @@ PrefabInstance:
     - target: {fileID: 3150204321266513536, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
       propertyPath: m_Name
-      value: NPC
+      value: Rude NPC
       objectReference: {fileID: 0}
     - target: {fileID: 4863016132004641121, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
@@ -3097,27 +3029,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9364992c4a3607341a31b0ddc42d9484, type: 3}
---- !u!1 &1696478388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3150204321266513536, guid: 9364992c4a3607341a31b0ddc42d9484,
+--- !u!4 &1696478394 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4863016132004641121, guid: 9364992c4a3607341a31b0ddc42d9484,
     type: 3}
   m_PrefabInstance: {fileID: 1820422609}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1696478395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696478388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Combatants: []
-  CombatantOrder: []
-  EnemyCombatants: []
 --- !u!1001 &1806098660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3371,7 +3288,7 @@ PrefabInstance:
     - target: {fileID: 3150204321266513536, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
       propertyPath: m_Name
-      value: NPC (2)
+      value: Thug NPC
       objectReference: {fileID: 0}
     - target: {fileID: 4863016132004641121, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
@@ -3537,7 +3454,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueList.Array.data[2].Actions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1696478395}
+      objectReference: {fileID: 1092199948}
     - target: {fileID: 8962741450575991467, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
       propertyPath: DialogueList.Array.data[2].Actions.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -3571,11 +3488,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3150204321266513536, guid: 9364992c4a3607341a31b0ddc42d9484,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1696478395}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9364992c4a3607341a31b0ddc42d9484, type: 3}
 --- !u!1 &1869973948
 GameObject:
@@ -4116,4 +4029,3 @@ SceneRoots:
   - {fileID: 682614301}
   - {fileID: 1092199949}
   - {fileID: 1937897664}
-  - {fileID: 177238251}

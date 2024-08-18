@@ -54,8 +54,6 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         WaitForContinue = false;
 
-        CurrentDialogue.Actions.Invoke(this);
-
         if (DialogueList.Count == 0 || DialogueList.Count < _currentDialogueIndex + 1)
         {
             EndDialogue();
@@ -66,6 +64,8 @@ public class Dialogue : MonoBehaviour, IInteractable
         LoadDialogue(CurrentDialogue);
 
         if(CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
+
+        CurrentDialogue.Actions.Invoke(this);
 
         _currentDialogueIndex++;
     }

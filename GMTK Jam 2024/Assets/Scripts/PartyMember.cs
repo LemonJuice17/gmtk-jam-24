@@ -44,13 +44,16 @@ public class PartyMember : MonoBehaviour
 
     public void StartFollowLoop()
     {
+        _agent.isStopped = false;
         _targetPosition = GetNewTargetPosition();
         InvokeRepeating("FollowLoop", FollowLoopRepetitionTime, FollowLoopRepetitionTime);
     }
 
     public void StopFollowLoop()
     {
+        _agent.isStopped = true;
         CancelInvoke("FollowLoop");
+        BroadcastMessage("ChangeMoving", false);
     }
 
     private void FollowLoop()

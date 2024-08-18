@@ -23,6 +23,11 @@ public class Dice : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        Roll();
+    }
+
     public void Roll() => Roll(transform.forward);
     public void Roll(Vector3 throwDirection)
     {
