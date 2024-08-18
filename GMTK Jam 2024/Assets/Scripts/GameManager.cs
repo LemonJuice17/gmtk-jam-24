@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject D6;
 
-    public AudioClip DiceRollup;
-    public AudioClip[] DiceRoll;
+    public SoundObject DiceRollup;
+    public SoundObject[] DiceRoll;
 
     public static GameManager instance;
 

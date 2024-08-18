@@ -24,10 +24,18 @@ public class Dice : MonoBehaviour
     public void Roll() => Roll(Vector3.forward);
     public void Roll(Vector3 throwDirection)
     {
+        if(GameManager.instance.DiceRollup != null) Instantiate(GameManager.instance.DiceRollup);
+
         transform.rotation = Random.rotation;
 
         throwDirection.Normalize();
 
         _rb.AddForce(throwDirection * MaximumThrowMagnitude, ForceMode.Impulse);
+    }
+
+    public void OnCollisionEnter()
+    {
+        int val = Random.Range(0, 3);
+        if (GameManager.instance.DiceRoll[val] != null) Instantiate(GameManager.instance.DiceRoll[val]);
     }
 }
