@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public Color SelectedTextColour = Color.green;
 
     public GameObject D6;
+    public GameObject D8;
 
     public SoundObject DiceRollup;
     public SoundObject DiceRoll;
