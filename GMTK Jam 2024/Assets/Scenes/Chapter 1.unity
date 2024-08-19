@@ -17135,6 +17135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81e63bb000ba9a4f953c10b2f1f4e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TurnOrderObjectReference: {fileID: 0}
   TurnOrderIconPrefab: {fileID: 2472712176574696257, guid: 77dcb82efbbbc0c409c586baf8ba4a95,
     type: 3}
   D6: {fileID: 6487051524412238914, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
