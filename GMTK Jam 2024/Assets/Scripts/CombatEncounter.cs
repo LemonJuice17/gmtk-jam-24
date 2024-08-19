@@ -23,9 +23,20 @@ public class CombatEncounter : MonoBehaviour
 
     public float DicePositionMultiplier = 2.5f;
 
+    public float FightLoopUpdateTime = 0.1f;
+
+    private List<Image> _turnOrderImages = new();
+
+    [SerializeField] private int _currentTurnIndex;
+
     private void Awake()
     {
         _camera = GetComponentInChildren<CinemachineVirtualCamera>();
+    }
+
+    private void Start()
+    {
+        if (GameManager.instance.CombatUIObjectReference.activeSelf) GameManager.instance.CombatUIObjectReference.SetActive(false);
     }
 
     public void StartCombat(Dialogue dialogue)
@@ -59,6 +70,10 @@ public class CombatEncounter : MonoBehaviour
             AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = false;
             if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
+
+        GameManager.instance.CombatUIObjectReference.SetActive(false);
+
+        CancelInvoke("FightLoop");
     }
 
     private void PositionCombatants()
@@ -117,16 +132,19 @@ public class CombatEncounter : MonoBehaviour
     {
         Combatants[combatant] = result;
         _rollsFinished++;
-        if (_rollsFinished == Combatants.Count) InitiativeDecided();
+        if (_rollsFinished == Combatants.Count) StartFightLoop();
     }
 
-    private void InitiativeDecided()
+    private void StartFightLoop()
     {
         CombatantOrder = Combatants.OrderByDescending(pair => pair.Value)
                                    .Select(pair => pair.Key)
                                    .ToList();
 
+        GameManager.instance.CombatUIObjectReference.SetActive(true);
         GenerateIcons(CombatantOrder);
+
+        InvokeRepeating("FightLoop", 0, FightLoopUpdateTime);
     }
 
     public void GenerateIcons(List<Combatant> combatants)
@@ -136,6 +154,26 @@ public class CombatEncounter : MonoBehaviour
             GameObject newIcon = Instantiate(GameManager.instance.TurnOrderIconPrefab, GameManager.instance.TurnOrderObjectReference);
             if(combatant.TurnOrderIcon != null) newIcon.transform.GetChild(0).GetComponent<Image>().sprite = combatant.TurnOrderIcon;
         }
+    }
+
+    private void FightLoop()
+    {
+        GameManager.instance.CombatUINameText.text = $"{CombatantOrder[_currentTurnIndex].OverworldObject.name}'s Turn";
+
+        if (CombatantOrder[_currentTurnIndex].OverworldObject == Player.instance.gameObject)
+        {
+            PlayersTurn();
+            CancelInvoke("FightLoop");
+            return;
+        }
+
+        _currentTurnIndex++;
+    }
+
+    public void PlayersTurn()
+    {
+        _currentTurnIndex++;
+        InvokeRepeating("FightLoop", 0, FightLoopUpdateTime);
     }
 
     public void OnDrawGizmos()
