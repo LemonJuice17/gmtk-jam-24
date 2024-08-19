@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class CombatEncounter : MonoBehaviour
 {
@@ -198,7 +200,7 @@ public class CombatEncounter : MonoBehaviour
 
         _currentTurnIndex++;
 
-        Attack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
+        StartAttack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
     }
 
     public void PlayersTurn()
@@ -234,7 +236,7 @@ public class CombatEncounter : MonoBehaviour
     {
         if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
         GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(false);
-        Attack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
+        StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
@@ -248,7 +250,51 @@ public class CombatEncounter : MonoBehaviour
     }
 
     #region Attacks
-    public void Attack(Combatant attacker, Attacks attack, Combatant victim = null)
+
+    private Attacks _currentAttack;
+    public void StartAttack(Combatant attacker, Attacks attack, Combatant victim = null)
+    {
+        _currentAttack = 0;
+        _currentRollTotal = 0;
+
+        switch (attack)
+        {
+            case Attacks.Stab:
+                RollDice(attacker, GameManager.instance.D6);
+                break;
+            case Attacks.Stabs:
+                RollDice(attacker, GameManager.instance.D6, 2);
+                break;
+            case Attacks.Slash:
+                RollDice(attacker, GameManager.instance.D8);
+                break;
+            case Attacks.Crush:
+                break;
+            case Attacks.Taunt:
+                break;
+            case Attacks.Mock:
+                RollDice(attacker, GameManager.instance.D6);
+                break;
+            case Attacks.Insult:
+                RollDice(attacker, GameManager.instance.D6, 2);
+                break;
+            case Attacks.Seduce:
+                RollDice(attacker, GameManager.instance.D8, 3);
+                break;
+            case Attacks.Blast:
+                RollDice(attacker, GameManager.instance.D8);
+                break;
+            case Attacks.Shrink:
+                break;
+            case Attacks.Fireball:
+                RollDice(attacker, GameManager.instance.D8, 3);
+                break;
+        }
+
+        _currentAttack = attack;
+    }
+
+    public void Attack(Combatant attacker, Attacks attack, int diceModifier = 0, Combatant victim = null)
     {
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
 
@@ -257,22 +303,22 @@ public class CombatEncounter : MonoBehaviour
             case Attacks.Stab:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + [d4] damage!";
-                    victim.HP -= attacker.Strength;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + {diceModifier} damage!";
+                    victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
             case Attacks.Stabs:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + [2 d4] damage!";
-                    victim.HP -= attacker.Strength;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + {diceModifier} damage!";
+                    victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
             case Attacks.Slash:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength} + [d10] damage!";
-                    victim.HP -= attacker.Strength;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} + {diceModifier} damage!";
+                    victim.HP -= attacker.Strength * 2 + diceModifier; ;
                     break;
                 }
             case Attacks.Crush:
@@ -292,43 +338,44 @@ public class CombatEncounter : MonoBehaviour
             case Attacks.Mock:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} mocked {victim.OverworldObject.name}, dealing {attacker.Charm} + [d4] damage!";
-                    victim.HP -= attacker.Charm;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} mocked {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
+                    victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Insult:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} insulted {victim.OverworldObject.name}, dealing {attacker.Charm} + [2 d4] damage!";
-                    victim.HP -= attacker.Charm;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} insulted {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
+                    victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Seduce:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} seduced {victim.OverworldObject.name}, dealing {attacker.Charm} + [d20] damage!";
-                    victim.HP -= attacker.Charm;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} seduced {victim.OverworldObject.name}, dealing {attacker.Charm} +  {diceModifier} damage!";
+                    victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Blast:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} blasted {victim.OverworldObject.name}, dealing {attacker.Magic} + [d8] damage!";
-                    victim.HP -= attacker.Magic;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} blasted {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
+                    victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
             case Attacks.Shrink:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} shrank {victim.OverworldObject.name}, halving their size (and HP)!";
-                    victim.HP -= attacker.Magic;
+                    victim.HP = (int)Math.Ceiling(victim.HP * 0.5f);
+                    victim.OverworldObject.localScale *= 0.5f;
                     break;
                 }
             case Attacks.Fireball:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} + [d20] damage!";
-                    victim.HP -= attacker.Magic;
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
+                    victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
         }
@@ -339,6 +386,40 @@ public class CombatEncounter : MonoBehaviour
             CancelInvoke("FightLoop");
             Invoke("CombatantKilled", FightLoopUpdateTime);
         }
+
+        else if(diceModifier != 0) InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+    }
+
+    private int _rollCount = 1;
+    private int _currentRolls = 0;
+    private int _currentRollTotal = 0;
+
+    public void RollDice(Combatant attacker, GameObject diePrefab, int quantity = 1)
+    {
+        CancelInvoke("FightLoop");
+
+        Vector3 direction = EnemyLineOffset - AllyLineOffset;
+        direction.Normalize();
+
+        _rollCount = quantity;
+        _currentRolls = 0;
+        _currentRollTotal = 0;
+
+        for (int i = 0; i < quantity; i++)
+        {
+            Dice die = Instantiate(diePrefab).GetComponent<Dice>();
+            die.transform.position = attacker.OverworldObject.transform.position - (direction * DicePositionMultiplier);
+            die.Roll(attacker);
+            die.RolledValue.AddListener(WaitForAllRolls);
+        }
+    }
+    
+    private void WaitForAllRolls(Combatant combatant, int roll)
+    {
+        _currentRollTotal += roll;
+        _currentRolls++;
+
+        if (_currentRolls >= _rollCount) Attack(combatant, _currentAttack, _currentRollTotal);
     }
 
     private Combatant _killedCombatant;
