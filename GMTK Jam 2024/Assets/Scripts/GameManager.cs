@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject CombatUIObjectReference;
     public TMP_Text CombatUINameText;
     public TMP_Text CombatUIDescriptionText;
+    public GameObject CombatUIPlayerOptionsObjectReference;
+    public TMP_Text CombatUIPlayerOptionsTextPrefab;
     public Transform TurnOrderObjectReference;
     /// <summary>
     /// The prefab for each combatant, used to show who's turn it currently is at the top of the screen.

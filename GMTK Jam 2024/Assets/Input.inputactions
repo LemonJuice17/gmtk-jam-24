@@ -148,9 +148,27 @@
             "id": "551d1761-e51e-4794-a50f-0991319d50f1",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Left",
                     "type": "Button",
                     "id": "c94deee9-eaa7-44dd-a257-23ff16a66eb0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "b120bcb6-398a-422e-a3c3-e43705952516",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "dcd25c5a-24ab-4134-a849-357793bd7a9d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -161,11 +179,66 @@
                 {
                     "name": "",
                     "id": "e02c27c7-c256-472f-91aa-511728c8044e",
-                    "path": "",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KbM",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79d1e542-0794-4fde-a304-2c0d20a0b625",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5a06b13-b209-4cdb-80c6-49e296a5f54f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fdc5539-00ac-4585-abc4-5e20fe8796cc",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "859338fd-e963-40cf-838f-a1ffc0aab7cd",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e120cb1-8701-4887-b954-40663b22bf04",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

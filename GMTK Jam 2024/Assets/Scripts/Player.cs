@@ -47,6 +47,19 @@ public class Player : MonoBehaviour
     {
         CurrentInteractable?.OnInteract();
     }
+    // ---- Combat Action Map Handling ---- //
+    public void OnLeft()
+    {
+
+    }
+    public void OnRight()
+    {
+
+    }
+    public void OnSelect()
+    {
+
+    }
 
     private void Move(Vector3 direction)
     {
