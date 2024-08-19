@@ -5454,6 +5454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CombatUIObjectReference: {fileID: 798020250}
+  CombatUIPanelObjectReference: {fileID: 1735838864}
   CombatUINameText: {fileID: 248896829}
   CombatUIDescriptionText: {fileID: 1410455937}
   CombatUIPlayerOptionsObjectReference: {fileID: 1652451347}
@@ -5465,6 +5466,7 @@ MonoBehaviour:
   UnselectedTextColour: {r: 1, g: 1, b: 1, a: 1}
   SelectedTextColour: {r: 0, g: 1, b: 0, a: 1}
   D6: {fileID: 6487051524412238914, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
+  D8: {fileID: 4290027097604764348, guid: 84597de8bb4d3ad4581497541237c849, type: 3}
   DiceRollup: {fileID: 5168560046967374483, guid: 85d6c6cf67a96914c9501b186f3ed08b,
     type: 3}
   DiceRoll: {fileID: 5168560046967374483, guid: 27f0ef9febfac4ffcadf9a0ad5825527,
