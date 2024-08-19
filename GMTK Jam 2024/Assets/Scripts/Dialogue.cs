@@ -31,6 +31,17 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         if (WaitForContinue) return;
 
+        if (_supressActionMapSwitch)
+        {
+            _supressActionMapSwitch = false;
+            return;
+        }
+
+        StartDialogue();
+    }
+
+    public void StartDialogue()
+    {
         // This gives an error but works anyway?
         // The try catch stops it from showing up in the console.
         try
@@ -42,12 +53,6 @@ public class Dialogue : MonoBehaviour, IInteractable
         }
 
         catch { }
-
-        if (_supressActionMapSwitch)
-        {
-            _supressActionMapSwitch = false;
-            return;
-        }
 
         NextDialogue();
     }
