@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Gillbert
   m_EditorClassIdentifier: 
   CharacterName: Gillbert
-  CharacterSprite: {fileID: 0}
+  CharacterSprite: {fileID: 21300000, guid: c484ec3f13d38c846bac154867ad8860, type: 3}
   CharacterMainColor: {r: 0.26962438, g: 0.6886792, b: 0.41928685, a: 1}
   CharacterBackgroundColor: {r: 0.7122642, g: 1, b: 0.8104368, a: 1}

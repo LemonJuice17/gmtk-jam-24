@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
-  m_Name: You
+  m_Name: Dragon
   m_EditorClassIdentifier: 
   CharacterName: You
-  CharacterSprite: {fileID: 21300000, guid: 6eb98f480d6214d4389d0ef06588d3a0, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: a71b0a9c70348fd4b95b37de89f24bec, type: 3}
   CharacterMainColor: {r: 0, g: 0, b: 0, a: 1}
   CharacterBackgroundColor: {r: 1, g: 0.9583334, b: 0.75, a: 1}

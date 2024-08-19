@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
-  m_Name: You
+  m_Name: Hog Chef
   m_EditorClassIdentifier: 
   CharacterName: You
-  CharacterSprite: {fileID: 21300000, guid: 6eb98f480d6214d4389d0ef06588d3a0, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: ad3d86a191f5b7f4a81751552a0d9593, type: 3}
   CharacterMainColor: {r: 0, g: 0, b: 0, a: 1}
   CharacterBackgroundColor: {r: 1, g: 0.9583334, b: 0.75, a: 1}

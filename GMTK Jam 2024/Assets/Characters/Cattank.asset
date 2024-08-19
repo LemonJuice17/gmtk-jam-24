@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cattank
   m_EditorClassIdentifier: 
   CharacterName: Cattank
-  CharacterSprite: {fileID: 0}
+  CharacterSprite: {fileID: 21300000, guid: ce343bc93d966ea4ea09325914d79408, type: 3}
   CharacterMainColor: {r: 0.49056602, g: 0.32231647, b: 0.11801351, a: 1}
   CharacterBackgroundColor: {r: 0.8301887, g: 0.53344923, b: 0.16055535, a: 1}
