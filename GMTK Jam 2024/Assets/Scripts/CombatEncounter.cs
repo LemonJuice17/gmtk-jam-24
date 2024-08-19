@@ -56,6 +56,7 @@ public class CombatEncounter : MonoBehaviour
 
         for (int i = 0; i < AllyCombatants.Count; i++)
         {
+            AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = false;
             if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
     }
@@ -92,7 +93,6 @@ public class CombatEncounter : MonoBehaviour
 
     public void RollForInitiative()
     {
-        /*
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         direction.Normalize();
 
@@ -111,7 +111,6 @@ public class CombatEncounter : MonoBehaviour
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
         }
-        */
     }
 
     private void AddRollResult(Combatant combatant, int result)
@@ -123,15 +122,19 @@ public class CombatEncounter : MonoBehaviour
 
     private void InitiativeDecided()
     {
-        Debug.Log(Combatants);
+        CombatantOrder = Combatants.OrderByDescending(pair => pair.Value)
+                                   .Select(pair => pair.Key)
+                                   .ToList();
+
+        GenerateIcons(CombatantOrder);
     }
 
     public void GenerateIcons(List<Combatant> combatants)
     {
         foreach (Combatant combatant in combatants)
         {
-            GameObject newIcon = Instantiate(GameManager.instance.TurnOrderIconPrefab, transform);
-            newIcon.transform.GetChild(0).GetComponent<Image>().sprite = combatant.TurnOrderIcon;
+            GameObject newIcon = Instantiate(GameManager.instance.TurnOrderIconPrefab, GameManager.instance.TurnOrderObjectReference);
+            if(combatant.TurnOrderIcon != null) newIcon.transform.GetChild(0).GetComponent<Image>().sprite = combatant.TurnOrderIcon;
         }
     }
 
