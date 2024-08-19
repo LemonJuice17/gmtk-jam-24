@@ -2005,6 +2005,7 @@ MonoBehaviour:
     TurnOrderIcon: {fileID: 0}
     OverworldObject: {fileID: 0}
     CombatantPrefab: {fileID: 0}
+    Attacks: 00000000
   PlayerFollowPosition: {x: -1, y: 0, z: -1.5}
   MaxFollowDeviation: {x: 0.5, y: 0, z: 1}
   FollowDistance: 2
@@ -3055,11 +3056,12 @@ MonoBehaviour:
     TurnOrderIcon: {fileID: 0}
     OverworldObject: {fileID: 1696478394}
     CombatantPrefab: {fileID: 0}
+    Attacks: 0000000004000000
   AllyLineOffset: {x: 0, y: 0, z: 2}
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2
-  FightLoopUpdateTime: 2
+  FightLoopUpdateTime: 5
   _currentTurnIndex: 0
 --- !u!4 &1092199949
 Transform:
@@ -3166,6 +3168,7 @@ MonoBehaviour:
     TurnOrderIcon: {fileID: 0}
     OverworldObject: {fileID: 0}
     CombatantPrefab: {fileID: 0}
+    Attacks: 00000000
   PlayerFollowPosition: {x: 1, y: 0, z: -1.5}
   MaxFollowDeviation: {x: 0.5, y: 0, z: 1}
   FollowDistance: 2
@@ -3607,6 +3610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3397956439692402102, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
@@ -4206,7 +4214,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
