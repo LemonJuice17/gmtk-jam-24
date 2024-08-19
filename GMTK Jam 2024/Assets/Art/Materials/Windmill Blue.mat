@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: House2 Blue
+  m_Name: Windmill Blue
   m_Shader: {fileID: -6465566751694194690, guid: 26a37463e589a1d4397ae611d8880226,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 1173560f792494ed09bc2624d27ed15b, type: 3}
+        m_Texture: {fileID: 2800000, guid: cdb410895b2f14df0b4e5d141c1b8032, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1173560f792494ed09bc2624d27ed15b, type: 3}
+        m_Texture: {fileID: 2800000, guid: cdb410895b2f14df0b4e5d141c1b8032, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,7 +69,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 49b2859fe892a4324902d0caac5ce597, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8aecc0e58942f4226927f610c5094640, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
