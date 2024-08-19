@@ -89,15 +89,18 @@ public class Dialogue : MonoBehaviour, IInteractable
             _curentDialogueBox.transform.localScale = dialogue.CustomScale;
         }
 
-        _curentDialogueBox.CharacterSprite.sprite = dialogue.character.CharacterSprite;
-        _curentDialogueBox.CharacterName.text = dialogue.character.CharacterName;
-        _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.character.CharacterBackgroundColor;
-        _curentDialogueBox.CharacterName.color = dialogue.character.CharacterMainColor;
         _curentDialogueBox.Dialogue.text = dialogue.Text;
+
+        if (dialogue.character == null) return;
+
+        if (dialogue.character.CharacterSprite != null) _curentDialogueBox.CharacterSprite.sprite = dialogue.character.CharacterSprite;
+        if (dialogue.character.CharacterBackgroundColor != null) _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.character.CharacterBackgroundColor;
+        if (dialogue.character.CharacterMainColor != null) _curentDialogueBox.CharacterName.color = dialogue.character.CharacterMainColor;
+        _curentDialogueBox.CharacterName.text = dialogue.character.CharacterName; 
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class DialogueText
 {
     public string Text;
