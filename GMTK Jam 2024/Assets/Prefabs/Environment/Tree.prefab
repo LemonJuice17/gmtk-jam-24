@@ -136,6 +136,7 @@ MonoBehaviour:
   scaleVarianceX: 0.1
   scaleVarianceY: 0.3
   scaleVarianceZ: 0.1
+  xzProportionalScale: 1
 --- !u!4 &7714933207192912562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 562acc6277b90451fa67212f932cbd9d,

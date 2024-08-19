@@ -15,6 +15,7 @@ public class AssetRandomizer : MonoBehaviour
     [SerializeField][Range(0, 2)] float scaleVarianceX;
     [SerializeField][Range(0, 2)] float scaleVarianceY;
     [SerializeField][Range(0, 2)] float scaleVarianceZ;
+    [SerializeField] bool xzProportionalScale;
 
     private void Awake()
     {
@@ -24,9 +25,20 @@ public class AssetRandomizer : MonoBehaviour
         Vector3 targetRotation = new Vector3(Random.Range(-rotationVarianceX, rotationVarianceX),
                                              Random.Range(-rotationVarianceY, rotationVarianceY),
                                              Random.Range(-rotationVarianceZ, rotationVarianceZ));
-        Vector3 targetScale = new Vector3(Random.Range(-scaleVarianceX, scaleVarianceX),
+
+        Vector3 targetScale;
+        if (xzProportionalScale)
+        {
+            float xzScale = Random.Range(-scaleVarianceX, scaleVarianceX);
+            targetScale = new Vector3(xzScale, Random.Range(-scaleVarianceY, scaleVarianceY), xzScale);
+        }
+        else
+        {
+            targetScale = new Vector3(Random.Range(-scaleVarianceX, scaleVarianceX),
                                              Random.Range(-scaleVarianceY, scaleVarianceY),
                                              Random.Range(-scaleVarianceZ, scaleVarianceZ));
+        }
+        
 
         transform.position = transform.position + targetPosition;
         transform.rotation = Quaternion.Euler(targetRotation.x, targetRotation.y, targetRotation.z);

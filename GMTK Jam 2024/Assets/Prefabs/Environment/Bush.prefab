@@ -43,12 +43,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4d5c4b649fd19534e8e69682f0432a72,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d5c4b649fd19534e8e69682f0432a72,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4d5c4b649fd19534e8e69682f0432a72,
         type: 3}
@@ -148,9 +148,10 @@ MonoBehaviour:
   rotationVarianceX: 0
   rotationVarianceY: 180
   rotationVarianceZ: 0
-  scaleVarianceX: 0.2
+  scaleVarianceX: 0.4
   scaleVarianceY: 0.1
-  scaleVarianceZ: 0.2
+  scaleVarianceZ: 0.4
+  xzProportionalScale: 1
 --- !u!4 &7571533399078632009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4d5c4b649fd19534e8e69682f0432a72,
