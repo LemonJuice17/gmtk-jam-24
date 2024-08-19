@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,25 +29,38 @@ public class CombatEncounter : MonoBehaviour
 
     public float FightLoopUpdateTime = 0.1f;
 
-    private List<Image> _turnOrderImages = new();
-
     [SerializeField] private int _currentTurnIndex;
 
     private List<TMP_Text> _playerAttackText = new();
 
+    private int _selectedAttackIndex = 0;
+
+    public static UnityEvent InputLeft = new();
+    public static UnityEvent InputRight = new();
+    public static UnityEvent InputSelect = new();
+
     private void Awake()
     {
         _camera = GetComponentInChildren<CinemachineVirtualCamera>();
+
+        InputLeft.AddListener(PlayerInputLeft);
+        InputRight.AddListener(PlayerInputRight);
+        InputSelect.AddListener(PlayerInputSelect);
     }
 
     private void Start()
     {
-        if (GameManager.instance.CombatUIObjectReference.activeSelf) GameManager.instance.CombatUIObjectReference.SetActive(false);
-
         foreach(Attacks attack in Player.instance.Stats.Attacks)
         {
             _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
+            _playerAttackText.Last().text = attack.ToString();
+            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
         }
+
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
+        GameManager.instance.CombatUIObjectReference.SetActive(false);
     }
 
     public void StartCombat(Dialogue dialogue)
@@ -168,13 +182,15 @@ public class CombatEncounter : MonoBehaviour
 
     private void FightLoop()
     {
-        if(_currentTurnIndex >= CombatantOrder.Count) _currentTurnIndex = 0;
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
+
+        if (_currentTurnIndex >= CombatantOrder.Count) _currentTurnIndex = 0;
 
         Combatant currentCombatant = CombatantOrder[_currentTurnIndex];
 
         GameManager.instance.CombatUINameText.text = $"{currentCombatant.OverworldObject.name}'s Turn";
 
-        if (currentCombatant.OverworldObject == Player.instance.transform)
+        if (Player.instance != null && currentCombatant.OverworldObject == Player.instance.transform)
         {
             PlayersTurn();
             return;
@@ -190,7 +206,36 @@ public class CombatEncounter : MonoBehaviour
         CancelInvoke("FightLoop");
         _currentTurnIndex++;
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        //InvokeRepeating("FightLoop", 0, FightLoopUpdateTime);
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(true);
+        _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
+    }
+
+    private void PlayerInputLeft()
+    {
+        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        if (_selectedAttackIndex > 0)
+        {
+            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
+            _selectedAttackIndex--;
+            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
+        }
+    }
+    private void PlayerInputRight()
+    {
+        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        if (_selectedAttackIndex < Player.instance.Stats.Attacks.Count - 1)
+        {
+            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
+            _selectedAttackIndex++;
+            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
+        }
+    }
+    private void PlayerInputSelect()
+    {
+        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(false);
+        Attack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
+        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
     public void OnDrawGizmos()
@@ -205,7 +250,9 @@ public class CombatEncounter : MonoBehaviour
     #region Attacks
     public void Attack(Combatant attacker, Attacks attack, Combatant victim = null)
     {
-        switch(attack)
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
+
+        switch (attack)
         {
             case Attacks.Stab:
                 {
@@ -302,10 +349,24 @@ public class CombatEncounter : MonoBehaviour
 
         _currentTurnIndex--;
 
-        CombatantOrder.RemoveAt(_currentTurnIndex);
         CombatantOrder.Remove(_killedCombatant);
 
+        if (AllyCombatants.Contains(_killedCombatant)) AllyCombatants.Remove(_killedCombatant);
+        else EnemyCombatants.Remove(_killedCombatant);
+
         Destroy(_killedCombatant.OverworldObject.gameObject);
+
+        _killedCombatant = null;
+
+        if (AllyCombatants.Count == 0)
+        {
+            StopCombat();
+        }
+
+        if (EnemyCombatants.Count == 0)
+        {
+            StopCombat();
+        }
 
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
     }
@@ -321,21 +382,6 @@ public class CombatEncounter : MonoBehaviour
         {
             return AllyCombatants[Random.Range(0, AllyCombatants.Count - 1)];
         }
-    }
-
-    private List<Combatant> GetAllOpponents(Combatant attacker)
-    {
-        return null;
-    }
-
-    private Combatant GetRandomAlly(Combatant attacker)
-    {
-        return null;
-    }
-
-    private List<Combatant> GetAllAllies(Combatant attacker)
-    {
-        return null;
     }
     #endregion Attacks
 }

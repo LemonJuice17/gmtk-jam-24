@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     {
         _currentMoveDirection = value.Get<Vector3>();
     }
-
     public void OnInteract() 
     {
         CurrentInteractable?.OnInteract();
@@ -50,15 +49,15 @@ public class Player : MonoBehaviour
     // ---- Combat Action Map Handling ---- //
     public void OnLeft()
     {
-
+        CombatEncounter.InputLeft.Invoke();
     }
     public void OnRight()
     {
-
+        CombatEncounter.InputRight.Invoke();
     }
     public void OnSelect()
     {
-
+        CombatEncounter.InputSelect.Invoke();
     }
 
     private void Move(Vector3 direction)
