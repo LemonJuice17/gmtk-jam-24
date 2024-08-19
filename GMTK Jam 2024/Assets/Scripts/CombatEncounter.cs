@@ -21,6 +21,8 @@ public class CombatEncounter : MonoBehaviour
 
     private CinemachineVirtualCamera _camera;
 
+    public float DicePositionMultiplier = 2.5f;
+
     private void Awake()
     {
         _camera = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -67,6 +69,7 @@ public class CombatEncounter : MonoBehaviour
         {
             AllyCombatants[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
             AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = true;
             if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
         }
 
@@ -89,13 +92,14 @@ public class CombatEncounter : MonoBehaviour
 
     public void RollForInitiative()
     {
+        /*
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         direction.Normalize();
 
         foreach(var combatant in AllyCombatants)
         {
             Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position + direction;
+            die.transform.position = combatant.OverworldObject.transform.position - (direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
         }
@@ -103,10 +107,11 @@ public class CombatEncounter : MonoBehaviour
         foreach (var combatant in EnemyCombatants)
         {
             Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position - direction;
+            die.transform.position = combatant.OverworldObject.transform.position + (direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
         }
+        */
     }
 
     private void AddRollResult(Combatant combatant, int result)

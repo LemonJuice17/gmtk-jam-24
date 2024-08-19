@@ -19,6 +19,8 @@ public class Dice : MonoBehaviour
 
     Combatant _roller;
 
+    public float DeleteAfterRoll = 1f;
+
     private void Awake()
     {
         foreach (Vector3 side in Sides) { side.Normalize(); }
@@ -71,7 +73,7 @@ public class Dice : MonoBehaviour
 
         RolledValue.Invoke(_roller, SideValues[closestIndex]);
 
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, DeleteAfterRoll);
     }
 
     public void OnCollisionEnter()

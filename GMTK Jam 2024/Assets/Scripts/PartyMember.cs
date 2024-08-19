@@ -56,6 +56,9 @@ public class PartyMember : MonoBehaviour
 
     public void StopFollowLoop()
     {
+        // For some reason it suddenly started teleporting to the destination when stopping.
+        // No fucking idea why but this fixes it so :P
+        _agent.SetDestination(transform.position);
         CancelInvoke("FollowLoop");
         _agent.isStopped = true;
         _stayStill = true;
