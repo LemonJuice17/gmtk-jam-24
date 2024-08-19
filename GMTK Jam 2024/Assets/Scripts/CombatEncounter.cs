@@ -2,7 +2,9 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CombatEncounter : MonoBehaviour
@@ -158,9 +160,13 @@ public class CombatEncounter : MonoBehaviour
 
     private void FightLoop()
     {
-        GameManager.instance.CombatUINameText.text = $"{CombatantOrder[_currentTurnIndex].OverworldObject.name}'s Turn";
+        if(_currentTurnIndex >= CombatantOrder.Count) _currentTurnIndex = 0;
 
-        if (CombatantOrder[_currentTurnIndex].OverworldObject == Player.instance.gameObject)
+        Combatant currentCombatant = CombatantOrder[_currentTurnIndex];
+
+        GameManager.instance.CombatUINameText.text = $"{currentCombatant.OverworldObject.name}'s Turn";
+
+        if (currentCombatant.OverworldObject == Player.instance.gameObject)
         {
             PlayersTurn();
             CancelInvoke("FightLoop");
@@ -168,12 +174,14 @@ public class CombatEncounter : MonoBehaviour
         }
 
         _currentTurnIndex++;
+
+        Attack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
     }
 
     public void PlayersTurn()
     {
         _currentTurnIndex++;
-        InvokeRepeating("FightLoop", 0, FightLoopUpdateTime);
+        //InvokeRepeating("FightLoop", 0, FightLoopUpdateTime);
     }
 
     public void OnDrawGizmos()
@@ -184,6 +192,130 @@ public class CombatEncounter : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + EnemyLineOffset, 0.5f);
     }
+
+    #region Attacks
+    public void Attack(Combatant attacker, Attacks attack, Combatant victim = null)
+    {
+        switch(attack)
+        {
+            case Attacks.Stab:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + [d4] damage!";
+                    break;
+                }
+            case Attacks.Stabs:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + [2 d4] damage!";
+                    break;
+                }
+            case Attacks.Slash:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength} + [d10] damage!";
+                    break;
+                }
+            case Attacks.Crush:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} crushed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} damage!";
+                    break;
+                }
+            case Attacks.Taunt:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} taunted {victim.OverworldObject.name}, dealing {attacker.Charm} damage!";
+                    break;
+                }
+            case Attacks.Mock:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} mocked {victim.OverworldObject.name}, dealing {attacker.Charm} + [d4] damage!";
+                    break;
+                }
+            case Attacks.Insult:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} insulted {victim.OverworldObject.name}, dealing {attacker.Charm} + [2 d4] damage!";
+                    break;
+                }
+            case Attacks.Seduce:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} seduced {victim.OverworldObject.name}, dealing {attacker.Charm} + [d20] damage!";
+                    break;
+                }
+            case Attacks.Blast:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} blasted {victim.OverworldObject.name}, dealing {attacker.Magic} + [d8] damage!";
+                    break;
+                }
+            case Attacks.Shrink:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} shrank {victim.OverworldObject.name}, halving their size (and HP)!";
+                    break;
+                }
+            case Attacks.Fireball:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} + [d20] damage!";
+                    break;
+                }
+        }
+
+        if(victim.HP <= 0)
+        {
+            CancelInvoke("FightLoop");
+            Invoke("CombatantKilled", FightLoopUpdateTime);
+        }
+    }
+
+    private Combatant _killedCombatant;
+
+    private void CombatantKilled()
+    {
+        GameManager.instance.CombatUIDescriptionText.text = $"{_killedCombatant} has been slain!";
+
+        _currentTurnIndex--;
+
+        CombatantOrder.RemoveAt(_currentTurnIndex);
+        CombatantOrder.Remove(_killedCombatant);
+        Destroy(_killedCombatant.OverworldObject);
+
+        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+    }
+
+    private Combatant GetRandomOpponent(Combatant attacker)
+    {
+        if (AllyCombatants.Contains(attacker))
+        {
+            return EnemyCombatants[Random.Range(0, EnemyCombatants.Count - 1)];
+        }
+
+        else
+        {
+            return AllyCombatants[Random.Range(0, AllyCombatants.Count - 1)];
+        }
+    }
+
+    private List<Combatant> GetAllOpponents(Combatant attacker)
+    {
+        return null;
+    }
+
+    private Combatant GetRandomAlly(Combatant attacker)
+    {
+        return null;
+    }
+
+    private List<Combatant> GetAllAllies(Combatant attacker)
+    {
+        return null;
+    }
+    #endregion Attacks
 }
 
 [System.Serializable]
@@ -200,4 +332,21 @@ public class Combatant
 
     public Transform OverworldObject;
     public GameObject CombatantPrefab;
+
+    public List<Attacks> Attacks;
+}
+
+public enum Attacks
+{
+    Stab,
+    Stabs,
+    Slash,
+    Crush,
+    Taunt,
+    Mock,
+    Insult,
+    Seduce,
+    Blast,
+    Shrink,
+    Fireball
 }
