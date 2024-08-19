@@ -9771,6 +9771,8 @@ MonoBehaviour:
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2.5
+  FightLoopUpdateTime: 0.1
+  _currentTurnIndex: 0
 --- !u!4 &1092199949
 Transform:
   m_ObjectHideFlags: 0
@@ -17368,6 +17370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81e63bb000ba9a4f953c10b2f1f4e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CombatUIObjectReference: {fileID: 0}
+  CombatUINameText: {fileID: 0}
+  CombatUIDescriptionText: {fileID: 0}
   TurnOrderObjectReference: {fileID: 0}
   TurnOrderIconPrefab: {fileID: 2472712176574696257, guid: 77dcb82efbbbc0c409c586baf8ba4a95,
     type: 3}
@@ -19605,6 +19610,8 @@ MonoBehaviour:
   EnemyLineOffset: {x: 0, y: 0, z: 2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2.5
+  FightLoopUpdateTime: 0.1
+  _currentTurnIndex: 0
 --- !u!4 &2098600221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1551595264824743404, guid: b088e6683587f20488c542919179d285,
