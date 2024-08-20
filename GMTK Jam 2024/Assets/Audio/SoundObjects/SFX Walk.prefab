@@ -11,12 +11,12 @@ PrefabInstance:
     - target: {fileID: 607904521390701869, guid: f20a7f48988b347b6a06dec16f517ab6,
         type: 3}
       propertyPath: pitch
-      value: 0.8
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 607904521390701869, guid: f20a7f48988b347b6a06dec16f517ab6,
         type: 3}
       propertyPath: volume
-      value: 0.2
+      value: 0.056
       objectReference: {fileID: 0}
     - target: {fileID: 607904521390701869, guid: f20a7f48988b347b6a06dec16f517ab6,
         type: 3}
@@ -117,6 +117,16 @@ PrefabInstance:
     - target: {fileID: 3913341055768299672, guid: f20a7f48988b347b6a06dec16f517ab6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142192042212818792, guid: f20a7f48988b347b6a06dec16f517ab6,
+        type: 3}
+      propertyPath: Pan2D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142192042212818792, guid: f20a7f48988b347b6a06dec16f517ab6,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
