@@ -59,13 +59,6 @@ public class CombatEncounter : MonoBehaviour
 
     private void Start()
     {
-        foreach (Attacks attack in Player.instance.Stats.Attacks)
-        {
-            _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
-            _playerAttackText.Last().text = attack.ToString();
-            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
-        }
-
         GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
         GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
@@ -81,6 +74,18 @@ public class CombatEncounter : MonoBehaviour
     {
         Player.instance.Input.SwitchCurrentActionMap("Combat");
         _camera.Priority = 20;
+
+        foreach (var item in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform.GetComponentsInChildren<Transform>())
+        {
+            Destroy(item.gameObject);
+        };
+
+        foreach (Attacks attack in Player.instance.Stats.Attacks)
+        {
+            _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
+            _playerAttackText.Last().text = attack.ToString();
+            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
+        }
 
         CombatantOrder.Clear();
         Combatants.Clear();
