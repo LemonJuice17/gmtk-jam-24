@@ -75,6 +75,8 @@ public class CombatEncounter : MonoBehaviour
         Player.instance.Input.SwitchCurrentActionMap("Combat");
         _camera.Priority = 20;
 
+        _playerAttackText.Clear();
+
         foreach (Transform child in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform)
         {
             Destroy(child.gameObject);
@@ -477,12 +479,14 @@ public class CombatEncounter : MonoBehaviour
 
         CombatantOrder.Remove(_killedCombatant);
 
-        Rigidbody rb = _killedCombatant.OverworldObject.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        rb.freezeRotation = false;
+        if (_killedCombatant.OverworldObject.TryGetComponent(out Rigidbody rb))
+        {
+            rb.isKinematic = false;
+            rb.freezeRotation = false;
+            rb.AddExplosionForce(DeathExplosionForce, _killedCombatant.OverworldObject.transform.position + Vector3.down, 2);
+        }
 
         AllyCombatants.Remove(_killedCombatant);
-        rb.AddExplosionForce(DeathExplosionForce, _killedCombatant.OverworldObject.transform.position + Vector3.down, 2);
 
         if (AllyCombatants.Contains(_killedCombatant)) AllyCombatants.Remove(_killedCombatant);
         if (EnemyCombatants.Contains(_killedCombatant)) EnemyCombatants.Remove(_killedCombatant);
