@@ -59,7 +59,7 @@ public class CombatEncounter : MonoBehaviour
 
     private void Start()
     {
-        foreach(Attacks attack in Player.instance.Stats.Attacks)
+        foreach (Attacks attack in Player.instance.Stats.Attacks)
         {
             _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
             _playerAttackText.Last().text = attack.ToString();
@@ -80,7 +80,6 @@ public class CombatEncounter : MonoBehaviour
     public void StartCombat()
     {
         Player.instance.Input.SwitchCurrentActionMap("Combat");
-        GameManager.instance.CombatUIObjectReference.SetActive(true);
         _camera.Priority = 20;
 
         CombatantOrder.Clear();
@@ -170,7 +169,9 @@ public class CombatEncounter : MonoBehaviour
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         direction.Normalize();
 
-        foreach(var combatant in AllyCombatants)
+        _rollsFinished = 0;
+
+        foreach (var combatant in AllyCombatants)
         {
             Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
             die.transform.position = combatant.OverworldObject.transform.position - (direction * DicePositionMultiplier);
