@@ -75,9 +75,9 @@ public class CombatEncounter : MonoBehaviour
         Player.instance.Input.SwitchCurrentActionMap("Combat");
         _camera.Priority = 20;
 
-        foreach (var item in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform.GetComponentsInChildren<Transform>())
+        foreach (Transform child in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform)
         {
-            Destroy(item.gameObject);
+            Destroy(child.gameObject);
         };
 
         foreach (Attacks attack in Player.instance.Stats.Attacks)
