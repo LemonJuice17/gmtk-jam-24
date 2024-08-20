@@ -80,6 +80,7 @@ public class CombatEncounter : MonoBehaviour
     public void StartCombat()
     {
         Player.instance.Input.SwitchCurrentActionMap("Combat");
+        GameManager.instance.CombatUIObjectReference.SetActive(true);
         _camera.Priority = 20;
 
         CombatantOrder.Clear();
