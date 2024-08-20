@@ -494,11 +494,12 @@ public class CombatEncounter : MonoBehaviour
         {
             StopCombat();
             OnVictory.Invoke();
+            Destroy(this);
             Enemies.ForEach(enemy =>
             {
-                if (enemy.OverworldObject.TryGetComponent(out CombatEncounter encounter))
+                if (enemy.OverworldObject.TryGetComponent(out Dialogue deadNPCDialogue))
                 {
-                    Destroy(encounter);
+                    Destroy(deadNPCDialogue);
                 }
             });
             return;
