@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -40,6 +38,9 @@ public class CombatEncounter : MonoBehaviour
     public static UnityEvent InputLeft = new();
     public static UnityEvent InputRight = new();
     public static UnityEvent InputSelect = new();
+
+    public UnityEvent OnVictory = new();
+    public UnityEvent OnLoss = new();
 
     private void Awake()
     {
@@ -88,7 +89,11 @@ public class CombatEncounter : MonoBehaviour
 
     public void StopCombat()
     {
-        Player.instance.Input.SwitchCurrentActionMap("Overworld");
+        if (Player.instance.Input.currentActionMap.name == "Combat")
+        {
+            Player.instance.Input.SwitchCurrentActionMap("Overworld");
+        }
+        
         _camera.Priority = 1;
 
         for (int i = 0; i < AllyCombatants.Count; i++)
@@ -99,7 +104,7 @@ public class CombatEncounter : MonoBehaviour
 
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
-        CancelInvoke("FightLoop");
+        CancelInvoke();
     }
 
     private void PositionCombatants()
@@ -442,11 +447,13 @@ public class CombatEncounter : MonoBehaviour
         if (AllyCombatants.Count == 0)
         {
             StopCombat();
+            OnLoss.Invoke();
         }
 
         if (EnemyCombatants.Count == 0)
         {
             StopCombat();
+            OnVictory.Invoke();
         }
 
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);

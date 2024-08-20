@@ -19,9 +19,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     private DialogueBox _curentDialogueBox;
 
-    // When switching action map, the interaction button is still held so the action gets reapeated, once for each action map.
-    // This bool allows the action map to switch, but otherwise suppresses the first input to prevent double inputs.
-    private bool _supressActionMapSwitch = true;
+   
 
     private bool WaitForContinue = false;
 
@@ -38,16 +36,30 @@ public class Dialogue : MonoBehaviour, IInteractable
             if (Player.instance.Input.currentActionMap.name != "Dialogue")
             {
                 Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+                // When switching action map, the interaction button is still held so the action gets reapeated, once for each action map.
+                // This allows the action map to switch, but otherwise suppresses the first input to prevent double inputs.
+                return;
             }
         }
 
         catch { }
 
-        if (_supressActionMapSwitch)
+        NextDialogue();
+    }
+
+    public void StartDialogue(bool setInputActions = true)
+    {
+        Player.instance.CurrentInteractable = this;
+
+        try
         {
-            _supressActionMapSwitch = false;
-            return;
+            if (setInputActions && Player.instance.Input.currentActionMap.name != "Dialogue")
+            {
+                Player.instance.Input.SwitchCurrentActionMap("Dialogue");
+            }
         }
+
+        catch { }
 
         NextDialogue();
     }
@@ -76,7 +88,6 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
         _currentDialogueIndex = 0;
-        _supressActionMapSwitch = true;
         AfterDialogue.Invoke(this);
         Destroy(_curentDialogueBox.gameObject, 0);
     }

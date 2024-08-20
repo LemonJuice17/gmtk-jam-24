@@ -3063,6 +3063,36 @@ MonoBehaviour:
   DicePositionMultiplier: 2
   FightLoopUpdateTime: 5
   _currentTurnIndex: 0
+  OnVictory:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1967526596}
+        m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnLoss:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1420717436}
+        m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!4 &1092199949
 Transform:
   m_ObjectHideFlags: 0
@@ -3077,6 +3107,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1231555459}
+  - {fileID: 1967526595}
+  - {fileID: 1420717435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1124104863
@@ -4266,6 +4298,96 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410455934}
   m_CullTransparentMesh: 1
+--- !u!1 &1420717434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420717435}
+  - component: {fileID: 1420717436}
+  m_Layer: 0
+  m_Name: Loss Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1420717435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420717434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1092199949}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1420717436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420717434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
+    type: 3}
+  DialogueList:
+  - Text: Ugh, why were we fighting this guy again?
+    character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: Because he randomly attacked us?
+    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: Hehe, get rekt idiots!
+    character: {fileID: 11400000, guid: 407be45168d4d499d9959172a355dbc6, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: I hate it here.
+    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  _currentDialogueIndex: 0
+  BoolUseStaticTime: 0
+  CharsPerSecond: 20
+  TimeToShowFullText: 10
+  AfterDialogue:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1652451347
 GameObject:
   m_ObjectHideFlags: 0
@@ -5486,6 +5608,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1967526594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1967526595}
+  - component: {fileID: 1967526596}
+  m_Layer: 0
+  m_Name: Victory Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1967526595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967526594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1092199949}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1967526596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967526594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
+    type: 3}
+  DialogueList:
+  - Text: Serves you right!
+    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: Why is everyone so violent?
+    character: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  _currentDialogueIndex: 0
+  BoolUseStaticTime: 0
+  CharsPerSecond: 20
+  TimeToShowFullText: 10
+  AfterDialogue:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3777583847640370969
 PrefabInstance:
   m_ObjectHideFlags: 0
