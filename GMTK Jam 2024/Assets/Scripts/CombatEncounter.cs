@@ -413,6 +413,8 @@ public class CombatEncounter : MonoBehaviour
                 }
         }
 
+        Instantiate(GameManager.instance.AttackSFX);
+
         if(victim.HP <= 0)
         {
             _killedCombatant = victim;
