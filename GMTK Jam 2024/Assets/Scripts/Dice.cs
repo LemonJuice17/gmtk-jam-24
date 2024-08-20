@@ -60,7 +60,7 @@ public class Dice : MonoBehaviour
 
         for (int i = 0; i < Sides.Length; i++)
         {
-            float dot = Vector3.Dot(transform.up, Sides[i]);
+            float dot = Vector3.Dot(Vector3.up, transform.rotation * Sides[i]);
 
             if(dot > closestDot)
             {

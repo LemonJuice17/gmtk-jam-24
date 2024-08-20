@@ -17,8 +17,8 @@ public class CombatEncounter : MonoBehaviour
     public List<Combatant> EnemyCombatants;
     // These are copied from the two lists above, but don't get changed.
     // Used for references after combat is done.
-    [HideInInspector] public List<Combatant> Allies = new();
-    [HideInInspector] public List<Combatant> Enemies = new();
+    [HideInInspector] public List<Combatant> Allies;
+    [HideInInspector] public List<Combatant> Enemies;
 
     public Vector3 AllyLineOffset = new Vector3(0, 0, -2);
     public Vector3 EnemyLineOffset = new Vector3(0, 0, 2);
@@ -80,7 +80,13 @@ public class CombatEncounter : MonoBehaviour
     public void StartCombat()
     {
         Player.instance.Input.SwitchCurrentActionMap("Combat");
+        GameManager.instance.CombatUIObjectReference.SetActive(true);
         _camera.Priority = 20;
+
+        CombatantOrder.Clear();
+        Combatants.Clear();
+        AllyCombatants.Clear();
+        if (Enemies.Count != 0) EnemyCombatants = Enemies;
 
         AllyCombatants.Add(Player.instance.Stats);
 
@@ -89,16 +95,16 @@ public class CombatEncounter : MonoBehaviour
         AllyCombatants.ForEach((ally) => Combatants.Add(ally, 0));
         EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy, 0));
 
-        AllyCombatants.ForEach((ally) => Allies.Add(ally));
-        EnemyCombatants.ForEach((enemy) => Enemies.Add(enemy));
+        if (Allies.Count == 0) AllyCombatants.ForEach((ally) => Allies.Add(ally));
+        if (Enemies.Count == 0) EnemyCombatants.ForEach((enemy) => Enemies.Add(enemy));
 
         foreach (var pair in Combatants)
         {
             pair.Key.HP = pair.Key.MaxHP;
         }
 
-        Invoke("PositionCombatants", 1.5f);
-        Invoke("RollForInitiative", 3);
+        Invoke("PositionCombatants", 1);
+        Invoke("RollForInitiative", 2);
     }
 
     public void StopCombat()
@@ -113,9 +119,9 @@ public class CombatEncounter : MonoBehaviour
         for (int i = 0; i < Allies.Count; i++)
         {
             Rigidbody rb = Allies[i].OverworldObject.GetComponent<Rigidbody>();
-            rb.GetComponent<Rigidbody>().isKinematic = false;
-            rb.GetComponent<Rigidbody>().freezeRotation = true;
-            rb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            rb.isKinematic = false;
+            rb.freezeRotation = true;
+            rb.velocity = Vector3.zero;
             Allies[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
             Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
@@ -124,8 +130,6 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
         CancelInvoke();
-
-        PositionCombatants();
     }
 
     private void PositionCombatants()
@@ -196,7 +200,7 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GenerateIcons(CombatantOrder);
 
-        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+        InvokeRepeating("FightLoop", FightLoopUpdateTime * 0.5f, FightLoopUpdateTime);
     }
 
     public void GenerateIcons(List<Combatant> combatants)
@@ -481,6 +485,7 @@ public class CombatEncounter : MonoBehaviour
         if (AllyCombatants.Count == 0)
         {
             Invoke("DelayedLoss", 1);
+            return;
         }
 
         if (EnemyCombatants.Count == 0)
@@ -494,6 +499,7 @@ public class CombatEncounter : MonoBehaviour
                     Destroy(encounter);
                 }
             });
+            return;
         }
 
         _currentTurnIndex++;

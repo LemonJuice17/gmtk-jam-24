@@ -1079,7 +1079,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
@@ -1089,7 +1089,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
@@ -1104,7 +1104,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f81e436ff064d024d9d8ee88afb3df96,
         type: 3}
@@ -1242,14 +1242,14 @@ MonoBehaviour:
   Sides:
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 1}
-  - {x: -1, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: 0, y: 0, z: -1}
+  - {x: -1, y: 0, z: 0}
   - {x: 0, y: -1, z: 0}
-  SideValues: 010000000200000003000000050000000400000006000000
+  SideValues: 010000000500000003000000020000000400000006000000
   MaximumThrowMagnitude: 10
-  VelocityMagnitudeStopLimit: 0.05
+  VelocityMagnitudeStopLimit: 0.01
   RolledValue:
     m_PersistentCalls:
       m_Calls: []
-  DeleteAfterRoll: 1
+  DeleteAfterRoll: 2
