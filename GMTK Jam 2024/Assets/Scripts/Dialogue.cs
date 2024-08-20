@@ -10,6 +10,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public List<DialogueText> DialogueList;
     [SerializeField] private int _currentDialogueIndex = 0;
+
     public DialogueText CurrentDialogue { get => DialogueList[_currentDialogueIndex]; }
 
     public bool BoolUseStaticTime;
@@ -115,6 +116,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 [Serializable]
 public class DialogueText
 {
+    [TextArea(3,3)]
     public string Text;
 
     public Character character;
