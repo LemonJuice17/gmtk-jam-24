@@ -31,7 +31,7 @@ public class CombatEncounter : MonoBehaviour
 
     public float DicePositionMultiplier = 2.5f;
 
-    public float FightLoopUpdateTime = 0.1f;
+    public float FightLoopUpdateTime = 5f;
 
     [SerializeField] private int _currentTurnIndex;
 
