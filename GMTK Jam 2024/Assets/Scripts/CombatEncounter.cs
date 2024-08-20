@@ -307,13 +307,13 @@ public class CombatEncounter : MonoBehaviour
 
         switch (attack)
         {
-            case Attacks.Stab:
+            case Attacks.Punch_S_D6:
                 RollDice(attacker, GameManager.instance.D6);
                 break;
-            case Attacks.Stabs:
+            case Attacks.Stabs_S_2D6:
                 RollDice(attacker, GameManager.instance.D6, 2);
                 break;
-            case Attacks.Slash:
+            case Attacks.Slash_S_D8:
                 RollDice(attacker, GameManager.instance.D8);
                 break;
             case Attacks.Crush:
@@ -340,6 +340,12 @@ public class CombatEncounter : MonoBehaviour
             case Attacks.Fireball:
                 RollDice(attacker, GameManager.instance.D8, 3);
                 break;
+            case Attacks.Roll:
+                RollDice(attacker, GameManager.instance.D8, 5);
+                break;
+            case Attacks.Snore:
+                RollDice(attacker, GameManager.instance.D8, 4);
+                break;
         }
 
         _currentAttack = attack;
@@ -351,21 +357,21 @@ public class CombatEncounter : MonoBehaviour
 
         switch (attack)
         {
-            case Attacks.Stab:
+            case Attacks.Punch_S_D6:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
-            case Attacks.Stabs:
+            case Attacks.Stabs_S_2D6:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
-            case Attacks.Slash:
+            case Attacks.Slash_S_D8:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} + {diceModifier} damage!";
@@ -426,6 +432,20 @@ public class CombatEncounter : MonoBehaviour
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
+                    victim.HP -= attacker.Magic + diceModifier;
+                    break;
+                }
+            case Attacks.Roll:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} rolls over {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
+                    victim.HP -= attacker.Magic + diceModifier;
+                    break;
+                }
+            case Attacks.Snore:
+                {
+                    if (victim == null) victim = GetRandomOpponent(attacker);
+                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} snores {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
                     victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
@@ -575,9 +595,9 @@ public class Combatant
 
 public enum Attacks
 {
-    Stab,
-    Stabs,
-    Slash,
+    Punch_S_D6,
+    Stabs_S_2D6,
+    Slash_S_D8,
     Crush,
     Taunt,
     Mock,
@@ -585,5 +605,7 @@ public enum Attacks
     Seduce,
     Blast,
     Shrink,
-    Fireball
+    Fireball,
+    Roll,
+    Snore
 }
