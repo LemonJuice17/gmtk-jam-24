@@ -480,17 +480,7 @@ public class CombatEncounter : MonoBehaviour
 
         if (AllyCombatants.Count == 0)
         {
-            Invoke("StopCombat", 1);
-            OnLoss.Invoke();
-
-            // Position enemy
-            for (int i = 0; i < Enemies.Count; i++)
-            {
-                if (Enemies[i].OverworldObject != null)
-                {
-                    Enemies[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
-                }
-            }
+            Invoke("DelayedLoss", 1);
         }
 
         if (EnemyCombatants.Count == 0)
@@ -509,6 +499,21 @@ public class CombatEncounter : MonoBehaviour
         _currentTurnIndex++;
 
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+    }
+
+    private void DelayedLoss() 
+    {
+        StopCombat();
+        OnLoss.Invoke();
+
+        // Position enemy
+        for (int i = 0; i < Enemies.Count; i++)
+        {
+            if (Enemies[i].OverworldObject != null)
+            {
+                Enemies[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+            }
+        }
     }
 
     private Combatant GetRandomOpponent(Combatant attacker)
