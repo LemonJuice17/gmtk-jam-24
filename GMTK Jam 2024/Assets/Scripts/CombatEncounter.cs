@@ -119,9 +119,9 @@ public class CombatEncounter : MonoBehaviour
         for (int i = 0; i < Allies.Count; i++)
         {
             Rigidbody rb = Allies[i].OverworldObject.GetComponent<Rigidbody>();
-            rb.GetComponent<Rigidbody>().isKinematic = false;
-            rb.GetComponent<Rigidbody>().freezeRotation = true;
-            rb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            rb.isKinematic = false;
+            rb.freezeRotation = true;
+            rb.velocity = Vector3.zero;
             Allies[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
             Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
@@ -130,8 +130,6 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
         CancelInvoke();
-
-        PositionCombatants();
     }
 
     private void PositionCombatants()
@@ -487,6 +485,7 @@ public class CombatEncounter : MonoBehaviour
         if (AllyCombatants.Count == 0)
         {
             Invoke("DelayedLoss", 1);
+            return;
         }
 
         if (EnemyCombatants.Count == 0)
@@ -500,6 +499,7 @@ public class CombatEncounter : MonoBehaviour
                     Destroy(encounter);
                 }
             });
+            return;
         }
 
         _currentTurnIndex++;
