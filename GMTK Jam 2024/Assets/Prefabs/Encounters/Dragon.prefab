@@ -195,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8681831279668121322}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.04, y: 0.56, z: -22.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -356,14 +356,14 @@ MonoBehaviour:
   EnemyCombatants:
   - MaxHP: 50000
     HP: 50000
-    Strength: 1
-    Magic: 2
-    Charm: 1
+    Strength: 10
+    Magic: 10
+    Charm: 10
     TurnOrderIcon: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
     OverworldObject: {fileID: 0}
     CombatantPrefab: {fileID: 7973671401144322913, guid: 6a5e98733b6e14a85904bdac06586353,
       type: 3}
-    Attacks: 0a0000000a000000
+    Attacks: 0b0000000c000000
   Allies: []
   Enemies: []
   AllyLineOffset: {x: 0, y: 0, z: 1.56}
@@ -377,5 +377,17 @@ MonoBehaviour:
       m_Calls: []
   OnLoss:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   DeathExplosionForce: 100
