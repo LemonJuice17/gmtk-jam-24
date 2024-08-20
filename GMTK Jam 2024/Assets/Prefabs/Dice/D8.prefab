@@ -182,9 +182,9 @@ MonoBehaviour:
   - {x: -1, y: -1, z: -1}
   - {x: -1, y: -1, z: 1}
   SideValues: 0100000002000000030000000400000005000000060000000700000008000000
-  MaximumThrowMagnitude: 3
-  VelocityMagnitudeStopLimit: 0.05
+  MaximumThrowMagnitude: 10
+  VelocityMagnitudeStopLimit: 0.01
   RolledValue:
     m_PersistentCalls:
       m_Calls: []
-  DeleteAfterRoll: 1
+  DeleteAfterRoll: 2
