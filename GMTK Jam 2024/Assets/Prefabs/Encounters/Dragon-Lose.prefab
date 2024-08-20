@@ -317,7 +317,7 @@ MonoBehaviour:
         m_Calls: []
   - Text: Ah hah! You will ever be on your quest for the cheese thief, never getting
       closer, ever getting farther.
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
       a thief at all!
 
 '
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -341,7 +341,7 @@ MonoBehaviour:
   - Text: "Since you have obviously realised, yes you are correct, my true name is
       Edamulous Billius Fromagearico Bleaterio. Huhuhu.. And yes I was the one helping
       to harbour the cheese.\r"
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -359,7 +359,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - Text: "I was not and am not. Foolish fools, I told you, I am no thief of cheese.\r"
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -378,7 +378,7 @@ MonoBehaviour:
         m_Calls: []
   - Text: "Wait! Wait! For real guys, I\u2019m not the thief! This is the true nature
       of the thief. OR rather not a thief at all!\r"
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
   m_Name: Cheese
   m_EditorClassIdentifier: 
-  CharacterName: Kattank
-  CharacterSprite: {fileID: 21300000, guid: ce343bc93d966ea4ea09325914d79408, type: 3}
+  CharacterName: Cheese
+  CharacterSprite: {fileID: 21300000, guid: 31ae41c86561e774c8f2a60bdd237c09, type: 3}
   CharacterMainColor: {r: 0.9056604, g: 0.7561051, b: 0.07262372, a: 1}
   CharacterBackgroundColor: {r: 0.9622642, g: 0.920176, b: 0.6127626, a: 1}

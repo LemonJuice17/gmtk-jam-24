@@ -9079,8 +9079,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.478345, y: 0.29379976, z: -0.17368867, w: 0.8091354}
-  m_LocalPosition: {x: -3.57, y: 10.56, z: -26.429998}
+  m_LocalRotation: {x: 0.36964378, y: 0.23911767, z: -0.09904577, w: 0.89239913}
+  m_LocalPosition: {x: 141.1267, y: 10.606598, z: 62.514416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28366,7 +28366,7 @@ Transform:
   m_GameObject: {fileID: 1059848834}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9659256, z: -0, w: 0.25882024}
-  m_LocalPosition: {x: 148.21, y: 0, z: 73.86}
+  m_LocalPosition: {x: 152.77, y: 0, z: 76.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48272,6 +48272,11 @@ MonoBehaviour:
   WalkSFX: {fileID: 5168560046967374483, guid: d3b23a574ad6320428d72c5e7a9bd671, type: 3}
   AttackSFX: {fileID: 5168560046967374483, guid: 5171cdcbba6c39e48b70185f925f1c71,
     type: 3}
+  SnapshotNormal: {fileID: -6978992792383067906, guid: cd8cdde866e97435f9982557edfee702,
+    type: 2}
+  SnapshotFight: {fileID: -2522912421924868142, guid: cd8cdde866e97435f9982557edfee702,
+    type: 2}
+  MusicTransitionTime: 2
 --- !u!4 &1937897664
 Transform:
   m_ObjectHideFlags: 0

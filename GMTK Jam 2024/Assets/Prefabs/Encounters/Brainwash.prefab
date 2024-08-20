@@ -335,7 +335,7 @@ MonoBehaviour:
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2.5
-  FightLoopUpdateTime: 0.1
+  FightLoopUpdateTime: 5
   _currentTurnIndex: 0
   OnVictory:
     m_PersistentCalls:

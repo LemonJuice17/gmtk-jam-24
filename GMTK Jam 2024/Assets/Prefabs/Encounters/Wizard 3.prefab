@@ -266,17 +266,8 @@ MonoBehaviour:
   BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
     type: 3}
   DialogueList:
-  - Text: Okay, so, if I have this right... Okay, here's your first guy. <shake>Ahem</shake>.
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  - Text: "Ah hah. Enemies! You will not defeat the magnifcentiecious Billius Ronaldorico
-      Bleatario.\r\nI will engage you in combat, and defeat you all spectacularly!\r"
+  - Text: "Haha, try your hand against this fellow! You don\u2019t stand a chance
+      against our might!\r\nI, Billius Ronaldorico Bleatario, will best you!\r"
     character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
@@ -324,9 +315,9 @@ MonoBehaviour:
     Strength: 1
     Magic: 2
     Charm: 1
-    TurnOrderIcon: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
+    TurnOrderIcon: {fileID: 21300000, guid: 977ee331af1f6cd4cac717f7c7cd07a2, type: 3}
     OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
+    CombatantPrefab: {fileID: 7973671401144322913, guid: 8caade147bd5444bf968c509caf39cbd,
       type: 3}
     Attacks: 0400000008000000
   Allies: []
@@ -335,7 +326,7 @@ MonoBehaviour:
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2.5
-  FightLoopUpdateTime: 0.1
+  FightLoopUpdateTime: 5
   _currentTurnIndex: 0
   OnVictory:
     m_PersistentCalls:
