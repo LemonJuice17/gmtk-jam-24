@@ -72,6 +72,8 @@ public class CombatEncounter : MonoBehaviour
 
     public void StartCombat()
     {
+        Random.InitState(Environment.TickCount);
+
         Player.instance.Input.SwitchCurrentActionMap("Combat");
         _camera.Priority = 20;
 
