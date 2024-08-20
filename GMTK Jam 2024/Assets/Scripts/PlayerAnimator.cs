@@ -15,4 +15,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         _playerAnimator.SetBool("IsWalking", isMoving);
     }
+
+    public void PlayWalkSound()
+    {
+        Instantiate(GameManager.instance?.WalkSFX);
+    }
 }

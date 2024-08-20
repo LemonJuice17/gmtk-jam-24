@@ -5601,6 +5601,9 @@ MonoBehaviour:
     type: 3}
   DiceRoll: {fileID: 5168560046967374483, guid: 27f0ef9febfac4ffcadf9a0ad5825527,
     type: 3}
+  WalkSFX: {fileID: 5168560046967374483, guid: d3b23a574ad6320428d72c5e7a9bd671, type: 3}
+  AttackSFX: {fileID: 5168560046967374483, guid: 5171cdcbba6c39e48b70185f925f1c71,
+    type: 3}
 --- !u!4 &1937897664
 Transform:
   m_ObjectHideFlags: 0

@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public SoundObject DiceRollup;
     public SoundObject DiceRoll;
 
+    public SoundObject WalkSFX;
+    public SoundObject AttackSFX;
+
     public static GameManager instance;
 
     private void Awake()
