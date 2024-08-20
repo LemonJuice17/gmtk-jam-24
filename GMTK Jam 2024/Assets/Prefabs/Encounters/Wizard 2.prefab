@@ -266,7 +266,7 @@ MonoBehaviour:
   BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
     type: 3}
   DialogueList:
-  - Text: Okay, so, if I have this right... Okay, here's your first guy. <shake>Ahem</shake>.
+  - Text: Past the village you run into a familiar face.
     character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
@@ -275,9 +275,29 @@ MonoBehaviour:
     Actions:
       m_PersistentCalls:
         m_Calls: []
-  - Text: "Ah hah. Enemies! You will not defeat the magnifcentiecious Billius Ronaldorico
-      Bleatario.\r\nI will engage you in combat, and defeat you all spectacularly!\r"
+  - Text: Tis I, Billius Ronaldorico Bleatario. I have come to challenge you all,
+      but I am far stronger than last you saw me!
     character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: Now that you mention it, this guy stinks a lot like cheese, meow! Perhaps
+      he is the thief!
+    character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: A simple cheese thief, I? I think not! Avast, and face me at my worst puny
+      mortals!
+    character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -319,16 +339,16 @@ MonoBehaviour:
   CombatantOrder: []
   AllyCombatants: []
   EnemyCombatants:
-  - MaxHP: 10
-    HP: 10
+  - MaxHP: 25
+    HP: 25
     Strength: 1
-    Magic: 2
-    Charm: 1
+    Magic: 4
+    Charm: 2
     TurnOrderIcon: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
     OverworldObject: {fileID: 0}
     CombatantPrefab: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
       type: 3}
-    Attacks: 0400000008000000
+    Attacks: 000000000500000009000000
   Allies: []
   Enemies: []
   AllyLineOffset: {x: 0, y: 0, z: 1.56}
