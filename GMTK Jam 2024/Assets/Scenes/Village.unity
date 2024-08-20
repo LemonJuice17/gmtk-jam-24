@@ -3057,6 +3057,8 @@ MonoBehaviour:
     OverworldObject: {fileID: 1696478394}
     CombatantPrefab: {fileID: 0}
     Attacks: 0000000004000000
+  Allies: []
+  Enemies: []
   AllyLineOffset: {x: 0, y: 0, z: 2}
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
@@ -3093,6 +3095,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  DeathExplosionForce: 1000
 --- !u!4 &1092199949
 Transform:
   m_ObjectHideFlags: 0
@@ -4986,6 +4989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thug NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965699263233606182, guid: 9364992c4a3607341a31b0ddc42d9484,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4863016132004641121, guid: 9364992c4a3607341a31b0ddc42d9484,
         type: 3}
