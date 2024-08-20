@@ -478,6 +478,9 @@ public class CombatEncounter : MonoBehaviour
         AllyCombatants.Remove(_killedCombatant);
         rb.AddExplosionForce(DeathExplosionForce, _killedCombatant.OverworldObject.transform.position + Vector3.down, 2);
 
+        if (AllyCombatants.Contains(_killedCombatant)) AllyCombatants.Remove(_killedCombatant);
+        if (EnemyCombatants.Contains(_killedCombatant)) EnemyCombatants.Remove(_killedCombatant);
+
         _killedCombatant = null;
 
         if (AllyCombatants.Count == 0)
