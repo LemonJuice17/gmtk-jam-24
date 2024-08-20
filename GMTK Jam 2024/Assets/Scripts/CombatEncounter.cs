@@ -413,7 +413,7 @@ public class CombatEncounter : MonoBehaviour
                 }
         }
 
-        Instantiate(GameManager.instance.AttackSFX);
+        attacker.OverworldObject.BroadcastMessage("Attack", SendMessageOptions.DontRequireReceiver);
 
         if(victim.HP <= 0)
         {
