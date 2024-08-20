@@ -34841,6 +34841,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
+      propertyPath: Stats.HP
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
+      propertyPath: Stats.MaxHP
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
+      propertyPath: Stats.Strength
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
       propertyPath: Stats.Attacks.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -52071,6 +52086,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.HP
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.Magic
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.MaxHP
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3681616670974967185, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
       propertyPath: m_IsKinematic
@@ -52213,6 +52258,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CarveOnlyStationary
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Charm
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.MaxHP
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7796748452159238151, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
