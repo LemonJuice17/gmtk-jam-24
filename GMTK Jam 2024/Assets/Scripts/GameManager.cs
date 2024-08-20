@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     public AudioMixerSnapshot SnapshotFight;
 
     public float MusicTransitionTime = 2;
+
+    public Image BlackScreenReference;
 
     public static GameManager instance;
 
