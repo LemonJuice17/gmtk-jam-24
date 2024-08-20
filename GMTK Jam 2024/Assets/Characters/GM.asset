@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GM
   m_EditorClassIdentifier: 
   CharacterName: Game Master
-  CharacterSprite: {fileID: 0}
+  CharacterSprite: {fileID: 21300000, guid: d658edb091c8d314184fb1f099b4a0ae, type: 3}
   CharacterMainColor: {r: 0.27300444, g: 0.11747954, b: 0.4528302, a: 1}
   CharacterBackgroundColor: {r: 0.5529456, g: 0.35826808, b: 0.7830189, a: 1}
