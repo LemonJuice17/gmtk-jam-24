@@ -25,7 +25,7 @@ public class Dice : MonoBehaviour
     {
         foreach (Vector3 side in Sides) { side.Normalize(); }
         _rb = GetComponent<Rigidbody>();
-        transform.position += Vector3.up;
+        transform.position += 3 * Vector3.up;
     }
 
     public void Roll(Combatant combatant) => Roll(combatant, transform.forward);
