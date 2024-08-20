@@ -486,16 +486,17 @@ MonoBehaviour:
   typewriterStartsAutomatically: 1
   animationLoop: 0
   timeScale: 0
-  _text: 
+  _text: Gilbert
   useDynamicScaling: 1
   referenceFontSize: 10
   isResettingTimeOnNewText: 1
   useDefaultDatabases: 1
-  databaseBehaviors: {fileID: 0}
-  databaseAppearances: {fileID: 0}
+  databaseBehaviors: {fileID: 11400000, guid: 98aa2b74f2918e34497bec3d12bb1795, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 3d3f660a6ecac934080cde646fb5eb59,
+    type: 2}
   useDefaultStyleSheet: 1
   styleSheet: {fileID: 0}
-  databaseActions: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: 0db6ed31f113efc4284eb571e80f6657, type: 2}
   defaultAppearancesTags:
   - size
   defaultDisappearancesTags:
