@@ -480,7 +480,7 @@ public class CombatEncounter : MonoBehaviour
 
         if (AllyCombatants.Count == 0)
         {
-            StopCombat();
+            Invoke("StopCombat", 1);
             OnLoss.Invoke();
 
             // Position enemy
@@ -505,6 +505,8 @@ public class CombatEncounter : MonoBehaviour
                 }
             });
         }
+
+        _currentTurnIndex++;
 
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
     }
