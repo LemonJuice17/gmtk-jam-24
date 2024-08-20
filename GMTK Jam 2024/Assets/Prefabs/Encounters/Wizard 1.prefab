@@ -123,12 +123,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3070547385349034422}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.04, y: 0.56, z: -22.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3743159433069470067}
+  - {fileID: 5090650808524564616}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6579222466478951239
@@ -263,7 +264,7 @@ MonoBehaviour:
   EnemyLineOffset: {x: 0, y: 0, z: -2}
   CombatantSpacing: 1
   DicePositionMultiplier: 2.5
-  FightLoopUpdateTime: 0.1
+  FightLoopUpdateTime: 5
   _currentTurnIndex: 0
   OnVictory:
     m_PersistentCalls:
@@ -272,6 +273,89 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DeathExplosionForce: 100
+--- !u!1 &4058078619914341080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5090650808524564616}
+  - component: {fileID: 7836688884884805775}
+  m_Layer: 0
+  m_Name: Fight End Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5090650808524564616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058078619914341080}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 716893287631997934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7836688884884805775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058078619914341080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
+    type: 3}
+  DialogueList:
+  - Text: "How could this be!?? I, Billius Ronaldorico Bleatario, defeated by simple
+      plebians. \r\nI will be back! And you will rue the day you crossed paths with
+      mehhhehh."
+    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: "Let\u2019s just kill him and he won\u2019t be able to come after us."
+    character: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: "Nah leave him. He\u2019s running off anyway."
+    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  _currentDialogueIndex: 0
+  BoolUseStaticTime: 0
+  CharsPerSecond: 20
+  TimeToShowFullText: 10
+  AfterDialogue:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5161659319047448180
 GameObject:
   m_ObjectHideFlags: 0
