@@ -46,7 +46,7 @@ public class CombatEncounter : MonoBehaviour
     public UnityEvent OnVictory = new();
     public UnityEvent OnLoss = new();
 
-    public float DeathExplosionForce = 100;
+    public float DeathExplosionForce = 1000;
 
     private void Awake()
     {
@@ -117,6 +117,7 @@ public class CombatEncounter : MonoBehaviour
             rb.GetComponent<Rigidbody>().freezeRotation = true;
             rb.GetComponent<Rigidbody>().velocity = Vector3.zero;
             Allies[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+            Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
@@ -472,7 +473,6 @@ public class CombatEncounter : MonoBehaviour
         else
         {
             EnemyCombatants.Remove(_killedCombatant);
-            _killedCombatant.OverworldObject.GetComponent<Rigidbody>().isKinematic = false;
             rb.AddExplosionForce(DeathExplosionForce, transform.position + Vector3.down, EnemyLineOffset.magnitude + 1);
         }
 

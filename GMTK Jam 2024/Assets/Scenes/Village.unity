@@ -3048,11 +3048,11 @@ MonoBehaviour:
   CombatantOrder: []
   AllyCombatants: []
   EnemyCombatants:
-  - MaxHP: 10
-    HP: 10
-    Strength: 5
+  - MaxHP: 50
+    HP: 50
+    Strength: 10
     Magic: 0
-    Charm: 2
+    Charm: 10
     TurnOrderIcon: {fileID: 0}
     OverworldObject: {fileID: 1696478394}
     CombatantPrefab: {fileID: 0}
