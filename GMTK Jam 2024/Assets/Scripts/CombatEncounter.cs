@@ -307,13 +307,13 @@ public class CombatEncounter : MonoBehaviour
 
         switch (attack)
         {
-            case Attacks.Punch_S_D6:
+            case Attacks.Punch:
                 RollDice(attacker, GameManager.instance.D6);
                 break;
-            case Attacks.Stabs_S_2D6:
+            case Attacks.Stabs:
                 RollDice(attacker, GameManager.instance.D6, 2);
                 break;
-            case Attacks.Slash_S_D8:
+            case Attacks.Slash:
                 RollDice(attacker, GameManager.instance.D8);
                 break;
             case Attacks.Crush:
@@ -357,21 +357,21 @@ public class CombatEncounter : MonoBehaviour
 
         switch (attack)
         {
-            case Attacks.Punch_S_D6:
+            case Attacks.Punch:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
-            case Attacks.Stabs_S_2D6:
+            case Attacks.Stabs:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
-            case Attacks.Slash_S_D8:
+            case Attacks.Slash:
                 {
                     if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} + {diceModifier} damage!";
@@ -595,9 +595,9 @@ public class Combatant
 
 public enum Attacks
 {
-    Punch_S_D6,
-    Stabs_S_2D6,
-    Slash_S_D8,
+    Punch,
+    Stabs,
+    Slash,
     Crush,
     Taunt,
     Mock,
