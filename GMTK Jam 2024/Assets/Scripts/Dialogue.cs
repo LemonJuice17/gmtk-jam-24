@@ -90,6 +90,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         _currentDialogueIndex = 0;
         AfterDialogue.Invoke(this);
         Destroy(_curentDialogueBox.gameObject, 0);
+        Player.instance.CurrentInteractable = null;
     }
 
     public void LoadDialogue(DialogueText dialogue)

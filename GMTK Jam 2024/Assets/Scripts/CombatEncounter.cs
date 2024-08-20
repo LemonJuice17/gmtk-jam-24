@@ -15,6 +15,10 @@ public class CombatEncounter : MonoBehaviour
     [HideInInspector] public List<Combatant> CombatantOrder = new();
     [HideInInspector] public List<Combatant> AllyCombatants = new();
     public List<Combatant> EnemyCombatants;
+    // These are copied from the two lists above, but don't get changed.
+    // Used for references after combat is done.
+    [HideInInspector] public List<Combatant> Allies = new();
+    [HideInInspector] public List<Combatant> Enemies = new();
 
     public Vector3 AllyLineOffset = new Vector3(0, 0, -2);
     public Vector3 EnemyLineOffset = new Vector3(0, 0, 2);
@@ -41,6 +45,8 @@ public class CombatEncounter : MonoBehaviour
 
     public UnityEvent OnVictory = new();
     public UnityEvent OnLoss = new();
+
+    public float DeathExplosionForce = 100;
 
     private void Awake()
     {
@@ -83,6 +89,14 @@ public class CombatEncounter : MonoBehaviour
         AllyCombatants.ForEach((ally) => Combatants.Add(ally, 0));
         EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy, 0));
 
+        AllyCombatants.ForEach((ally) => Allies.Add(ally));
+        EnemyCombatants.ForEach((enemy) => Enemies.Add(enemy));
+
+        foreach (var pair in Combatants)
+        {
+            pair.Key.HP = pair.Key.MaxHP;
+        }
+
         Invoke("PositionCombatants", 1.5f);
         Invoke("RollForInitiative", 3);
     }
@@ -96,15 +110,21 @@ public class CombatEncounter : MonoBehaviour
         
         _camera.Priority = 1;
 
-        for (int i = 0; i < AllyCombatants.Count; i++)
+        for (int i = 0; i < Allies.Count; i++)
         {
-            AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = false;
-            if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
+            Rigidbody rb = Allies[i].OverworldObject.GetComponent<Rigidbody>();
+            rb.GetComponent<Rigidbody>().isKinematic = false;
+            rb.GetComponent<Rigidbody>().freezeRotation = true;
+            rb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            Allies[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+            if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
         CancelInvoke();
+
+        PositionCombatants();
     }
 
     private void PositionCombatants()
@@ -274,8 +294,10 @@ public class CombatEncounter : MonoBehaviour
                 RollDice(attacker, GameManager.instance.D8);
                 break;
             case Attacks.Crush:
+                Attack(attacker, attack);
                 break;
             case Attacks.Taunt:
+                Attack(attacker, attack);
                 break;
             case Attacks.Mock:
                 RollDice(attacker, GameManager.instance.D6);
@@ -290,6 +312,7 @@ public class CombatEncounter : MonoBehaviour
                 RollDice(attacker, GameManager.instance.D8);
                 break;
             case Attacks.Shrink:
+                Attack(attacker, attack);
                 break;
             case Attacks.Fireball:
                 RollDice(attacker, GameManager.instance.D8, 3);
@@ -437,10 +460,21 @@ public class CombatEncounter : MonoBehaviour
 
         CombatantOrder.Remove(_killedCombatant);
 
-        if (AllyCombatants.Contains(_killedCombatant)) AllyCombatants.Remove(_killedCombatant);
-        else EnemyCombatants.Remove(_killedCombatant);
+        Rigidbody rb = _killedCombatant.OverworldObject.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.freezeRotation = false;
 
-        Destroy(_killedCombatant.OverworldObject.gameObject);
+        if (AllyCombatants.Contains(_killedCombatant))
+        {
+            AllyCombatants.Remove(_killedCombatant);
+            rb.AddExplosionForce(DeathExplosionForce, transform.position + Vector3.down, AllyLineOffset.magnitude + 1);
+        }
+        else
+        {
+            EnemyCombatants.Remove(_killedCombatant);
+            _killedCombatant.OverworldObject.GetComponent<Rigidbody>().isKinematic = false;
+            rb.AddExplosionForce(DeathExplosionForce, transform.position + Vector3.down, EnemyLineOffset.magnitude + 1);
+        }
 
         _killedCombatant = null;
 
@@ -448,12 +482,28 @@ public class CombatEncounter : MonoBehaviour
         {
             StopCombat();
             OnLoss.Invoke();
+
+            // Position enemy
+            for (int i = 0; i < Enemies.Count; i++)
+            {
+                if (Enemies[i].OverworldObject != null)
+                {
+                    Enemies[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+                }
+            }
         }
 
         if (EnemyCombatants.Count == 0)
         {
             StopCombat();
             OnVictory.Invoke();
+            Enemies.ForEach(enemy =>
+            {
+                if (enemy.OverworldObject.TryGetComponent(out CombatEncounter encounter))
+                {
+                    Destroy(encounter);
+                }
+            });
         }
 
         InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
