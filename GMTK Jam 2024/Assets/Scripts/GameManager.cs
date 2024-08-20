@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour
     public SoundObject WalkSFX;
     public SoundObject AttackSFX;
 
+    public AudioMixerSnapshot SnapshotNormal;
+    public AudioMixerSnapshot SnapshotFight;
+
+    public float MusicTransitionTime = 2;
+
     public static GameManager instance;
 
     private void Awake()
@@ -37,4 +43,7 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(this);
     }
+
+    public void NormalMusic() => SnapshotNormal.TransitionTo(MusicTransitionTime);
+    public void FightMusic() => SnapshotFight.TransitionTo(MusicTransitionTime);
 }

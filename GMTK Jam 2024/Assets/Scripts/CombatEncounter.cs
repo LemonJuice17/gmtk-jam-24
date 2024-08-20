@@ -109,6 +109,8 @@ public class CombatEncounter : MonoBehaviour
             pair.Key.HP = pair.Key.MaxHP;
         }
 
+        GameManager.instance.FightMusic();
+
         Invoke("PositionCombatants", 1);
         Invoke("RollForInitiative", 2);
     }
@@ -137,6 +139,8 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIObjectReference.SetActive(false);
+
+        GameManager.instance.NormalMusic();
 
         CancelInvoke();
     }
