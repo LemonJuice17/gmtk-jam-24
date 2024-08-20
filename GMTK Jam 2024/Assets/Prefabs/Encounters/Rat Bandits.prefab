@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 181900694418289586}
   - component: {fileID: 7559509620103532251}
   - component: {fileID: 4410063232225012307}
+  - component: {fileID: 2332323181182808128}
   m_Layer: 0
   m_Name: Rat Bandits
   m_TagString: Untagged
@@ -151,8 +152,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 13.5404825, y: 3.4247558, z: 1}
+  m_Center: {x: -0.30216026, y: 1.2123779, z: -0.000008223154}
 --- !u!114 &181900694418289586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +196,8 @@ MonoBehaviour:
   BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
     type: 3}
   DialogueList:
-  - Text: Okay, so, if I have this right... Okay, here's your first guy. <shake>Ahem</shake>.
-    character: {fileID: 11400000, guid: d7f994b78bf4f4c3ba2c0fb6f8ed3219, type: 2}
+  - Text: Hm? Intruders!! Kill em boys!
+    character: {fileID: 11400000, guid: d4206b312df328244ae5b769486c0e8e, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -204,9 +205,8 @@ MonoBehaviour:
     Actions:
       m_PersistentCalls:
         m_Calls: []
-  - Text: "Ah hah. Enemies! You will not defeat the magnifcentiecious Billius Ronaldorico
-      Bleatario.\r\nI will engage you in combat, and defeat you all spectacularly!\r"
-    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
+  - Text: A real fight this time?
+    character: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -248,16 +248,24 @@ MonoBehaviour:
   CombatantOrder: []
   AllyCombatants: []
   EnemyCombatants:
-  - MaxHP: 10
-    HP: 10
+  - MaxHP: 8
+    HP: 8
     Strength: 1
-    Magic: 2
+    Magic: 1
     Charm: 1
-    TurnOrderIcon: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
+    TurnOrderIcon: {fileID: 21300000, guid: 4d414d970d6065e4aa91514db5c48674, type: 3}
     OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
-      type: 3}
-    Attacks: 0400000008000000
+    CombatantPrefab: {fileID: 0}
+    Attacks: 0200000004000000
+  - MaxHP: 8
+    HP: 8
+    Strength: 1
+    Magic: 1
+    Charm: 1
+    TurnOrderIcon: {fileID: 21300000, guid: 4d414d970d6065e4aa91514db5c48674, type: 3}
+    OverworldObject: {fileID: 0}
+    CombatantPrefab: {fileID: 0}
+    Attacks: 0000000005000000
   Allies: []
   Enemies: []
   AllyLineOffset: {x: 0, y: 0, z: 1.56}
@@ -268,11 +276,36 @@ MonoBehaviour:
   _currentTurnIndex: 0
   OnVictory:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2332323181182808128}
+        m_TargetAssemblyTypeName: DestroyStuff, Assembly-CSharp
+        m_MethodName: DestroyThing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnLoss:
     m_PersistentCalls:
       m_Calls: []
   DeathExplosionForce: 100
+--- !u!114 &2332323181182808128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3070547385349034422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44928bf34fc9035418db1f64c45982cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToDestroy: {fileID: 3070547385349034422}
 --- !u!1 &4058078619914341080
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,8 +414,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5161659319047448180}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47834498, y: 0.29379973, z: -0.17368865, w: 0.80913544}
-  m_LocalPosition: {x: -3.53, y: 10, z: -4.22}
+  m_LocalRotation: {x: 0.058171496, y: 0.91035324, z: -0.38608167, w: 0.1371643}
+  m_LocalPosition: {x: -2.851, y: 10, z: 9.241}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
