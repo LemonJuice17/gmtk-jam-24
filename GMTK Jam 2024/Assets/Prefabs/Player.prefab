@@ -218,9 +218,10 @@ MonoBehaviour:
     Strength: 1
     Magic: 1
     Charm: 1
-    TurnOrderIcon: {fileID: 0}
+    TurnOrderIcon: {fileID: 21300000, guid: 6eb98f480d6214d4389d0ef06588d3a0, type: 3}
     OverworldObject: {fileID: 0}
     CombatantPrefab: {fileID: 0}
+    Attacks: 
   MoveSpeed: 5
 --- !u!114 &5710382563816103571
 MonoBehaviour:
