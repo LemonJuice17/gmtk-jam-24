@@ -158,6 +158,7 @@ public class CombatEncounter : MonoBehaviour
             if (EnemyCombatants[i].CombatantPrefab != null)
             {
                 EnemyCombatants[i].OverworldObject = Instantiate(EnemyCombatants[i].CombatantPrefab).transform;
+                EnemyCombatants[i].OverworldObject.name = EnemyCombatants[i].CombatantPrefab.name;
             }
 
             // Position enemy
