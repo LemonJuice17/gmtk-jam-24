@@ -121,7 +121,7 @@ public class CombatEncounter : MonoBehaviour
             rb.isKinematic = false;
             rb.freezeRotation = true;
             rb.velocity = Vector3.zero;
-            Allies[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+            Allies[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
             Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
@@ -141,8 +141,8 @@ public class CombatEncounter : MonoBehaviour
 
         for(int i = 0; i < AllyCombatants.Count; i++)
         {
-            AllyCombatants[i].OverworldObject.transform.position = transform.position + AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
-            AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            AllyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
+            AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * direction, Vector3.up);
             AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = true;
             if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
         }
@@ -158,8 +158,8 @@ public class CombatEncounter : MonoBehaviour
             // Position enemy
             if (EnemyCombatants[i].OverworldObject != null)
             {
-                EnemyCombatants[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
-                EnemyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(-direction, Vector3.up);
+                EnemyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
+                EnemyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * -direction, Vector3.up);
             }
         }
     }
@@ -174,7 +174,7 @@ public class CombatEncounter : MonoBehaviour
         foreach (var combatant in AllyCombatants)
         {
             Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position - (direction * DicePositionMultiplier);
+            die.transform.position = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
         }
@@ -182,7 +182,7 @@ public class CombatEncounter : MonoBehaviour
         foreach (var combatant in EnemyCombatants)
         {
             Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position + (direction * DicePositionMultiplier);
+            die.transform.position = combatant.OverworldObject.transform.position - (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
         }
@@ -277,10 +277,10 @@ public class CombatEncounter : MonoBehaviour
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + AllyLineOffset, 0.5f);
+        Gizmos.DrawWireSphere(transform.position + (transform.rotation * AllyLineOffset), 0.5f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + EnemyLineOffset, 0.5f);
+        Gizmos.DrawWireSphere(transform.position + (transform.rotation * EnemyLineOffset), 0.5f);
     }
 
     #region Attacks
@@ -447,7 +447,7 @@ public class CombatEncounter : MonoBehaviour
         for (int i = 0; i < quantity; i++)
         {
             Dice die = Instantiate(diePrefab).GetComponent<Dice>();
-            die.transform.position = attacker.OverworldObject.transform.position - (direction * DicePositionMultiplier);
+            die.transform.position = attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(attacker);
             die.RolledValue.AddListener(WaitForAllRolls);
         }
