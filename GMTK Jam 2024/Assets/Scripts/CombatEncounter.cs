@@ -413,6 +413,8 @@ public class CombatEncounter : MonoBehaviour
                 }
         }
 
+        attacker.OverworldObject.BroadcastMessage("Attack", SendMessageOptions.DontRequireReceiver);
+
         if(victim.HP <= 0)
         {
             _killedCombatant = victim;
@@ -492,11 +494,12 @@ public class CombatEncounter : MonoBehaviour
         {
             StopCombat();
             OnVictory.Invoke();
+            Destroy(this);
             Enemies.ForEach(enemy =>
             {
-                if (enemy.OverworldObject.TryGetComponent(out CombatEncounter encounter))
+                if (enemy.OverworldObject.TryGetComponent(out Dialogue deadNPCDialogue))
                 {
-                    Destroy(encounter);
+                    Destroy(deadNPCDialogue);
                 }
             });
             return;

@@ -11,6 +11,11 @@ public class PlayerAnimator : MonoBehaviour
         _playerAnimator = GetComponent<Animator>();
     }
 
+    void Attack()
+    {
+        _playerAnimator.SetTrigger("Attack");
+    }
+
     void ChangeMoving(bool isMoving)
     {
         _playerAnimator.SetBool("IsWalking", isMoving);
@@ -19,5 +24,10 @@ public class PlayerAnimator : MonoBehaviour
     public void PlayWalkSound()
     {
         Instantiate(GameManager.instance?.WalkSFX);
+    }
+
+    public void PlayAttackSound()
+    {
+        Instantiate(GameManager.instance.AttackSFX);
     }
 }
