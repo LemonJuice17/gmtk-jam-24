@@ -127,6 +127,9 @@ public class CombatEncounter : MonoBehaviour
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
         CancelInvoke();
@@ -471,16 +474,8 @@ public class CombatEncounter : MonoBehaviour
         rb.isKinematic = false;
         rb.freezeRotation = false;
 
-        if (AllyCombatants.Contains(_killedCombatant))
-        {
-            AllyCombatants.Remove(_killedCombatant);
-            rb.AddExplosionForce(DeathExplosionForce, transform.position + Vector3.down, AllyLineOffset.magnitude + 1);
-        }
-        else
-        {
-            EnemyCombatants.Remove(_killedCombatant);
-            rb.AddExplosionForce(DeathExplosionForce, transform.position + Vector3.down, EnemyLineOffset.magnitude + 1);
-        }
+        AllyCombatants.Remove(_killedCombatant);
+        rb.AddExplosionForce(DeathExplosionForce, _killedCombatant.OverworldObject.transform.position + Vector3.down, 2);
 
         _killedCombatant = null;
 
