@@ -223,6 +223,11 @@ public class CombatEncounter : MonoBehaviour
 
     public void GenerateIcons(List<Combatant> combatants)
     {
+        foreach (Transform child in GameManager.instance.TurnOrderObjectReference.transform)
+        {
+            Destroy(child.gameObject);
+        };
+
         foreach (Combatant combatant in combatants)
         {
             GameObject newIcon = Instantiate(GameManager.instance.TurnOrderIconPrefab, GameManager.instance.TurnOrderObjectReference);
