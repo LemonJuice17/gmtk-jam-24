@@ -31,8 +31,8 @@ public class Dice : MonoBehaviour
     public void Roll(Combatant combatant) => Roll(combatant, transform.forward);
     public void Roll(Combatant combatant, Vector3 throwDirection)
     {
-        Invoke("StopRoll", 3);
-        InvokeRepeating("StopCheck", 0.5f, 0.1f);
+        Invoke(nameof(StopRoll), 3);
+        InvokeRepeating(nameof(StopCheck), 0.5f, 0.1f);
 
         _roller = combatant;
 
@@ -71,7 +71,7 @@ public class Dice : MonoBehaviour
             }
         }
 
-        CancelInvoke("StopCheck");
+        CancelInvoke(nameof(StopCheck));
 
         RolledValue.Invoke(_roller, SideValues[closestIndex]);
 

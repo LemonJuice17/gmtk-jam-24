@@ -113,8 +113,8 @@ public class CombatEncounter : MonoBehaviour
 
         GameManager.instance.FightMusic();
 
-        Invoke("PositionCombatants", 1);
-        Invoke("RollForInitiative", 2);
+        Invoke(nameof(PositionCombatants), 1);
+        Invoke(nameof(RollForInitiative), 2);
     }
 
     public void StopCombat()
@@ -218,7 +218,7 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GenerateIcons(CombatantOrder);
 
-        InvokeRepeating("FightLoop", FightLoopUpdateTime * 0.5f, FightLoopUpdateTime);
+        InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime * 0.5f, FightLoopUpdateTime);
     }
 
     public void GenerateIcons(List<Combatant> combatants)
@@ -258,7 +258,7 @@ public class CombatEncounter : MonoBehaviour
 
     public void PlayersTurn()
     {
-        CancelInvoke("FightLoop");
+        CancelInvoke(nameof(FightLoop));
         _currentTurnIndex++;
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(true);
@@ -268,6 +268,7 @@ public class CombatEncounter : MonoBehaviour
     private void PlayerInputLeft()
     {
         if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        Debug.Log(Player.instance.Stats.Attacks.Count);
         if (_selectedAttackIndex > 0)
         {
             _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
@@ -278,6 +279,8 @@ public class CombatEncounter : MonoBehaviour
     private void PlayerInputRight()
     {
         if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        Debug.Log("This should be run exactly once");
+        Debug.Log(Player.instance.Stats.Attacks.Count);
         if (_selectedAttackIndex < Player.instance.Stats.Attacks.Count - 1)
         {
             _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
@@ -288,9 +291,10 @@ public class CombatEncounter : MonoBehaviour
     private void PlayerInputSelect()
     {
         if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+
         GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(false);
         StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
-        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+        InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
     public void OnDrawGizmos()
@@ -461,11 +465,11 @@ public class CombatEncounter : MonoBehaviour
         if(victim.HP <= 0)
         {
             _killedCombatant = victim;
-            CancelInvoke("FightLoop");
-            Invoke("CombatantKilled", FightLoopUpdateTime);
+            CancelInvoke(nameof(FightLoop));
+            Invoke(nameof(CombatantKilled), FightLoopUpdateTime);
         }
 
-        else if(diceModifier != 0) InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+        else if(diceModifier != 0) InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
     private int _rollCount = 1;
@@ -474,7 +478,7 @@ public class CombatEncounter : MonoBehaviour
 
     public void RollDice(Combatant attacker, GameObject diePrefab, int quantity = 1)
     {
-        CancelInvoke("FightLoop");
+        CancelInvoke(nameof(FightLoop));
 
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         direction.Normalize();
@@ -526,7 +530,7 @@ public class CombatEncounter : MonoBehaviour
 
         if (AllyCombatants.Count == 0)
         {
-            Invoke("DelayedLoss", 1);
+            Invoke(nameof(DelayedLoss), 1);
             return;
         }
 
@@ -547,7 +551,7 @@ public class CombatEncounter : MonoBehaviour
 
         _currentTurnIndex++;
 
-        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
+        InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
     private void DelayedLoss() 
