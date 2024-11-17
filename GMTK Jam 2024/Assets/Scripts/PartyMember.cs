@@ -8,8 +8,8 @@ public class PartyMember : MonoBehaviour
 {
     public Combatant Stats;
 
-    public Vector3 PlayerFollowPosition = new Vector3(1, 0, -1.5f);
-    public Vector3 MaxFollowDeviation = new Vector3(0.5f, 0, 1f);
+    public Vector3 PlayerFollowPosition = new (1, 0, -1.5f);
+    public Vector3 MaxFollowDeviation = new (0.5f, 0, 1f);
 
     /// <summary>
     /// What distance away from the player does the member have to be before recalculating their position.
@@ -51,7 +51,7 @@ public class PartyMember : MonoBehaviour
         _agent.isStopped = false;
         _stayStill = false;
         _targetPosition = GetNewTargetPosition();
-        InvokeRepeating("FollowLoop", FollowLoopRepetitionTime, FollowLoopRepetitionTime);
+        InvokeRepeating(nameof(FollowLoop), FollowLoopRepetitionTime, FollowLoopRepetitionTime);
     }
 
     public void StopFollowLoop()
@@ -59,7 +59,7 @@ public class PartyMember : MonoBehaviour
         // For some reason it suddenly started teleporting to the destination when stopping.
         // No fucking idea why but this fixes it so :P
         _agent.SetDestination(transform.position);
-        CancelInvoke("FollowLoop");
+        CancelInvoke(nameof(FollowLoop));
         _agent.isStopped = true;
         _stayStill = true;
         BroadcastMessage("ChangeMoving", false);

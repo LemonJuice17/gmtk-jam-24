@@ -60,7 +60,7 @@ public class CombatEncounter : MonoBehaviour
     private void Start()
     {
         GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIObjectReference.SetActive(false);
     }
@@ -75,25 +75,17 @@ public class CombatEncounter : MonoBehaviour
         Random.InitState(Environment.TickCount);
 
         Player.instance.Input.SwitchCurrentActionMap("Combat");
+
         _camera.Priority = 20;
 
         _playerAttackText.Clear();
 
-        foreach (Transform child in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform)
-        {
-            Destroy(child.gameObject);
-        };
-
-        foreach (Attacks attack in Player.instance.Stats.Attacks)
-        {
-            _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
-            _playerAttackText.Last().text = attack.ToString();
-            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
-        }
+        UpdatePlayerAttackOptions();
 
         CombatantOrder.Clear();
         Combatants.Clear();
         AllyCombatants.Clear();
+
         if (Enemies.Count != 0) EnemyCombatants = Enemies;
 
         AllyCombatants.Add(Player.instance.Stats);
@@ -137,13 +129,38 @@ public class CombatEncounter : MonoBehaviour
         }
 
         GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIObjectReference.SetActive(false);
 
-        GameManager.instance.NormalMusic();
+        GameManager.instance.NormalMusic(); 
 
         CancelInvoke();
+    }
+
+    /// <summary>
+    /// Destroys the objects of all player attack options currently displayed.
+    /// </summary>
+    private void ClearPlayerAttackOptions()
+    {
+        foreach (Transform child in GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform)
+        {
+            Destroy(child.gameObject);
+        };
+    }
+    /// <summary>
+    /// Clears the currently displayed attack options, and replaces them with the attack options from the player instance.
+    /// </summary>
+    private void UpdatePlayerAttackOptions() 
+    { 
+        ClearPlayerAttackOptions();
+
+        foreach (Attacks attack in Player.instance.Stats.Attacks)
+        {
+            _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform));
+            _playerAttackText.Last().text = attack.ToString();
+            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
+        }
     }
 
     private void PositionCombatants()
@@ -262,13 +279,13 @@ public class CombatEncounter : MonoBehaviour
         CancelInvoke(nameof(FightLoop));
         _currentTurnIndex++;
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(true);
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
         _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
     }
 
     private void PlayerInputLeft()
     {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        if (!GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.activeSelf) return;
         Debug.Log(Player.instance.Stats.Attacks.Count);
         if (_selectedAttackIndex > 0)
         {
@@ -279,7 +296,7 @@ public class CombatEncounter : MonoBehaviour
     }
     private void PlayerInputRight()
     {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        if (!GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.activeSelf) return;
         Debug.Log("This should be run exactly once");
         Debug.Log(Player.instance.Stats.Attacks.Count);
         if (_selectedAttackIndex < Player.instance.Stats.Attacks.Count - 1)
@@ -291,9 +308,9 @@ public class CombatEncounter : MonoBehaviour
     }
     private void PlayerInputSelect()
     {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
+        if (!GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.activeSelf) return;
 
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
         InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
@@ -573,7 +590,7 @@ public class CombatEncounter : MonoBehaviour
     #endregion Attacks
 }
 
-[System.Serializable]
+[Serializable]
 public class Combatant
 {
     public int MaxHP = 5;

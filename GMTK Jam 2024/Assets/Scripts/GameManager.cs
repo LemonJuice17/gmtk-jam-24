@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject CombatUIPanelObjectReference; // The panel at the bottom during combat
     public TMP_Text CombatUINameText; // The name of the current combatant
     public TMP_Text CombatUIDescriptionText; // The text of the current decription
-    public GameObject CombatUIPlayerOptionsObjectReference; // The player-specific UI
+    /// <summary>
+    ///  The UI for displaying the player's available attack options
+    /// </summary>
+    public GameObject CombatUIPlayerAttackOptionsObjectReference;
     public TMP_Text CombatUIPlayerOptionsTextPrefab; // The prefab for player attacks
     public Transform TurnOrderObjectReference; // Where the turn order is shown
     /// <summary>
