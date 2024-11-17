@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,8 +24,8 @@ public class GameManager : MonoBehaviour
     public Color UnselectedTextColour = Color.white;
     public Color SelectedTextColour = Color.green;
 
-    public GameObject D6;
-    public GameObject D8;
+    public Dice D6;
+    public Dice D8;
 
     public SoundObject DiceRollup;
     public SoundObject DiceRoll;
@@ -49,4 +50,19 @@ public class GameManager : MonoBehaviour
 
     public void NormalMusic() => SnapshotNormal.TransitionTo(MusicTransitionTime);
     public void FightMusic() => SnapshotFight.TransitionTo(MusicTransitionTime);
+
+    public Dice CreateDie(int sides, Vector3 position)
+    {
+        switch (sides)
+        {
+            case 6:
+                if (D6 == null) throw new Exception($"An attempt to make a D6 has been made when the prefab for the D6 in the GameManager has not been set.");
+                return Instantiate(D6, position, Quaternion.identity);
+            case 8:
+                if (D8 == null) throw new Exception($"An attempt to make a D8 has been made when the prefab for the D8 in the GameManager has not been set.");
+                return Instantiate(D8, position, Quaternion.identity);
+            default:
+                throw new Exception($"A dice with {sides} sides does not currently exist within the GameManager.");
+        }
+    }
 }

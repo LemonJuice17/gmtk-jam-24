@@ -20,8 +20,8 @@ public class CombatEncounter : MonoBehaviour
     [HideInInspector] public List<Combatant> Allies;
     [HideInInspector] public List<Combatant> Enemies;
 
-    public Vector3 AllyLineOffset = new Vector3(0, 0, -2);
-    public Vector3 EnemyLineOffset = new Vector3(0, 0, 2);
+    public Vector3 AllyLineOffset = new (0, 0, -2);
+    public Vector3 EnemyLineOffset = new (0, 0, 2);
 
     public float CombatantSpacing = 1;
 
@@ -35,7 +35,7 @@ public class CombatEncounter : MonoBehaviour
 
     [SerializeField] private int _currentTurnIndex;
 
-    private List<TMP_Text> _playerAttackText = new();
+    private readonly List<TMP_Text> _playerAttackText = new();
 
     private int _selectedAttackIndex = 0;
 
@@ -132,8 +132,7 @@ public class CombatEncounter : MonoBehaviour
             rb.isKinematic = false;
             rb.freezeRotation = true;
             rb.velocity = Vector3.zero;
-            Allies[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-            Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
+            Allies[i].OverworldObject.transform.SetPositionAndRotation(transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), Quaternion.identity);
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
@@ -154,8 +153,9 @@ public class CombatEncounter : MonoBehaviour
 
         for(int i = 0; i < AllyCombatants.Count; i++)
         {
-            AllyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-            AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * direction, Vector3.up);
+            AllyCombatants[i].OverworldObject.transform.SetPositionAndRotation(
+                transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))),
+                Quaternion.LookRotation(transform.rotation * direction, Vector3.up));
             AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = true;
             if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
         }
@@ -172,8 +172,9 @@ public class CombatEncounter : MonoBehaviour
             // Position enemy
             if (EnemyCombatants[i].OverworldObject != null)
             {
-                EnemyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-                EnemyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * -direction, Vector3.up);
+                EnemyCombatants[i].OverworldObject.transform.SetPositionAndRotation(
+                    transform.position + (transform.rotation * (EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), 
+                    Quaternion.LookRotation(transform.rotation * -direction, Vector3.up));
             }
         }
     }
@@ -261,7 +262,7 @@ public class CombatEncounter : MonoBehaviour
         CancelInvoke(nameof(FightLoop));
         _currentTurnIndex++;
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(true);
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(true);
         _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
     }
 
@@ -292,7 +293,7 @@ public class CombatEncounter : MonoBehaviour
     {
         if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
 
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(false);
+        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
         StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
         InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
@@ -317,13 +318,13 @@ public class CombatEncounter : MonoBehaviour
         switch (attack)
         {
             case Attacks.Punch:
-                RollDice(attacker, GameManager.instance.D6);
+                RollDice(attacker, 6);
                 break;
             case Attacks.Stabs:
-                RollDice(attacker, GameManager.instance.D6, 2);
+                RollDice(attacker, 6, 2);
                 break;
             case Attacks.Slash:
-                RollDice(attacker, GameManager.instance.D8);
+                RollDice(attacker, 8);
                 break;
             case Attacks.Crush:
                 Attack(attacker, attack);
@@ -332,28 +333,28 @@ public class CombatEncounter : MonoBehaviour
                 Attack(attacker, attack);
                 break;
             case Attacks.Mock:
-                RollDice(attacker, GameManager.instance.D6);
+                RollDice(attacker, 6);
                 break;
             case Attacks.Insult:
-                RollDice(attacker, GameManager.instance.D6, 2);
+                RollDice(attacker, 6, 2);
                 break;
             case Attacks.Seduce:
-                RollDice(attacker, GameManager.instance.D8, 3);
+                RollDice(attacker, 8, 3);
                 break;
             case Attacks.Blast:
-                RollDice(attacker, GameManager.instance.D8);
+                RollDice(attacker, 8);
                 break;
             case Attacks.Shrink:
                 Attack(attacker, attack);
                 break;
             case Attacks.Fireball:
-                RollDice(attacker, GameManager.instance.D8, 3);
+                RollDice(attacker, 8, 3);
                 break;
             case Attacks.Roll:
-                RollDice(attacker, GameManager.instance.D8, 5);
+                RollDice(attacker, 8, 5);
                 break;
             case Attacks.Snore:
-                RollDice(attacker, GameManager.instance.D8, 4);
+                RollDice(attacker, 8, 4);
                 break;
         }
 
@@ -364,74 +365,66 @@ public class CombatEncounter : MonoBehaviour
     {
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
 
+        victim ??= GetRandomOpponent(attacker);
+
         switch (attack)
         {
             case Attacks.Punch:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
             case Attacks.Stabs:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength + diceModifier;
                     break;
                 }
             case Attacks.Slash:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} + {diceModifier} damage!";
                     victim.HP -= attacker.Strength * 2 + diceModifier; ;
                     break;
                 }
             case Attacks.Crush:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} crushed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} damage!";
                     victim.HP -= attacker.Strength;
                     break;
                 }
             case Attacks.Taunt:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} taunted {victim.OverworldObject.name}, dealing {attacker.Charm} damage!";
                     victim.HP -= attacker.Charm;
                     break;
                 }
             case Attacks.Mock:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} mocked {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
                     victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Insult:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} insulted {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
                     victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Seduce:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} seduced {victim.OverworldObject.name}, dealing {attacker.Charm} +  {diceModifier} damage!";
                     victim.HP -= attacker.Charm + diceModifier;
                     break;
                 }
             case Attacks.Blast:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} blasted {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
                     victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
             case Attacks.Shrink:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} shrank {victim.OverworldObject.name}, halving their size (and HP)!";
                     victim.HP = (int)Math.Ceiling(victim.HP * 0.5f);
                     victim.OverworldObject.localScale *= 0.5f;
@@ -439,21 +432,18 @@ public class CombatEncounter : MonoBehaviour
                 }
             case Attacks.Fireball:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
                     victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
             case Attacks.Roll:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} rolls over {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
                     victim.HP -= attacker.Magic + diceModifier;
                     break;
                 }
             case Attacks.Snore:
                 {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
                     GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} snores {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
                     victim.HP -= attacker.Magic + diceModifier;
                     break;
@@ -476,7 +466,7 @@ public class CombatEncounter : MonoBehaviour
     private int _currentRolls = 0;
     private int _currentRollTotal = 0;
 
-    public void RollDice(Combatant attacker, GameObject diePrefab, int quantity = 1)
+    public void RollDice(Combatant attacker, int diceFaces, int quantity = 1)
     {
         CancelInvoke(nameof(FightLoop));
 
@@ -489,8 +479,7 @@ public class CombatEncounter : MonoBehaviour
 
         for (int i = 0; i < quantity; i++)
         {
-            Dice die = Instantiate(diePrefab).GetComponent<Dice>();
-            die.transform.position = attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
+            Dice die = GameManager.instance.CreateDie(diceFaces, attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier));
             die.Roll(attacker);
             die.RolledValue.AddListener(WaitForAllRolls);
         }
