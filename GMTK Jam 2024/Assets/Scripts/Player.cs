@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,7 +29,8 @@ public class Player : MonoBehaviour
         Move(_currentMoveDirection);
     }
 
-    // ---- Overworld Action Map Handling ---- //
+    #region Action Map Input Handling
+    // ---- Overworld Action Map Input Handling ---- //
     public void OnMove(InputValue value)
     {
         _currentMoveDirection = value.Get<Vector3>();
@@ -41,12 +39,12 @@ public class Player : MonoBehaviour
     {
         CurrentInteractable?.OnInteract();
     }
-    // ---- Dialogue Action Map Handling ---- //
+    // ---- Dialogue Action Map Input Handling ---- //
     public void OnContinue()
     {
         CurrentInteractable?.OnInteract();
     }
-    // ---- Combat Action Map Handling ---- //
+    // ---- Combat Action Map Input Handling ---- //
     public void OnLeft()
     {
         CombatEncounter.InputLeft.Invoke();
@@ -59,7 +57,12 @@ public class Player : MonoBehaviour
     {
         CombatEncounter.InputSelect.Invoke();
     }
+    #endregion Action Map Input Handling
 
+    /// <summary>
+    /// Moves the player for one frame.
+    /// </summary>
+    /// <param name="direction"> The direction to move the player in. </param>
     private void Move(Vector3 direction)
     {
         if (direction.magnitude == 0)

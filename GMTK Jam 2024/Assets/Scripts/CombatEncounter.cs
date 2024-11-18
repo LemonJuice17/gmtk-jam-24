@@ -205,7 +205,7 @@ public class CombatEncounter : MonoBehaviour
 
         foreach (var combatant in AllyCombatants)
         {
-            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
+            DiceObject die = Instantiate(GameManager.instance.D6).GetComponent<DiceObject>();
             die.transform.position = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
@@ -213,7 +213,7 @@ public class CombatEncounter : MonoBehaviour
 
         foreach (var combatant in EnemyCombatants)
         {
-            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
+            DiceObject die = Instantiate(GameManager.instance.D6).GetComponent<DiceObject>();
             die.transform.position = combatant.OverworldObject.transform.position - (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(combatant);
             die.RolledValue.AddListener(AddRollResult);
@@ -496,7 +496,7 @@ public class CombatEncounter : MonoBehaviour
 
         for (int i = 0; i < quantity; i++)
         {
-            Dice die = GameManager.instance.CreateDie(diceFaces, attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier));
+            DiceObject die = GameManager.instance.CreateDice(diceFaces, attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier));
             die.Roll(attacker);
             die.RolledValue.AddListener(WaitForAllRolls);
         }
@@ -605,9 +605,10 @@ public class Combatant
     public Transform OverworldObject;
     public GameObject CombatantPrefab;
 
-    public List<Attacks> Attacks;
+    public List<Attack> Attacks;
 }
 
+/*
 public enum Attacks
 {
     Punch,
@@ -623,4 +624,66 @@ public enum Attacks
     Fireball,
     Roll,
     Snore
+}
+*/
+
+/// <summary>
+/// Represents an attack in combat.
+/// </summary>
+public class Attack
+{
+    /// <summary>
+    /// The in-game display name of this attack.
+    /// </summary>
+    public string Name;
+    /// <summary>
+    /// The dice that get rolled to calculate this attack's damage.
+    /// </summary>
+    public DiceObject[] Dice;
+
+    /// <summary>
+    /// How much the attacker's strength stat is taken and multiplied, before being added to the total attack damage.
+    /// </summary>
+    public float StrengthMultiplier;
+    /// <summary>
+    /// How much the attacker's magic stat is taken and multiplied, before being added to the total attack damage.
+    /// </summary>
+    public float MagicMultiplier;
+    /// <summary>
+    /// How much the attacker's charm stat is taken and multiplied, before being added to the total attack damage.
+    /// </summary>
+    public float CharmMultiplier;
+
+    /// <summary>
+    /// Creates a new attack with a single die.
+    /// </summary>
+    /// <param name="name"> The name of the attack. </param>
+    /// <param name="die"> The die that will get rolled with the attack. </param>
+    /// <param name="strengthMult"> The strength stat multiplier of the attack. </param>
+    /// <param name="magicMult"> The magic stat multiplier of the attack. </param>
+    /// <param name="charmMult"> The charm stat multiplier of the attack. </param>
+    public Attack(string name, DiceObject die, float strengthMult = 0, float magicMult = 0, float charmMult = 0) : 
+        this(name, new DiceObject[] { die }, strengthMult, magicMult, charmMult) { }
+
+    /// <summary>
+    /// Creates a new attack with an array of dice.
+    /// </summary>
+    /// <param name="name"> The name of the attack. </param>
+    /// <param name="dice"> The dice that will get rolled with the attack. </param>
+    /// <param name="strengthMult"> The strength stat multiplier of the attack. </param>
+    /// <param name="magicMult"> The magic stat multiplier of the attack. </param>
+    /// <param name="charmMult"> The charm stat multiplier of the attack. </param>
+    public Attack(string name, DiceObject[] dice, float strengthMult = 0, float magicMult = 0, float charmMult = 0)
+    {
+        Name = name;
+        Dice = dice;
+        StrengthMultiplier = strengthMult;
+        MagicMultiplier = magicMult;
+        CharmMultiplier = charmMult;
+    }
+
+    public void AttackTarget(Combatant attacker, Combatant target)
+    {
+
+    }
 }

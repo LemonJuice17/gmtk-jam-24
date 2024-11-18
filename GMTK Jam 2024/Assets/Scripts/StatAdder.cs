@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StatAdder : MonoBehaviour
 {
-    public Attacks AttackToGive;
+    public Attack AttackToGive;
     [SerializeField] private Stats StatToGive;
     public int StatAmmount = 1;
 

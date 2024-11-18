@@ -33386,6 +33386,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48824,7 +48829,7 @@ MonoBehaviour:
   CombatUIPanelObjectReference: {fileID: 1236915266}
   CombatUINameText: {fileID: 1236915265}
   CombatUIDescriptionText: {fileID: 1236915264}
-  CombatUIPlayerOptionsObjectReference: {fileID: 1236915263}
+  CombatUIPlayerAttackOptionsObjectReference: {fileID: 1236915263}
   CombatUIPlayerOptionsTextPrefab: {fileID: 5127403480411222863, guid: 6ebbda8079e7a0247b2b29730772d691,
     type: 3}
   TurnOrderObjectReference: {fileID: 1236915262}

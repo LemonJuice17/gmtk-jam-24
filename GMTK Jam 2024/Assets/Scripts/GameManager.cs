@@ -27,11 +27,11 @@ public class GameManager : MonoBehaviour
     public Color UnselectedTextColour = Color.white;
     public Color SelectedTextColour = Color.green;
 
-    public Dice D6;
-    public Dice D8;
+    public DiceObject D6;
+    public DiceObject D8;
 
-    public SoundObject DiceRollup;
-    public SoundObject DiceRoll;
+    public SoundObject DiceRollupSFX;
+    public SoundObject DiceRollSFX;
 
     public SoundObject WalkSFX;
     public SoundObject AttackSFX;
@@ -54,16 +54,16 @@ public class GameManager : MonoBehaviour
     public void NormalMusic() => SnapshotNormal.TransitionTo(MusicTransitionTime);
     public void FightMusic() => SnapshotFight.TransitionTo(MusicTransitionTime);
 
-    public Dice CreateDie(int sides, Vector3 position)
+    public DiceObject CreateDice(int sides, Vector3 position, Transform parent = null)
     {
         switch (sides)
         {
             case 6:
                 if (D6 == null) throw new Exception($"An attempt to make a D6 has been made when the prefab for the D6 in the GameManager has not been set.");
-                return Instantiate(D6, position, Quaternion.identity);
+                return Instantiate(D6, position, Quaternion.identity, parent);
             case 8:
                 if (D8 == null) throw new Exception($"An attempt to make a D8 has been made when the prefab for the D8 in the GameManager has not been set.");
-                return Instantiate(D8, position, Quaternion.identity);
+                return Instantiate(D8, position, Quaternion.identity, parent);
             default:
                 throw new Exception($"A dice with {sides} sides does not currently exist within the GameManager.");
         }
