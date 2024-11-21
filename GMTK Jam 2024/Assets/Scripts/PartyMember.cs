@@ -28,6 +28,7 @@ public class PartyMember : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         Stats.OverworldObject = transform;
+        Stats.IsEnemy = false;
     }
 
     private void Start()

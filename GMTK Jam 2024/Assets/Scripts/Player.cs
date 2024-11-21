@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
         Input = GetComponent<PlayerInput>();
         Stats.OverworldObject = transform;
+        Stats.IsEnemy = false;
     }
 
     public void Update()

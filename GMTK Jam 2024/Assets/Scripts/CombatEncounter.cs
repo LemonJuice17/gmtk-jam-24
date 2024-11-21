@@ -11,14 +11,17 @@ using Random = UnityEngine.Random;
 
 public class CombatEncounter : MonoBehaviour
 {
-    public Dictionary<Combatant, int> Combatants = new();
+    /// <summary>
+    /// The list of all combatants taking part in the combat encounter.
+    /// The Player's party is added to this at the start of combat.
+    /// </summary>
+    public List<Combatant> Combatants = new();
+
+    /// <summary>
+    /// The combatants in the order that they will be fighting in.
+    /// Dead/defeated combatants are removed from this list.
+    /// </summary>
     [HideInInspector] public List<Combatant> CombatantOrder = new();
-    [HideInInspector] public List<Combatant> AllyCombatants = new();
-    public List<Combatant> EnemyCombatants;
-    // These are copied from the two lists above, but don't get changed.
-    // Used for references after combat is done.
-    [HideInInspector] public List<Combatant> Allies;
-    [HideInInspector] public List<Combatant> Enemies;
 
     public Vector3 AllyLineOffset = new (0, 0, -2);
     public Vector3 EnemyLineOffset = new (0, 0, 2);
@@ -82,31 +85,21 @@ public class CombatEncounter : MonoBehaviour
 
         UpdatePlayerAttackOptions();
 
-        CombatantOrder.Clear();
-        Combatants.Clear();
-        AllyCombatants.Clear();
+        if (Combatants.Count == 0) throw new Exception("Combat encounter doesn't have any enemies assigned to it. Add enemies to the Combatants list and try again.");
 
-        if (Enemies.Count != 0) EnemyCombatants = Enemies;
+        Combatants.Add(Player.instance.Stats);
 
-        AllyCombatants.Add(Player.instance.Stats);
+        GameObject.FindGameObjectsWithTag("Party Member").ToList().ForEach(obj => Combatants.Add(obj.GetComponent<PartyMember>().Stats));
 
-        GameObject.FindGameObjectsWithTag("Party Member").ToList().ForEach(obj => AllyCombatants.Add(obj.GetComponent<PartyMember>().Stats));
-
-        AllyCombatants.ForEach((ally) => Combatants.Add(ally, 0));
-        EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy, 0));
-
-        if (Allies.Count == 0) AllyCombatants.ForEach((ally) => Allies.Add(ally));
-        if (Enemies.Count == 0) EnemyCombatants.ForEach((enemy) => Enemies.Add(enemy));
-
-        foreach (var pair in Combatants)
+        foreach (var combatant in Combatants)
         {
-            pair.Key.HP = pair.Key.MaxHP;
+            combatant.HP = combatant.MaxHP;
         }
 
         GameManager.instance.FightMusic();
 
-        Invoke(nameof(PositionCombatants), 1);
-        Invoke(nameof(RollForInitiative), 2);
+        PositionCombatants();
+        RollForInitiative();
     }
 
     public void StopCombat()
@@ -118,13 +111,15 @@ public class CombatEncounter : MonoBehaviour
         
         _camera.Priority = 1;
 
-        for (int i = 0; i < Allies.Count; i++)
+        Combatant[] Allies = Combatants.Where(combatant => !combatant.IsEnemy).ToArray();
+
+        for (int i = 0; i < Allies.Length; i++)
         {
             Rigidbody rb = Allies[i].OverworldObject.GetComponent<Rigidbody>();
             rb.isKinematic = false;
             rb.freezeRotation = true;
             rb.velocity = Vector3.zero;
-            Allies[i].OverworldObject.transform.SetPositionAndRotation(transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), Quaternion.identity);
+            Allies[i].OverworldObject.transform.SetPositionAndRotation(transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Length + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), Quaternion.identity);
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
@@ -155,10 +150,10 @@ public class CombatEncounter : MonoBehaviour
     { 
         ClearPlayerAttackOptions();
 
-        foreach (Attacks attack in Player.instance.Stats.Attacks)
+        foreach (Attack attack in Player.instance.Stats.Attacks)
         {
             _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform));
-            _playerAttackText.Last().text = attack.ToString();
+            _playerAttackText.Last().text = attack.Name;
             _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
         }
     }
@@ -199,30 +194,24 @@ public class CombatEncounter : MonoBehaviour
     public void RollForInitiative()
     {
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
+        
         direction.Normalize();
 
         _rollsFinished = 0;
 
-        foreach (var combatant in AllyCombatants)
+        foreach (Combatant combatant in Combatants) 
         {
             DiceObject die = Instantiate(GameManager.instance.D6).GetComponent<DiceObject>();
+            direction *= combatant.IsEnemy ? -1 : 1;
             die.transform.position = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
             die.Roll(combatant);
-            die.RolledValue.AddListener(AddRollResult);
-        }
-
-        foreach (var combatant in EnemyCombatants)
-        {
-            DiceObject die = Instantiate(GameManager.instance.D6).GetComponent<DiceObject>();
-            die.transform.position = combatant.OverworldObject.transform.position - (transform.rotation * direction * DicePositionMultiplier);
-            die.Roll(combatant);
-            die.RolledValue.AddListener(AddRollResult);
+            die.CombatantRolledValue.AddListener(AddRollResult);
         }
     }
 
     private void AddRollResult(Combatant combatant, int result)
     {
-        Combatants[combatant] = result;
+        CombatantOrder.Add(combatant);
         _rollsFinished++;
         if (_rollsFinished == Combatants.Count) StartFightLoop();
     }
@@ -606,6 +595,8 @@ public class Combatant
     public GameObject CombatantPrefab;
 
     public List<Attack> Attacks;
+
+    [HideInInspector] public bool IsEnemy = true;
 }
 
 /*
