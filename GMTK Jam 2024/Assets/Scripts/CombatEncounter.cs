@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,8 +28,6 @@ public class CombatEncounter : MonoBehaviour
     public Vector3 EnemyLineOffset = new (0, 0, 2);
 
     public float CombatantSpacing = 1;
-
-    int _rollsFinished = 0;
 
     private CinemachineVirtualCamera _camera;
 
@@ -73,7 +72,7 @@ public class CombatEncounter : MonoBehaviour
         StartCombat();
     }
 
-    public void StartCombat()
+    public async void StartCombat()
     {
         Random.InitState(Environment.TickCount);
 
@@ -98,7 +97,7 @@ public class CombatEncounter : MonoBehaviour
 
         GameManager.instance.FightMusic();
 
-        PositionCombatants();
+        await PositionCombatants();
         RollForInitiative();
     }
 
@@ -158,11 +157,12 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-    private void PositionCombatants()
+    private async Task PositionCombatants()
     {
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         direction.Normalize();
 
+        /*
         for(int i = 0; i < AllyCombatants.Count; i++)
         {
             AllyCombatants[i].OverworldObject.transform.SetPositionAndRotation(
@@ -189,39 +189,38 @@ public class CombatEncounter : MonoBehaviour
                     Quaternion.LookRotation(transform.rotation * -direction, Vector3.up));
             }
         }
+        */
     }
 
-    public void RollForInitiative()
+    public async void RollForInitiative()
     {
         Vector3 direction = EnemyLineOffset - AllyLineOffset;
         
         direction.Normalize();
 
-        _rollsFinished = 0;
+       List<Task<KeyValuePair<Combatant, int>>> rolls = new();
 
         foreach (Combatant combatant in Combatants) 
         {
-            DiceObject die = Instantiate(GameManager.instance.D6).GetComponent<DiceObject>();
             direction *= combatant.IsEnemy ? -1 : 1;
-            die.transform.position = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
-            die.Roll(combatant);
-            die.CombatantRolledValue.AddListener(AddRollResult);
-        }
-    }
+            Vector3 diePosition = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
 
-    private void AddRollResult(Combatant combatant, int result)
-    {
-        CombatantOrder.Add(combatant);
-        _rollsFinished++;
-        if (_rollsFinished == Combatants.Count) StartFightLoop();
+            DiceObject die = GameManager.instance.CreateDice(6, diePosition);
+            rolls.Add(die.Roll(combatant));
+        }
+
+        await Task.WhenAll(rolls);
+
+        CombatantOrder = rolls.Select(task => task.Result)
+            .OrderByDescending(pair => pair.Value)
+            .Select(pair => pair.Key)
+            .ToList();
+
+        StartFightLoop();
     }
 
     private void StartFightLoop()
     {
-        CombatantOrder = Combatants.OrderByDescending(pair => pair.Value)
-                                   .Select(pair => pair.Key)
-                                   .ToList();
-
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GenerateIcons(CombatantOrder);
 
@@ -260,7 +259,7 @@ public class CombatEncounter : MonoBehaviour
 
         _currentTurnIndex++;
 
-        StartAttack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
+        // StartAttack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
     }
 
     public void PlayersTurn()
@@ -300,7 +299,7 @@ public class CombatEncounter : MonoBehaviour
         if (!GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.activeSelf) return;
 
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
-        StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
+        // StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
         InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
@@ -314,7 +313,7 @@ public class CombatEncounter : MonoBehaviour
     }
 
     #region Attacks
-
+    /*
     private Attacks _currentAttack;
     public void StartAttack(Combatant attacker, Attacks attack, Combatant victim = null)
     {
@@ -468,6 +467,8 @@ public class CombatEncounter : MonoBehaviour
         else if(diceModifier != 0) InvokeRepeating(nameof(FightLoop), FightLoopUpdateTime, FightLoopUpdateTime);
     }
 
+    
+
     private int _rollCount = 1;
     private int _currentRolls = 0;
     private int _currentRollTotal = 0;
@@ -576,52 +577,47 @@ public class CombatEncounter : MonoBehaviour
             return AllyCombatants[Random.Range(0, AllyCombatants.Count - 1)];
         }
     }
+    */
     #endregion Attacks
 }
 
 [Serializable]
 public class Combatant
 {
+    public string Name = "Unnamed Combatant";
+
+    [Space]
+
     public int MaxHP = 5;
-    public int HP = 5;
+    [HideInInspector] public int HP = 5;
+
+    [Space]
 
     public int Strength = 1;
     public int Magic = 1;
     public int Charm = 1;
 
+    [Space]
+
     public Sprite TurnOrderIcon;
+
+    [Space]
 
     public Transform OverworldObject;
     public GameObject CombatantPrefab;
+
+    [Space]
 
     public List<Attack> Attacks;
 
     [HideInInspector] public bool IsEnemy = true;
 }
 
-/*
-public enum Attacks
-{
-    Punch,
-    Stabs,
-    Slash,
-    Crush,
-    Taunt,
-    Mock,
-    Insult,
-    Seduce,
-    Blast,
-    Shrink,
-    Fireball,
-    Roll,
-    Snore
-}
-*/
-
 /// <summary>
 /// Represents an attack in combat.
 /// </summary>
-public class Attack
+[CreateAssetMenu(fileName = "New Attack", menuName = "Custom/Attack", order = 1)]
+[Serializable] public class Attack : ScriptableObject
 {
     /// <summary>
     /// The in-game display name of this attack.
@@ -630,7 +626,7 @@ public class Attack
     /// <summary>
     /// The dice that get rolled to calculate this attack's damage.
     /// </summary>
-    public DiceObject[] Dice;
+    public Dice[] Dice;
 
     /// <summary>
     /// How much the attacker's strength stat is taken and multiplied, before being added to the total attack damage.
@@ -653,8 +649,8 @@ public class Attack
     /// <param name="strengthMult"> The strength stat multiplier of the attack. </param>
     /// <param name="magicMult"> The magic stat multiplier of the attack. </param>
     /// <param name="charmMult"> The charm stat multiplier of the attack. </param>
-    public Attack(string name, DiceObject die, float strengthMult = 0, float magicMult = 0, float charmMult = 0) : 
-        this(name, new DiceObject[] { die }, strengthMult, magicMult, charmMult) { }
+    public Attack(string name, Dice die, float strengthMult = 0, float magicMult = 0, float charmMult = 0) : 
+        this(name, new Dice[] { die }, strengthMult, magicMult, charmMult) { }
 
     /// <summary>
     /// Creates a new attack with an array of dice.
@@ -664,7 +660,7 @@ public class Attack
     /// <param name="strengthMult"> The strength stat multiplier of the attack. </param>
     /// <param name="magicMult"> The magic stat multiplier of the attack. </param>
     /// <param name="charmMult"> The charm stat multiplier of the attack. </param>
-    public Attack(string name, DiceObject[] dice, float strengthMult = 0, float magicMult = 0, float charmMult = 0)
+    public Attack(string name, Dice[] dice, float strengthMult = 0, float magicMult = 0, float charmMult = 0)
     {
         Name = name;
         Dice = dice;
@@ -678,3 +674,22 @@ public class Attack
 
     }
 }
+
+/*
+public enum Attacks
+{
+    Punch,
+    Stabs,
+    Slash,
+    Crush,
+    Taunt,
+    Mock,
+    Insult,
+    Seduce,
+    Blast,
+    Shrink,
+    Fireball,
+    Roll,
+    Snore
+}
+*/

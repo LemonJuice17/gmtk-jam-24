@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,11 +37,6 @@ public class DiceObject : MonoBehaviour
     public UnityEvent<Combatant, int> CombatantRolledValue = new();
 
     /// <summary>
-    /// The combatant that threw this dice.
-    /// </summary>
-    public Combatant Thrower { get; private set; }
-
-    /// <summary>
     /// How many seconds after being the rolled the dice is deleted.
     /// </summary>
     public float DeleteAfterRoll = 1f;
@@ -54,32 +51,36 @@ public class DiceObject : MonoBehaviour
     /// Begins rolling the die.
     /// </summary>
     /// <param name="combatant"> The combatant that threw this die. </param>
-    public void Roll(Combatant combatant = null) => Roll(transform.forward, combatant);
+    public Task<KeyValuePair<Combatant, int>> Roll(Combatant combatant = null) => Roll(transform.forward, combatant);
     /// <summary>
     /// Begins rolling the die.
     /// </summary>
     /// <param name="throwDirection"> The direction the die is thrown in. </param>
     /// <param name="combatant"> The combatant that threw this die. </param>
-    public void Roll(Vector3 throwDirection, Combatant combatant = null)
+    public async Task<KeyValuePair<Combatant, int>> Roll(Vector3 throwDirection, Combatant combatant = null)
     {
-        Invoke(nameof(StopRoll), ForceStopTimeout);
-        InvokeRepeating(nameof(StopCheck), 0.5f, 0.1f);
-
         if (GameManager.instance.DiceRollupSFX != null) Instantiate(GameManager.instance.DiceRollupSFX);
 
         transform.rotation = Random.rotation;
 
         rigidbody.AddForce(throwDirection.normalized * ThrowMagnitude, ForceMode.Impulse);
 
-        Thrower = combatant;
+        StopCheck();
+        await Task.Delay((int)(ForceStopTimeout * 1000));
+        return new KeyValuePair<Combatant, int> (combatant, StopRoll());
     }
 
     /// <summary>
     /// Checks the die's curent velocity magnitude and stops it if it's below the VelocityMagnitudeStopLimit.
     /// </summary>
-    private void StopCheck()
+    private async void StopCheck()
     {
-        if (rigidbody.velocity.magnitude < VelocityMagnitudeStopLimit) StopRoll();
+        while (rigidbody.velocity.magnitude > VelocityMagnitudeStopLimit)
+        {
+            await Task.Yield();
+        }
+
+        StopRoll();
     }
 
     /// <summary>
@@ -106,16 +107,9 @@ public class DiceObject : MonoBehaviour
             }
         }
 
-        CancelInvoke(nameof(StopCheck));
-
-        int rolledValue = SideValues[closestIndex];
-
-        RolledValue.Invoke(rolledValue);
-        CombatantRolledValue.Invoke(Thrower, rolledValue);
-
         Destroy(gameObject, DeleteAfterRoll);
 
-        return rolledValue;
+        return SideValues[closestIndex];
     }
 
     // Plays roll SFX when touching surfaces.

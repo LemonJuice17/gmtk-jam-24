@@ -35622,17 +35622,23 @@ PrefabInstance:
     - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
       propertyPath: Stats.Attacks.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
       propertyPath: Stats.Attacks.Array.data[0]
-      value: 2
-      objectReference: {fileID: 0}
+      value: 
+      objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
+        type: 2}
     - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
       propertyPath: Stats.Attacks.Array.data[1]
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324825277392173790, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0].Name
+      value: Stab
       objectReference: {fileID: 0}
     - target: {fileID: 3397956439692402102, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
@@ -52996,6 +53002,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
+      propertyPath: Combatants.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].HP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Name
+      value: Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Charm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Magic
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].MaxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Strength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].TurnOrderIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a,
+        type: 3}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].CombatantPrefab
+      value: 
+      objectReference: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Attacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: Combatants.Array.data[0].Attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
+        type: 2}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
       propertyPath: OnVictory.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -53144,17 +53208,18 @@ PrefabInstance:
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
       propertyPath: Stats.Attacks.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
       propertyPath: Stats.Attacks.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
+      value: 
+      objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
+        type: 2}
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
       propertyPath: Stats.Attacks.Array.data[1]
-      value: 0
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3681616670974967185, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53313,6 +53378,38 @@ PrefabInstance:
         type: 3}
       propertyPath: Stats.Attacks.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
+        type: 2}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
+        type: 2}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0].Name
+      value: Stab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0].Dice.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0].StrengthMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: Stats.Attacks.Array.data[0].Dice.Array.data[0].Sides
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7796748452159238151, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
