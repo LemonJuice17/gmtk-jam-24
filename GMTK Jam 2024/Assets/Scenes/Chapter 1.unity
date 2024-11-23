@@ -6463,6 +6463,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 314070172}
     m_Modifications:
+    - target: {fileID: 1727166472892365339, guid: b8db3a92e4e084fa7b3d065df877dfa7,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -3.002436
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727166472892365339, guid: b8db3a92e4e084fa7b3d065df877dfa7,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193877148713340081, guid: b8db3a92e4e084fa7b3d065df877dfa7,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -1.052662
+      objectReference: {fileID: 0}
     - target: {fileID: 7371797330891403269, guid: b8db3a92e4e084fa7b3d065df877dfa7,
         type: 3}
       propertyPath: m_Name
@@ -10559,6 +10574,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 314070172}
     m_Modifications:
+    - target: {fileID: 2267656354342935240, guid: d081f51a266dc8a43b7df0427dc5a9d6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: -2.726232
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735223933254463617, guid: d081f51a266dc8a43b7df0427dc5a9d6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: -1.177813
+      objectReference: {fileID: 0}
     - target: {fileID: 4855496855011101960, guid: d081f51a266dc8a43b7df0427dc5a9d6,
         type: 3}
       propertyPath: m_Name
@@ -26337,6 +26362,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b2a082a0897a00847901f2ec365592aa, type: 2}
+    - target: {fileID: 2267656354342935240, guid: d081f51a266dc8a43b7df0427dc5a9d6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: -2.726232
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735223933254463617, guid: d081f51a266dc8a43b7df0427dc5a9d6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: -1.177813
+      objectReference: {fileID: 0}
     - target: {fileID: 4855496855011101960, guid: d081f51a266dc8a43b7df0427dc5a9d6,
         type: 3}
       propertyPath: m_Name
@@ -45348,11 +45383,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 314070172}
     m_Modifications:
+    - target: {fileID: 690907357898991251, guid: 1709fe01698d8834aaff70a872cd9691,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -2.069478
+      objectReference: {fileID: 0}
     - target: {fileID: 897736869942710517, guid: 1709fe01698d8834aaff70a872cd9691,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5ac2b1dcc9c04634abd50ed65d609d69, type: 2}
+    - target: {fileID: 3027870724465557094, guid: 1709fe01698d8834aaff70a872cd9691,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -1.052662
+      objectReference: {fileID: 0}
     - target: {fileID: 4185472024119929501, guid: 1709fe01698d8834aaff70a872cd9691,
         type: 3}
       propertyPath: m_Name
@@ -45412,6 +45457,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293825492395887834, guid: 1709fe01698d8834aaff70a872cd9691,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -1.194526
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496271073404750028, guid: 1709fe01698d8834aaff70a872cd9691,
+        type: 3}
+      propertyPath: m_Size.z
+      value: -3.002436
       objectReference: {fileID: 0}
     - target: {fileID: 7784984868539567514, guid: 1709fe01698d8834aaff70a872cd9691,
         type: 3}
@@ -48839,10 +48894,8 @@ MonoBehaviour:
   SelectedTextColour: {r: 0, g: 1, b: 0, a: 1}
   D6: {fileID: 6487051524412238914, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
   D8: {fileID: 4290027097604764348, guid: 84597de8bb4d3ad4581497541237c849, type: 3}
-  DiceRollup: {fileID: 5168560046967374483, guid: 85d6c6cf67a96914c9501b186f3ed08b,
-    type: 3}
-  DiceRoll: {fileID: 5168560046967374483, guid: 27f0ef9febfac4ffcadf9a0ad5825527,
-    type: 3}
+  DiceRollupSFX: {fileID: 0}
+  DiceRollSFX: {fileID: 0}
   WalkSFX: {fileID: 5168560046967374483, guid: d3b23a574ad6320428d72c5e7a9bd671, type: 3}
   AttackSFX: {fileID: 5168560046967374483, guid: 5171cdcbba6c39e48b70185f925f1c71,
     type: 3}
@@ -51444,20 +51497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Combatants: []
   CombatantOrder: []
-  AllyCombatants: []
-  EnemyCombatants:
-  - MaxHP: 0
-    HP: 0
-    Strength: 0
-    Magic: 0
-    Charm: 0
-    TurnOrderIcon: {fileID: 0}
-    OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 0}
-    Attacks: 
-  Allies: []
-  Enemies: []
   AllyLineOffset: {x: 0, y: 0, z: -2}
   EnemyLineOffset: {x: 0, y: 0, z: 2}
   CombatantSpacing: 1
