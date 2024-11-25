@@ -53197,6 +53197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
+      propertyPath: Stats.Name
+      value: Gillbert
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
       propertyPath: Stats.Magic
       value: 2
       objectReference: {fileID: 0}
@@ -53204,6 +53209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Stats.MaxHP
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: FollowLoopRepetitionTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53220,6 +53230,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Stats.Attacks.Array.data[1]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: StopWalkingAnimationCutoffDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3681616670974967185, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53366,6 +53381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
+      propertyPath: Stats.Name
+      value: Cattank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
       propertyPath: Stats.Charm
       value: 2
       objectReference: {fileID: 0}
@@ -53373,6 +53393,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Stats.MaxHP
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: FollowLoopRepetitionTime
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
@@ -53395,6 +53420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Stats.Attacks.Array.data[0].Name
       value: Stab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: StopWalkingAnimationCutoffDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}

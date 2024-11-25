@@ -23,7 +23,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayWalkSound()
     {
-        Instantiate(GameManager.instance?.WalkSFX);
+        if(GameManager.instance.WalkSFX != null) Instantiate(GameManager.instance.WalkSFX);
     }
 
     public void PlayAttackSound()
