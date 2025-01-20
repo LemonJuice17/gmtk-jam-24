@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : Walkable
 {
     public Combatant Stats;
 
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     public PlayerInput Input { get; private set; }
 
-    public void Awake()
+    new internal void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(this);
@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerInput>();
         Stats.OverworldObject = transform;
         Stats.IsEnemy = false;
+
+        base.Awake();
+        Agent.enabled = false;
     }
 
     public void Update()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PartyMember : MonoBehaviour
+public class PartyMember : Walkable
 {
     public Combatant Stats;
 
@@ -20,8 +20,6 @@ public class PartyMember : MonoBehaviour
     /// </summary>
     public float FollowLoopRepetitionTime = 0.2f;
 
-    private NavMeshAgent _agent;
-
     private bool _stayStill = false;
 
     /// <summary>
@@ -31,9 +29,9 @@ public class PartyMember : MonoBehaviour
 
     private bool _isWalking;
 
-    private void Awake()
+    new internal void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        base.Awake();
         Stats.OverworldObject = transform;
         Stats.IsEnemy = false;
     }
@@ -49,7 +47,7 @@ public class PartyMember : MonoBehaviour
 
         // Ensure ChangeMoving is only broadcast once when changing from one state to another.
         bool wasWalking = _isWalking;
-        _isWalking = _agent.remainingDistance > _stopWalkingAnimationCutoffDistance;
+        _isWalking = Agent.remainingDistance > _stopWalkingAnimationCutoffDistance;
 
         if (wasWalking != _isWalking)
         {
@@ -60,7 +58,7 @@ public class PartyMember : MonoBehaviour
 
     public void StartFollowLoop()
     {
-        _agent.isStopped = false;
+        Agent.isStopped = false;
         _stayStill = false;
         _targetPosition = GetNewTargetPosition();
         InvokeRepeating(nameof(FollowLoop), FollowLoopRepetitionTime, FollowLoopRepetitionTime);
@@ -68,11 +66,8 @@ public class PartyMember : MonoBehaviour
 
     public void StopFollowLoop()
     {
-        // For some reason it suddenly started teleporting to the destination when stopping.
-        // No fucking idea why but this fixes it so :P
-        _agent.SetDestination(transform.position);
         CancelInvoke(nameof(FollowLoop));
-        _agent.isStopped = true;
+        Agent.isStopped = true;
         _stayStill = true;
         BroadcastMessage("ChangeMoving", false);
     }
@@ -81,8 +76,7 @@ public class PartyMember : MonoBehaviour
     {
         if(GetDistanceFromTargetPosition() > FollowDistance)
         {
-            _targetPosition = GetNewTargetPosition();
-            _agent.SetDestination(_targetPosition);
+            TargetPosition = GetNewTargetPosition();
         }
     }
 

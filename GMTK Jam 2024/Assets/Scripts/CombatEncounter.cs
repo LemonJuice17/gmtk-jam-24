@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -24,9 +26,13 @@ public class CombatEncounter : MonoBehaviour
     /// </summary>
     [HideInInspector] public List<Combatant> CombatantOrder = new();
 
-    public Vector3 AllyLineOffset = new (0, 0, -2);
-    public Vector3 EnemyLineOffset = new (0, 0, 2);
-
+    /// <summary>
+    /// How many units away from this object combatants are positioned in-world during combat.
+    /// </summary>
+    public float CombatantPositioningOffset = 2;
+    /// <summary>
+    /// How many units combatants of the same side are spaced between each other.
+    /// </summary>
     public float CombatantSpacing = 1;
 
     private CinemachineVirtualCamera _camera;
@@ -67,10 +73,12 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(false);
     }
 
+    /*
     public void StartCombat(Dialogue dialogue)
     {
         StartCombat();
     }
+    */
 
     public async void StartCombat()
     {
@@ -118,7 +126,7 @@ public class CombatEncounter : MonoBehaviour
             rb.isKinematic = false;
             rb.freezeRotation = true;
             rb.velocity = Vector3.zero;
-            Allies[i].OverworldObject.transform.SetPositionAndRotation(transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Length + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), Quaternion.identity);
+            //Allies[i].OverworldObject.transform.SetPositionAndRotation(transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Length + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0))), Quaternion.identity);
             if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
         }
 
@@ -159,9 +167,47 @@ public class CombatEncounter : MonoBehaviour
 
     private async Task PositionCombatants()
     {
-        Vector3 direction = EnemyLineOffset - AllyLineOffset;
-        direction.Normalize();
+        List<Combatant> allies = new();
+        List<Combatant> enemies = new();
 
+        foreach(Combatant combatant in Combatants)
+        {
+            if(combatant.IsEnemy)
+            {
+                enemies.Add(combatant);
+            }
+
+            else
+            {
+                allies.Add(combatant);
+            }
+        }
+
+        List<Vector3> allyLocalPositions = new();
+        List<Vector3> enemyLocalPositions = new();
+
+        for(int i = 0; i < allies.Count; i++)
+        {
+            float horizontalOffset = (CombatantSpacing * 0.5f) * (allies.Count - 1) + (i * CombatantSpacing);
+            Vector3 newPosition = new(horizontalOffset, 0, -CombatantPositioningOffset);
+            allyLocalPositions.Add(newPosition);
+        }
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            float horizontalOffset = (CombatantSpacing * 0.5f) * (enemies.Count - 1) + (i * CombatantSpacing);
+            Vector3 newPosition = new(horizontalOffset, 0, CombatantPositioningOffset);
+            enemyLocalPositions.Add(newPosition);
+        }
+
+        List<Combatant> worldEnemies = enemies.Where(enemy => enemy.OverworldObject != null).ToList();
+
+        if(worldEnemies.Count > 0)
+        {
+            await MoveWorldCombatants(enemies, enemyLocalPositions);
+        }
+
+        Debug.Log("At Least we got to here I guess");
         /*
         for(int i = 0; i < AllyCombatants.Count; i++)
         {
@@ -192,17 +238,43 @@ public class CombatEncounter : MonoBehaviour
         */
     }
 
+    public void SpawnEnemy(Combatant enemy, Vector3 position)
+    {
+        Instantiate(enemy.CombatantPrefab, position, Quaternion.identity, transform);
+    }
+
+    /// <summary>
+    /// Moves combatants to their given positions using NavMeshAgents.
+    /// </summary>
+    public async Task MoveWorldCombatants(List<Combatant> combatants, List<Vector3> positions) => await MoveWorldCombatants(combatants.Zip(positions, (key, value) => new KeyValuePair<Combatant, Vector3>(key, value)).ToList());
+    /// <summary>
+    /// Moves combatants to their given positions using NavMeshAgents.
+    /// </summary>
+    public async Task MoveWorldCombatants(List<KeyValuePair<Combatant, Vector3>> combatantPositions) 
+    {
+        Task[] moveTasks = new Task[combatantPositions.Count];
+        for (int i = 0; i < combatantPositions.Count; i++)
+        {
+            combatantPositions[i].Key.OverworldObject.TryGetComponent(out Walkable walkable);
+            if(walkable == null)
+            {
+                walkable = combatantPositions[i].Key.OverworldObject.AddComponent<Walkable>();
+            }
+
+            moveTasks[i] = walkable.WalkToPosition(combatantPositions[i].Value);
+        }
+
+        await Task.WhenAll(moveTasks);
+    }
+
     public async void RollForInitiative()
     {
-        Vector3 direction = EnemyLineOffset - AllyLineOffset;
-        
-        direction.Normalize();
 
        List<Task<KeyValuePair<Combatant, int>>> rolls = new();
 
         foreach (Combatant combatant in Combatants) 
         {
-            direction *= combatant.IsEnemy ? -1 : 1;
+            Vector3 direction = combatant.IsEnemy ? -Vector3.forward : Vector3.forward;
             Vector3 diePosition = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
 
             DiceObject die = GameManager.instance.CreateDice(6, diePosition);
@@ -306,10 +378,10 @@ public class CombatEncounter : MonoBehaviour
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + (transform.rotation * AllyLineOffset), 0.5f);
+        //Gizmos.DrawWireSphere(transform.position + (transform.rotation * AllyLineOffset), 0.5f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + (transform.rotation * EnemyLineOffset), 0.5f);
+        //Gizmos.DrawWireSphere(transform.position + (transform.rotation * EnemyLineOffset), 0.5f);
     }
 
     #region Attacks
@@ -669,10 +741,12 @@ public class Combatant
         CharmMultiplier = charmMult;
     }
 
+    /*
     public void AttackTarget(Combatant attacker, Combatant target)
     {
 
     }
+    */
 }
 
 /*
