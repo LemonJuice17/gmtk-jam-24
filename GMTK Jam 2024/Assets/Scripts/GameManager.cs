@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
 
     public Image BlackScreenReference;
 
+    /// <summary>
+    /// A "poof" particle system effect for when things are instantiated.
+    /// </summary>
+    public ParticleSystem InstantiationPoofEffect;
+
     public static GameManager instance;
 
     private void Awake()

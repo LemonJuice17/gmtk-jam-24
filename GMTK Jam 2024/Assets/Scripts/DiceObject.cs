@@ -5,7 +5,13 @@ using UnityEngine.Events;
 
 public class DiceObject : MonoBehaviour
 {
+    /// <summary>
+    /// A list of vectors representing the normal direction of each side.
+    /// </summary>
     public Vector3[] Sides;
+    /// <summary>
+    /// The value of each side from the Sides list by corresponding index.
+    /// </summary>
     public int[] SideValues;
 
     /// <summary>
@@ -31,10 +37,6 @@ public class DiceObject : MonoBehaviour
     /// An event that's called with the rolled value once the roll is finished.
     /// </summary>
     public UnityEvent<int> RolledValue = new();
-    /// <summary>
-    /// An event that's called with the rolled value once the roll is finished, as well as the combatant that made the roll.
-    /// </summary>
-    public UnityEvent<Combatant, int> CombatantRolledValue = new();
 
     /// <summary>
     /// How many seconds after being the rolled the dice is deleted.
@@ -51,13 +53,13 @@ public class DiceObject : MonoBehaviour
     /// Begins rolling the die.
     /// </summary>
     /// <param name="combatant"> The combatant that threw this die. </param>
-    public Task<KeyValuePair<Combatant, int>> Roll(Combatant combatant = null) => Roll(transform.forward, combatant);
+    public Task<int> Roll() => Roll(transform.forward);
     /// <summary>
     /// Begins rolling the die.
     /// </summary>
     /// <param name="throwDirection"> The direction the die is thrown in. </param>
     /// <param name="combatant"> The combatant that threw this die. </param>
-    public async Task<KeyValuePair<Combatant, int>> Roll(Vector3 throwDirection, Combatant combatant = null)
+    public async Task<int> Roll(Vector3 throwDirection)
     {
         if (GameManager.instance.DiceRollupSFX != null) Instantiate(GameManager.instance.DiceRollupSFX);
 
@@ -67,7 +69,7 @@ public class DiceObject : MonoBehaviour
 
         StopCheck();
         await Task.Delay((int)(ForceStopTimeout * 1000));
-        return new KeyValuePair<Combatant, int> (combatant, StopRoll());
+        return StopRoll();
     }
 
     /// <summary>

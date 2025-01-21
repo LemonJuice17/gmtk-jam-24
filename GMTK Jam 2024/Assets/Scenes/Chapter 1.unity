@@ -14296,6 +14296,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectToDestroy: {fileID: 488302215}
+--- !u!114 &488302218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 726004526338211347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488302211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &489038763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33384,47 +33396,47 @@ PrefabInstance:
     - target: {fileID: 7465963707326527358, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 363.58
       objectReference: {fileID: 0}
     - target: {fileID: 7465963707326527358, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 64.490005
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 323.58
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 49.490005
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 181.79
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -34.745003
       objectReference: {fileID: 0}
     - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35738,7 +35750,7 @@ PrefabInstance:
     - target: {fileID: 6076702212409267248, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
       propertyPath: m_Radius
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6076702212409267248, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
@@ -51543,20 +51555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combatants: []
-  CombatantOrder: []
-  CombatantPositioningOffset: 2
-  CombatantSpacing: 1
-  DicePositionMultiplier: 2.5
-  FightLoopUpdateTime: 0.1
-  _currentTurnIndex: 0
-  OnVictory:
-    m_PersistentCalls:
-      m_Calls: []
-  OnLoss:
-    m_PersistentCalls:
-      m_Calls: []
-  DeathExplosionForce: 100
 --- !u!1001 &2086974606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53157,6 +53155,41 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.029947283
       objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 488302218}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartEncounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CombatEncounter, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559509620103532251, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -53282,6 +53315,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
+      propertyPath: RelativePlayerFollowPosition.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
+      propertyPath: RelativePlayerFollowPosition.z
+      value: -1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263873817198176368, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
       propertyPath: StopWalkingAnimationCutoffDistance
       value: 0.1
       objectReference: {fileID: 0}
@@ -53307,8 +53350,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
+      propertyPath: m_Speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
       propertyPath: m_Radius
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53317,8 +53365,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
+      propertyPath: m_Acceleration
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
+        type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.01
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9167310437338978077, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53396,8 +53449,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
       propertyPath: m_Radius
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
@@ -53406,8 +53464,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
+      propertyPath: m_Acceleration
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.01
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4391024674978315148, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
@@ -53481,6 +53544,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c96408af3d0312648adf687d934ae318,
         type: 2}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: RelativePlayerFollowPosition.x
+      value: -1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
+        type: 3}
+      propertyPath: RelativePlayerFollowPosition.z
+      value: -2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6741052870573473159, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
       propertyPath: Stats.Attacks.Array.data[0].Name

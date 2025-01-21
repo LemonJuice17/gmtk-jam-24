@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Player : Walkable
 {
-    public Combatant Stats;
-
     public float MoveSpeed = 2;
 
     private Vector3 _currentMoveDirection;
@@ -21,8 +19,6 @@ public class Player : Walkable
         else Destroy(this);
 
         Input = GetComponent<PlayerInput>();
-        Stats.OverworldObject = transform;
-        Stats.IsEnemy = false;
 
         base.Awake();
         Agent.enabled = false;
@@ -43,23 +39,29 @@ public class Player : Walkable
     {
         CurrentInteractable?.OnInteract();
     }
+
+
+
     // ---- Dialogue Action Map Input Handling ---- //
     public void OnContinue()
     {
         CurrentInteractable?.OnInteract();
     }
+
+
+
     // ---- Combat Action Map Input Handling ---- //
     public void OnLeft()
     {
-        CombatEncounter.InputLeft.Invoke();
+        //CombatEncounter.InputLeft.Invoke();
     }
     public void OnRight()
     {
-        CombatEncounter.InputRight.Invoke();
+        //CombatEncounter.InputRight.Invoke();
     }
     public void OnSelect()
     {
-        CombatEncounter.InputSelect.Invoke();
+        //CombatEncounter.InputSelect.Invoke();
     }
     #endregion Action Map Input Handling
 
