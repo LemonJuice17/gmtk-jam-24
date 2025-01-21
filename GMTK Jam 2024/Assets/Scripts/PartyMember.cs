@@ -1,103 +1,54 @@
+using MoreMountains.Tools;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PartyMember : Walkable
 {
-    public Combatant Stats;
-
-    public Vector3 PlayerFollowPosition = new (1, 0, -1.5f);
-    public Vector3 MaxFollowDeviation = new (0.5f, 0, 1f);
+    /// <summary>
+    /// The position relative to the player that this party member will try to follow.
+    /// </summary>
+    public Vector3 RelativePlayerFollowPosition;
 
     /// <summary>
-    /// What distance away from the player does the member have to be before recalculating their position.
+    /// How far away does the player have to get before this party member starts moving towards the player.
     /// </summary>
-    public float FollowDistance = 2;
+    public float DistanceBeforeMoving = 2.5f;
 
-    private Vector3 _targetPosition;
+    private Coroutine _distanceCheck;
 
-    /// <summary>
-    /// How many seconds between each repetition of the follow loop.
-    /// </summary>
-    public float FollowLoopRepetitionTime = 0.2f;
-
-    private bool _stayStill = false;
-
-    /// <summary>
-    /// Stops the walking animation once the agent reaches this distance from their target destination.
-    /// </summary>
-    private static readonly float _stopWalkingAnimationCutoffDistance = 0.25f;
-
-    private bool _isWalking;
-
-    new internal void Awake()
+    public void Start()
     {
-        base.Awake();
-        Stats.OverworldObject = transform;
-        Stats.IsEnemy = false;
+        _distanceCheck = StartCoroutine(DistanceCheck());
     }
 
-    private void Start()
+    private IEnumerator DistanceCheck()
     {
-        StartFollowLoop();
-    }
+        yield return null;
 
-    private void Update()
-    {
-        if (_stayStill) return;
-
-        // Ensure ChangeMoving is only broadcast once when changing from one state to another.
-        bool wasWalking = _isWalking;
-        _isWalking = Agent.remainingDistance > _stopWalkingAnimationCutoffDistance;
-
-        if (wasWalking != _isWalking)
+        bool stand = true;
+        while (stand)
         {
-            BroadcastMessage("ChangeMoving", _isWalking);
-            //Debug.Log($"Moving is {_isWalking} because {Stats.Name} is {_agent.remainingDistance} from it's target location of {_agent.destination}.");
+            if (GetDistanceFromPlayer() >= DistanceBeforeMoving)
+            {
+                stand = false;
+                FollowPlayer();
+            }
+
+            else
+            {
+                BroadcastMessage("ChangeMoving", false);
+                yield return null;
+            }
         }
     }
 
-    public void StartFollowLoop()
+    private async void FollowPlayer()
     {
-        Agent.isStopped = false;
-        _stayStill = false;
-        _targetPosition = GetNewTargetPosition();
-        InvokeRepeating(nameof(FollowLoop), FollowLoopRepetitionTime, FollowLoopRepetitionTime);
-    }
-
-    public void StopFollowLoop()
-    {
-        CancelInvoke(nameof(FollowLoop));
-        Agent.isStopped = true;
-        _stayStill = true;
-        BroadcastMessage("ChangeMoving", false);
-    }
-
-    private void FollowLoop()
-    {
-        if(GetDistanceFromTargetPosition() > FollowDistance)
-        {
-            TargetPosition = GetNewTargetPosition();
-        }
-    }
-
-    private Vector3 GetNewTargetPosition()
-    {
-        Vector3 newTargetPosition =
-            Player.instance.transform.position +
-            PlayerFollowPosition +
-            new Vector3(Random.Range(-MaxFollowDeviation.x, MaxFollowDeviation.x), 0, Random.Range(-MaxFollowDeviation.z, MaxFollowDeviation.z));
-
-        if ((newTargetPosition - transform.position).magnitude > 0.5f)
-        {
-            return newTargetPosition;
-        }
-
-        else
-        {
-            return transform.position;
-        }
+        BroadcastMessage("ChangeMoving", true);
+        await WalkToPosition(Player.instance.transform.position + RelativePlayerFollowPosition, true);
+        _distanceCheck = StartCoroutine(DistanceCheck());
     }
 
     public float GetDistanceFromPlayer() => Vector3.Distance(transform.position, Player.instance.transform.position);
-    public float GetDistanceFromTargetPosition() => Vector3.Distance(_targetPosition, Player.instance.transform.position);
 }
