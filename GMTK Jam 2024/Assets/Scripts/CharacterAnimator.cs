@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+public class CharacterAnimator : MonoBehaviour
 {
-    private Animator _playerAnimator;
+    private Animator _characterAnimator;
 
     private void Awake()
     {
-        _playerAnimator = GetComponent<Animator>();
+        _characterAnimator = GetComponent<Animator>();
     }
 
     void Attack()
     {
-        _playerAnimator.SetTrigger("Attack");
+        _characterAnimator.SetTrigger("Attack");
     }
 
     void ChangeMoving(bool isMoving)
     {
-        _playerAnimator.SetBool("IsWalking", isMoving);
+        _characterAnimator.SetBool("IsWalking", isMoving);
     }
 
     public void PlayWalkSound()
