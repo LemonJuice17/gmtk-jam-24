@@ -1,6 +1,4 @@
-using MoreMountains.Tools;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class PartyMember : Walkable
@@ -15,23 +13,31 @@ public class PartyMember : Walkable
     /// </summary>
     public float DistanceBeforeMoving = 2.5f;
 
-    private Coroutine _distanceCheck;
+    public bool FollowingPlayer = true;
 
     public void Start()
     {
-        _distanceCheck = StartCoroutine(DistanceCheck());
+        StartCoroutine(DistanceCheck());
     }
 
     private IEnumerator DistanceCheck()
     {
         yield return null;
 
-        bool stand = true;
-        while (stand)
+        bool notMoving = true;
+        while (notMoving)
         {
+            if (!FollowingPlayer)
+            {
+                notMoving = true;
+                BroadcastMessage("ChangeMoving", false);
+                Agent.isStopped = true;
+                break;
+            }
+
             if (GetDistanceFromPlayer() >= DistanceBeforeMoving)
             {
-                stand = false;
+                notMoving = false;
                 FollowPlayer();
             }
 
@@ -46,8 +52,8 @@ public class PartyMember : Walkable
     private async void FollowPlayer()
     {
         BroadcastMessage("ChangeMoving", true);
-        await WalkToPosition(Player.instance.transform.position + RelativePlayerFollowPosition, true);
-        _distanceCheck = StartCoroutine(DistanceCheck());
+        await WalkToPosition(Player.instance.transform.position + RelativePlayerFollowPosition);
+        StartCoroutine(DistanceCheck());
     }
 
     public float GetDistanceFromPlayer() => Vector3.Distance(transform.position, Player.instance.transform.position);

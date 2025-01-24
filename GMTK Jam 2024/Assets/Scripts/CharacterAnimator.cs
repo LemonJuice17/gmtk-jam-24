@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
@@ -9,11 +10,13 @@ public class CharacterAnimator : MonoBehaviour
         _characterAnimator = GetComponent<Animator>();
     }
 
+    [UsedImplicitly]
     void Attack()
     {
         _characterAnimator.SetTrigger("Attack");
     }
 
+    [UsedImplicitly]
     void ChangeMoving(bool isMoving)
     {
         _characterAnimator.SetBool("IsWalking", isMoving);

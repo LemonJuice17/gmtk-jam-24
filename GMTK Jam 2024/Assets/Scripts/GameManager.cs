@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public PartyMember CattankReference;
+    public PartyMember GilbertReference;
+
     public GameObject CombatUIObjectReference; // The entire combat UI
     public GameObject CombatUIPanelObjectReference; // The panel at the bottom during combat
     public TMP_Text CombatUINameText; // The name of the current combatant
