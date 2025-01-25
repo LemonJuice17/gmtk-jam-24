@@ -35837,6 +35837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6076702212409267248, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076702212409267248, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
+        type: 3}
       propertyPath: m_Acceleration
       value: 10
       objectReference: {fileID: 0}
@@ -35848,7 +35853,7 @@ PrefabInstance:
     - target: {fileID: 6076702212409267248, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6193574955009236331, guid: 7c3e1c9aa6e9c4043950f5758b8a97b1,
         type: 3}
@@ -53398,6 +53403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
+      propertyPath: ShowCombatPositionGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
       propertyPath: RelativeCattankPosition.x
       value: -0.68
       objectReference: {fileID: 0}
@@ -53786,7 +53796,7 @@ PrefabInstance:
     - target: {fileID: 6182317116847132020, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9167310437338978077, guid: 0540e1de400fd4f22a56108491c54f17,
         type: 3}
@@ -53897,7 +53907,7 @@ PrefabInstance:
     - target: {fileID: 2958901190971132586, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4391024674978315148, guid: 925665ed53013472e966d7b99de45f27,
         type: 3}

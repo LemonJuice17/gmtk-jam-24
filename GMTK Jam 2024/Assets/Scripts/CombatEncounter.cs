@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using static Walkable;
 
 public class CombatEncounter : MonoBehaviour
 {
@@ -15,20 +16,27 @@ public class CombatEncounter : MonoBehaviour
 
     public bool ShowCombatPositionGizmos;
 
+    private PartyMember _cattank;
+    private PartyMember _gilbert;
+
     public async void StartEncounter()
     {
-        Player.instance.Input.SwitchCurrentActionMap("combat");
+        Player.instance.Input.SwitchCurrentActionMap("Combat");
 
         await InstantiateEnemies(EnemySpawnTime);
 
-        GameManager.instance.CattankReference.FollowingPlayer = false;
-        GameManager.instance.GilbertReference.FollowingPlayer = false;
+        _cattank = GameManager.instance.CattankReference;
+        _gilbert = GameManager.instance.GilbertReference;
 
         Task[] moveToPositionTasks = new Task[3];
 
-        moveToPositionTasks[0] = GameManager.instance.CattankReference.WalkToPosition(transform.position + RelativeCattankPosition);
-        moveToPositionTasks[1] = Player.instance.WalkToPosition(transform.position + RelativePlayerPosition);
-        moveToPositionTasks[2] = GameManager.instance.GilbertReference.WalkToPosition(transform.position + RelativeGilbertPosition);
+        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
+        Player.instance.CurrentWalkMode = new WalkToPoint(Player.instance, transform.position + RelativePlayerPosition);
+        _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, transform.position + RelativeGilbertPosition);
+
+        moveToPositionTasks[0] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[1] = (Player.instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[2] = (_gilbert.CurrentWalkMode as WalkToPoint).WaitForCompletion;
 
         await Task.WhenAll(moveToPositionTasks);
 
