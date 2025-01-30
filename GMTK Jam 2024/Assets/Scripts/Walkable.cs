@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +11,7 @@ public class Walkable : MonoBehaviour
 {
     public NavMeshAgent Agent { get; private set; }
     public WalkMode CurrentWalkMode;
+    internal Coroutine _walkModeCoroutine;
 
     internal void Awake()
     {
@@ -28,11 +28,8 @@ public class Walkable : MonoBehaviour
         public WalkMode(Walkable walker)
         {
             Walker = walker;
-
-            if (Walker.Agent.enabled)
-            {
-                Walker.Agent.isStopped = true;
-            }
+            Walker.Agent.enabled = true;
+            Walker.StopAllCoroutines();
         }
     }
 
@@ -43,7 +40,8 @@ public class Walkable : MonoBehaviour
     {
         public StandStill(Walkable walker) : base(walker)
         {
-            Walker.Agent.SetDestination(Walker.transform.position);
+            Walker.Agent.isStopped = true;
+            Walker.Agent.enabled = false;
             Walker.BroadcastMessage("ChangeMoving", false);
         }
     }
@@ -66,21 +64,26 @@ public class Walkable : MonoBehaviour
             Walker.Agent.SetDestination(targetPoint);
             Walker.Agent.isStopped = false;
             Walker.BroadcastMessage("ChangeMoving", true);
-            Walker.StartCoroutine(CheckForArrival());
+            Walker._walkModeCoroutine = Walker.StartCoroutine(CheckForArrival());
         }
 
         private IEnumerator CheckForArrival()
         {
-            while(Vector3.Distance(Walker.transform.position, TargetPoint) > 0)
+            // For some reason, the y value of the destination is different from the target point.
+            // I'm guessing agents automatically find the nearest y point on the terrain?
+            // Either way, this offset is used instead of 0 to account for this.
+            float destinationYOffset = Walker.Agent.destination.y - TargetPoint.y;
+
+            while (Vector3.Distance(Walker.transform.position, TargetPoint) > destinationYOffset)
             {
-                Debug.Log($"{Walker.name} is trying to go to {Walker.Agent.destination} and is {Walker.Agent.remainingDistance} away.");
+                //Debug.Log($"{Walker.name} is trying to go to {Walker.Agent.destination}.");
+                //if (Walker.name == "Cattank") Debug.Log(Vector3.Distance(Walker.transform.position, TargetPoint));
                 yield return null;
             }
 
             Walker.Agent.isStopped = true;
             Walker.BroadcastMessage("ChangeMoving", false);
             _completionSource.SetResult(true);
-            Debug.Log($"{Walker.name} has reached their destination of {Walker.Agent.destination} and is {Walker.Agent.remainingDistance} away.");
             Walker.Agent.enabled = _agentEnabledStatus;
         }
     }
@@ -95,7 +98,7 @@ public class Walkable : MonoBehaviour
             TargetToFollow = targetToFollow;
             FollowDistance = followDistance;
 
-            Walker.StartCoroutine(DistanceCheck());
+            Walker._walkModeCoroutine = Walker.StartCoroutine(DistanceCheck());
         }
 
         private IEnumerator DistanceCheck()

@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Party Member References")]
     public PartyMember CattankReference;
     public PartyMember GilbertReference;
 
+    [Header("Combat References")]
     public GameObject CombatUIObjectReference; // The entire combat UI
     public GameObject CombatUIPanelObjectReference; // The panel at the bottom during combat
     public TMP_Text CombatUINameText; // The name of the current combatant
@@ -27,12 +29,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameObject TurnOrderIconPrefab;
 
+    [Header("Selection Colours")]
     public Color UnselectedTextColour = Color.white;
     public Color SelectedTextColour = Color.green;
 
+    [Header("Dice Prefabs")]
     public DiceObject D6;
     public DiceObject D8;
 
+    [Header("Audio")]
     public SoundObject DiceRollupSFX;
     public SoundObject DiceRollSFX;
 
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public float MusicTransitionTime = 2;
 
+    [Header("Misc References")]
     public Image BlackScreenReference;
 
     /// <summary>
@@ -76,4 +82,6 @@ public class GameManager : MonoBehaviour
                 throw new Exception($"A dice with {sides} sides does not currently exist within the GameManager.");
         }
     }
+
+    public ParticleSystem CreatePoofEffect(Vector3 position, Transform parent = null) => Instantiate(InstantiationPoofEffect, position, Quaternion.identity, parent);
 }

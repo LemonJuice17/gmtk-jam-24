@@ -15,7 +15,7 @@ public class InstantiateCharacter : MonoBehaviour
     }
     public static GameObject InstantiateCharacterStatic(GameObject characterPrefab, Vector3 position, Quaternion rotation)
     {
-        Instantiate(GameManager.instance.InstantiationPoofEffect, position, Quaternion.identity);
+        GameManager.instance.CreatePoofEffect(position);
         return Instantiate(characterPrefab, position, rotation);
     }
 }

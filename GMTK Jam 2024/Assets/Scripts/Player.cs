@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,14 +21,14 @@ public class Player : Walkable
 
         Input = GetComponent<PlayerInput>();
 
-        base.Awake();
-        Agent.enabled = false;
+        base.Awake(); 
     }
 
-    public void Update()
+    private void Start()
     {
-        Move(_currentMoveDirection);
+        CurrentWalkMode = new PlayerMovement(this);
     }
+
 
     #region Action Map Input Handling
     // ---- Overworld Action Map Input Handling ---- //
@@ -83,5 +84,28 @@ public class Player : Walkable
         adjustedMoveVector.y = 0;
         transform.position += adjustedMoveVector;
         transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
+    }
+
+    class PlayerMovement : WalkMode
+    {
+        public Player Player;
+        public PlayerMovement(Walkable walker) : base(walker)
+        {
+            if (Walker is Player) Player = Walker as Player;
+            else throw new System.Exception("Cannot give a non-player the PlayerMovement WalkMode.");
+
+            Walker.Agent.enabled = false;   
+            Walker.BroadcastMessage("ChangeMoving", false);
+            Walker._walkModeCoroutine = Walker.StartCoroutine(PlayerMovementLoop());
+        }
+
+        private IEnumerator PlayerMovementLoop()
+        {
+            while (true)
+            {
+                Player.Move(Player._currentMoveDirection);
+                yield return null;
+            }
+        }
     }
 }

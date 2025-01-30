@@ -47,6 +47,7 @@ public class DiceObject : MonoBehaviour
     {
         foreach (Vector3 side in Sides) { side.Normalize(); }
         rigidbody = GetComponent<Rigidbody>();
+        GameManager.instance.CreatePoofEffect(transform.position);
     }
 
     /// <summary>
@@ -77,6 +78,9 @@ public class DiceObject : MonoBehaviour
     /// </summary>
     private async void StopCheck()
     {
+        // Let the die actually start rolling before checking if it's stopped or not.
+        await Task.Delay(100);
+
         while (rigidbody.velocity.magnitude > VelocityMagnitudeStopLimit)
         {
             await Task.Yield();
@@ -90,7 +94,7 @@ public class DiceObject : MonoBehaviour
     /// </summary>
     public int StopRoll()
     {
-        rigidbody.isKinematic = true;
+        if (rigidbody != null) rigidbody.isKinematic = true;
 
         // Dot product: 1 is same direction, 0 is perpendicular, -1 is opposite.
         // Closest to 1 is closest to the same direction.
@@ -110,7 +114,7 @@ public class DiceObject : MonoBehaviour
         }
 
         Destroy(gameObject, DeleteAfterRoll);
-
+        GameManager.instance.CreatePoofEffect(transform.position);
         return SideValues[closestIndex];
     }
 
