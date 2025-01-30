@@ -131,7 +131,7 @@ public class CombatEncounter : MonoBehaviour
             CombatantQueue.Enqueue(CombatantQueue.Peek());
             CombatantQueue.Dequeue();
 
-            new Tween(0.4f, _turnOrderIcons[i].transform, position);
+            new Tween(0.4f, _turnOrderIcons[i].transform, position, Easing.outSine);
             await Task.Delay(400);
         }
     }

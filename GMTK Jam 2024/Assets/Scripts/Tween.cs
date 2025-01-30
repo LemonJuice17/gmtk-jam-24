@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using System;
@@ -56,13 +54,14 @@ public readonly struct Tween
 
         Vector3 origin = Transform.position;
 
+        EasingFunction easing = new(Easing);
+
         while (Transform.position != Target)
         {
             await Task.Yield();
-
             float progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
 
-            Transform.position = Vector3.Lerp(origin, Target, progress);
+            Transform.position = Vector3.Lerp(origin, Target, easing.Ease(progress));
         }
 
         _completionSource.SetResult(true);
@@ -98,10 +97,56 @@ public readonly struct DelayedAction
     }
 }
 
+public struct EasingFunction
+{
+    public readonly Easing EasingType;
+    private Func<float, float> _easingDelegate;
+    public EasingFunction(Easing easing)
+    {
+        EasingType = easing;
+        _easingDelegate = GetEasingFunction(EasingType);
+    }
+
+    public float Ease(float value) => _easingDelegate(value);
+
+    public static Func<float, float> GetEasingFunction(Easing easing)
+    {
+        switch (easing)
+        {
+            case Easing.linear:
+                return (input) => Linear(input);
+            case Easing.inSine:
+                return (input) => InSine(input);
+            case Easing.outSine:
+                return (input) => OutSine(input);
+            case Easing.inOutSine:
+                return (input) => InOutSine(input);
+            default:
+                return null;
+        }
+    }
+    private static float Linear(float progress)
+    {
+        return progress;
+    }
+    private static float InSine(float progress)
+    {
+        return 1 - Mathf.Cos(progress * Mathf.PI / 2);
+    }
+    private static float OutSine(float progress)
+    {
+        return Mathf.Sin(progress * Mathf.PI / 2);
+    }
+    private static float InOutSine(float progress)
+    {
+        return -(Mathf.Cos(Mathf.PI * progress) - 1) / 2;
+    }
+}
+
 public enum Easing
 {
     linear,
-    easeIn,
-    easeOut,
-    easeInOut
+    inSine,
+    outSine,
+    inOutSine
 }
