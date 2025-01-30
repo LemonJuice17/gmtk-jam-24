@@ -18662,6 +18662,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 625103351}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &625140592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1690484218571041552, guid: 051c63f8e10968843ac34125626e1d53,
+    type: 3}
+  m_PrefabInstance: {fileID: 1236915260}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &628922805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1551595264824743404, guid: b088e6683587f20488c542919179d285,
@@ -33191,10 +33197,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1687406064065182518, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690484218571041552, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2078668279290285497, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_Name
       value: Main Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078668279290285497, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4471055516084117616, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33249,7 +33270,7 @@ PrefabInstance:
     - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33259,12 +33280,6 @@ PrefabInstance:
 --- !u!1 &1236915261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
-    type: 3}
-  m_PrefabInstance: {fileID: 1236915260}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1236915262 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6177227649729266436, guid: 051c63f8e10968843ac34125626e1d53,
     type: 3}
   m_PrefabInstance: {fileID: 1236915260}
   m_PrefabAsset: {fileID: 0}
@@ -48766,15 +48781,17 @@ MonoBehaviour:
   CombatUIPlayerAttackOptionsObjectReference: {fileID: 1236915263}
   CombatUIPlayerOptionsTextPrefab: {fileID: 5127403480411222863, guid: 6ebbda8079e7a0247b2b29730772d691,
     type: 3}
-  TurnOrderObjectReference: {fileID: 1236915262}
-  TurnOrderIconPrefab: {fileID: 2472712176574696257, guid: 77dcb82efbbbc0c409c586baf8ba4a95,
+  CombatTurnOrderObjectReference: {fileID: 625140592}
+  CombatTurnOrderIconPrefab: {fileID: 2472712176574696257, guid: 77dcb82efbbbc0c409c586baf8ba4a95,
     type: 3}
   UnselectedTextColour: {r: 1, g: 1, b: 1, a: 1}
   SelectedTextColour: {r: 0, g: 1, b: 0, a: 1}
   D6: {fileID: 434863027560665180, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
   D8: {fileID: 339755087416591174, guid: 84597de8bb4d3ad4581497541237c849, type: 3}
-  DiceRollupSFX: {fileID: 0}
-  DiceRollSFX: {fileID: 0}
+  DiceRollupSFX: {fileID: 5168560046967374483, guid: 85d6c6cf67a96914c9501b186f3ed08b,
+    type: 3}
+  DiceRollSFX: {fileID: 5168560046967374483, guid: 27f0ef9febfac4ffcadf9a0ad5825527,
+    type: 3}
   WalkSFX: {fileID: 5168560046967374483, guid: d3b23a574ad6320428d72c5e7a9bd671, type: 3}
   AttackSFX: {fileID: 5168560046967374483, guid: 5171cdcbba6c39e48b70185f925f1c71,
     type: 3}
@@ -51405,6 +51422,7 @@ MonoBehaviour:
   RelativeEnemyPositions: []
   EnemySpawnTime: 1
   ShowCombatPositionGizmos: 0
+  turnIconSpacing: 100
 --- !u!1001 &2086974606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52909,6 +52927,11 @@ PrefabInstance:
         type: 3}
       propertyPath: EnemySpawnTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: turnIconSpacing
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}

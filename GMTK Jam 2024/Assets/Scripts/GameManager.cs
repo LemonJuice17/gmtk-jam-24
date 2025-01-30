@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameObject CombatUIPlayerAttackOptionsObjectReference;
     public TMP_Text CombatUIPlayerOptionsTextPrefab; // The prefab for player attacks
-    public Transform TurnOrderObjectReference; // Where the turn order is shown
+    public GameObject CombatTurnOrderObjectReference; // Where the turn order is shown
     /// <summary>
     /// The prefab for each combatant, used to show who's turn it currently is at the top of the screen.
     /// Should contain an Image as a child gameobject that is switched out with the combatant's sprite.
     /// </summary>
-    public GameObject TurnOrderIconPrefab;
+    public GameObject CombatTurnOrderIconPrefab;
 
     [Header("Selection Colours")]
     public Color UnselectedTextColour = Color.white;

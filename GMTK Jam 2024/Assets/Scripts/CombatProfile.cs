@@ -19,6 +19,7 @@ public class Combatant
 {
     public readonly CombatProfile Profile;
     public readonly Transform Transform;
+    public readonly Team Team;
 
     /// <summary>
     /// The current HP of this Combatant. Automatically kills this Combatant if it reaches 0 or below.
@@ -43,7 +44,7 @@ public class Combatant
     }
     private int _hp;
 
-    public Combatant(CombatProfile profile, Transform transform)
+    public Combatant(CombatProfile profile, Transform transform, Team team)
     {
         Profile = profile;
         HP = Profile.MaxHP;
@@ -54,4 +55,10 @@ public class Combatant
     {
 
     }
+}
+
+public enum Team
+{
+    ally,
+    enemy
 }

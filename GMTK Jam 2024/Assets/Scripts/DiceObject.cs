@@ -68,15 +68,15 @@ public class DiceObject : MonoBehaviour
 
         rigidbody.AddForce(throwDirection.normalized * ThrowMagnitude, ForceMode.Impulse);
 
-        StopCheck();
-        await Task.Delay((int)(ForceStopTimeout * 1000));
+        await Task.WhenAny(StopCheck(), Task.Delay((int)(ForceStopTimeout * 1000)));
+
         return StopRoll();
     }
 
     /// <summary>
     /// Checks the die's curent velocity magnitude and stops it if it's below the VelocityMagnitudeStopLimit.
     /// </summary>
-    private async void StopCheck()
+    private async Task StopCheck()
     {
         // Let the die actually start rolling before checking if it's stopped or not.
         await Task.Delay(100);
@@ -85,8 +85,6 @@ public class DiceObject : MonoBehaviour
         {
             await Task.Yield();
         }
-
-        StopRoll();
     }
 
     /// <summary>
@@ -94,7 +92,7 @@ public class DiceObject : MonoBehaviour
     /// </summary>
     public int StopRoll()
     {
-        if (rigidbody != null) rigidbody.isKinematic = true;
+        rigidbody.isKinematic = true;
 
         // Dot product: 1 is same direction, 0 is perpendicular, -1 is opposite.
         // Closest to 1 is closest to the same direction.
@@ -113,8 +111,11 @@ public class DiceObject : MonoBehaviour
             }
         }
 
-        Destroy(gameObject, DeleteAfterRoll);
-        GameManager.instance.CreatePoofEffect(transform.position);
+        new DelayedAction(DeleteAfterRoll, () => {
+            GameManager.instance.CreatePoofEffect(transform.position);
+            Destroy(gameObject);
+        });
+
         return SideValues[closestIndex];
     }
 
