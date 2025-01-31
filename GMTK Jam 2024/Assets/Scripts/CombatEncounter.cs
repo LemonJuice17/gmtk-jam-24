@@ -42,7 +42,7 @@ public class CombatEncounter : MonoBehaviour
     public Queue<Combatant> CombatantQueue { get; private set; } = new();
 
     private List<GameObject> _turnOrderIcons = new();
-    public float turnIconSpacing = 60;
+    public float TurnIconSpacing = 60;
 
     public async void StartEncounter()
     {
@@ -116,11 +116,11 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GameManager.instance.CombatTurnOrderObjectReference.SetActive(true);
 
-        float spacingStart = (CombatantList.Count - 1) * 0.5f * -turnIconSpacing;
+        float spacingStart = (CombatantList.Count - 1) * 0.5f * -TurnIconSpacing;
 
         for (int i = 0; i < CombatantList.Count; i++)
         {
-            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + turnIconSpacing * i, 0, 0);
+            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + TurnIconSpacing * i, 0, 0);
             _turnOrderIcons.Add(Instantiate(
                 GameManager.instance.CombatTurnOrderIconPrefab,
                 position + new Vector3(1080, 0, 0),
@@ -134,6 +134,10 @@ public class CombatEncounter : MonoBehaviour
             new Tween(0.4f, _turnOrderIcons[i].transform, position, Easing.outSine);
             await Task.Delay(400);
         }
+
+        await Task.Delay(2000);
+
+        await CycleTurnOrderUI();
     }
 
     public void StopEncounter()
@@ -156,6 +160,30 @@ public class CombatEncounter : MonoBehaviour
         }
 
         await Task.Delay((int)(time * 1000));
+    }
+
+    private async Task CycleTurnOrderUI()
+    {
+        Vector3 lastIconPosition = _turnOrderIcons[_turnOrderIcons.Count - 1].transform.position;
+
+        Tween tweenFirstIconOffscreen = new Tween(0.3f, _turnOrderIcons[0].transform, _turnOrderIcons[0].transform.position - new Vector3(1080, 0), Easing.inSine);
+
+        List<Task> shuffleTasks = new();
+        for (int i = 1; i < _turnOrderIcons.Count; i++)
+        {
+            Tween tween = new(0.6f, _turnOrderIcons[i].transform, _turnOrderIcons[i].transform.position - new Vector3(TurnIconSpacing, 0), Easing.inOutSine);
+            shuffleTasks.Add(tween.TweenCompletion);
+        }
+
+        await tweenFirstIconOffscreen.TweenCompletion;
+        _turnOrderIcons[0].transform.position = lastIconPosition + new Vector3(1080, 0);
+        new Tween(0.3f, _turnOrderIcons[0].transform, lastIconPosition, Easing.outSine);
+
+        await Task.WhenAll(shuffleTasks);
+
+        GameObject firstIcon = _turnOrderIcons[0];
+        _turnOrderIcons.RemoveAt(0);
+        _turnOrderIcons.Add(firstIcon);
     }
 
     private void OnDrawGizmos()
