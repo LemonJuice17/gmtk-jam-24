@@ -56,10 +56,14 @@ public readonly struct Tween
 
         EasingFunction easing = new(Easing);
 
-        while (Transform.position != Target)
+        float progress = 0;
+
+        while (progress < 1)
         {
             await Task.Yield();
-            float progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+
+            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress = Mathf.Clamp01(progress);
 
             Transform.position = Vector3.Lerp(origin, Target, easing.Ease(progress));
         }
