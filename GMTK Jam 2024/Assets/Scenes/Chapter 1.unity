@@ -51422,7 +51422,7 @@ MonoBehaviour:
   RelativeEnemyPositions: []
   EnemySpawnTime: 1
   ShowCombatPositionGizmos: 0
-  turnIconSpacing: 100
+  TurnIconSpacing: 60
 --- !u!1001 &2086974606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52927,6 +52927,11 @@ PrefabInstance:
         type: 3}
       propertyPath: EnemySpawnTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: TurnIconSpacing
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
