@@ -70,7 +70,7 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay(1000);
 
         // Add all combatants to a single list.
-        CombatantList.Add(new Combatant(Player.instance.GetComponent<CombatProfile>(), Player.instance.transform, Team.ally));
+        CombatantList.Add(new Combatant(Player.instance.GetComponent<CombatProfile>(), Player.instance.transform, Team.ally, true));
         CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
         CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
 
@@ -135,9 +135,26 @@ public class CombatEncounter : MonoBehaviour
             await Task.Delay(400);
         }
 
-        await Task.Delay(2000);
+        await Task.Delay(1000);
 
-        await CycleTurnOrderUI();
+        // Main combat loop.
+        while (true)
+        {
+            await Task.Delay(500);
+
+            GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
+
+            Combatant nextCombatant = CombatantQueue.Peek();
+            CombatantQueue.Dequeue();
+            CombatantQueue.Enqueue(nextCombatant);
+
+            if (nextCombatant.IsPlayer) await PlayerTurn();
+            else await AITurn(nextCombatant);
+
+            await Task.Delay(500);
+            
+            await CycleTurnOrderUI();
+        }
     }
 
     public void StopEncounter()
@@ -162,6 +179,47 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay((int)(time * 1000));
     }
 
+    private async Task AITurn(Combatant ai)
+    {
+        // Enable/disable relevant UI.
+        GameManager.instance.CombatUINameText.text = $"{ai.Profile.Character.CharacterName}'s Turn";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
+        GameManager.instance.CombatUIDescriptionText.text = $"";
+
+
+        await Task.Delay(1000);
+
+        // Randomly choose an attack and an opponent to attack.
+        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Length - 1);
+
+        List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
+        Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
+
+        GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} is using {ai.Profile.Attacks[randomAttackIndex].name} on {opponent.Profile.Character.CharacterName}.";
+        
+        await Task.Delay(500);
+        
+        // Wait for the attack to finish.
+        int damageDealt = await ai.Profile.Attacks[randomAttackIndex].OnAttack(ai, opponent);
+
+        await Task.Delay(1000);
+
+        GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {ai.Profile.Attacks[randomAttackIndex].name}.";
+
+        await Task.Delay(3000);
+    }
+
+    private async Task PlayerTurn()
+    {
+        GameManager.instance.CombatUINameText.text = "Your Turn";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
+
+        Debug.Log("Player turn not yet implemented. Skipping turn.");
+        await Task.Delay(1000);
+    }
+
     private async Task CycleTurnOrderUI()
     {
         Vector3 lastIconPosition = _turnOrderIcons[_turnOrderIcons.Count - 1].transform.position;
@@ -180,7 +238,7 @@ public class CombatEncounter : MonoBehaviour
         new Tween(0.3f, _turnOrderIcons[0].transform, lastIconPosition, Easing.outSine);
 
         await Task.WhenAll(shuffleTasks);
-
+        
         GameObject firstIcon = _turnOrderIcons[0];
         _turnOrderIcons.RemoveAt(0);
         _turnOrderIcons.Add(firstIcon);

@@ -15,21 +15,42 @@ public class Attack : ScriptableObject
     public int D6Damage = 0;
     public int D8Damage = 0;
 
-    public void OnAttack(Combatant attacker, Combatant victim)
+    public async Task<int> OnAttack(Combatant attacker, Combatant opponent)
     {
         float totalDamage =
             attacker.Profile.Strenth * StrengthDamageMultiplier +
             attacker.Profile.Charm * CharmDamageMultiplier +
             attacker.Profile.Magic * MagicDamageMultiplier;
 
-        if (D6Damage > 0)
+        Task<int>[] rollResults = new Task<int>[D6Damage + D8Damage];
+
+        for (int i = 0; i < D6Damage; i++)
         {
-            
+            rollResults[i] = GameManager.instance.CreateDice(6, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
+            await Task.Delay(200);
         }
 
-        if (D8Damage > 0)
+        for (int i = 0; i < D8Damage; i++)
         {
-
+            rollResults[i] = GameManager.instance.CreateDice(8, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
+            await Task.Delay(200);
         }
+
+        await Task.WhenAll(rollResults);
+
+        foreach (Task<int> rollResult in rollResults)
+        {
+            totalDamage += rollResult.Result;
+        }
+
+        int roundedDamage = Mathf.RoundToInt(totalDamage);
+
+        await Task.Delay(1000);
+
+        attacker.Transform.rotation.SetLookRotation(opponent.Transform.position - attacker.Transform.position);
+        attacker.Profile.gameObject.BroadcastMessage("Attack");
+        opponent.HP -= roundedDamage;
+
+        return roundedDamage;
     }
 }

@@ -237,4 +237,5 @@ MonoBehaviour:
   Strenth: 0
   Charm: 0
   Magic: 4
-  Attacks: []
+  Attacks:
+  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}

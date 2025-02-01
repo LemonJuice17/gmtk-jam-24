@@ -33097,6 +33097,16 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 44710558860941249, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136318524702800926, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: waitForNormalChars
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 1193520474563099388, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_Pivot.x
@@ -33217,15 +33227,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4017416320794651440, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4471055516084117616, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_Name
       value: Character's Turn Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 4471055516084117616, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5181892121409176197, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_Name
       value: Overlays
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438880521199512324, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7465963707326527358, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33236,6 +33261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 64.490005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621964479716587529, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33270,7 +33300,7 @@ PrefabInstance:
     - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -54152,7 +54182,8 @@ MonoBehaviour:
   Strenth: 1
   Charm: 1
   Magic: 1
-  Attacks: []
+  Attacks:
+  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}
 --- !u!1001 &7284562916203990422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54426,7 +54457,8 @@ MonoBehaviour:
   Strenth: 3
   Charm: 0
   Magic: 0
-  Attacks: []
+  Attacks:
+  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}
 --- !u!1 &7835884084950981349
 GameObject:
   m_ObjectHideFlags: 0
@@ -54517,7 +54549,8 @@ MonoBehaviour:
   Strenth: 0
   Charm: 2
   Magic: 1
-  Attacks: []
+  Attacks:
+  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}
 --- !u!4 &8672721919661407548
 Transform:
   m_ObjectHideFlags: 0

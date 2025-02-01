@@ -11,14 +11,24 @@ public class CharacterAnimator : MonoBehaviour
     }
 
     [UsedImplicitly]
-    void Attack()
+    public void Attack()
     {
+        if (_characterAnimator == null) 
+        {
+            _characterAnimator = GetComponent<Animator>();
+        }
+
         _characterAnimator.SetTrigger("Attack");
     }
 
     [UsedImplicitly]
-    void ChangeMoving(bool isMoving)
+    public void ChangeMoving(bool isMoving)
     {
+        if(_characterAnimator == null)
+        {
+            _characterAnimator = GetComponent<Animator>();
+        }
+
         _characterAnimator.SetBool("IsWalking", isMoving);
     }
 
