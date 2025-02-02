@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Moves a transform to a given position over a given period of time.
+/// Moves a Transform to a given position over a given period of time.
 /// </summary>
 public readonly struct Tween
 {
@@ -66,6 +66,76 @@ public readonly struct Tween
             progress = Mathf.Clamp01(progress);
 
             Transform.position = Vector3.Lerp(origin, Target, easing.Ease(progress));
+        }
+
+        _completionSource.SetResult(true);
+    }
+}
+
+/// <summary>
+/// Rotates a Transform to a given rotation over a given period of time.
+/// </summary>
+public readonly struct TweenRotation
+{
+    /// <summary>
+    /// The duration of this tween.
+    /// </summary>
+    public readonly float Duration;
+    /// <summary>
+    /// The Transform being controlled by this tween.
+    /// </summary>
+    public readonly Transform Transform;
+    /// <summary>
+    /// The target rotation of this tween.
+    /// </summary>
+    public readonly Quaternion Target;
+    /// <summary>
+    /// The easing mode of this tween (linear by default).
+    /// </summary>
+    public readonly Easing Easing;
+
+    /// <summary>
+    /// Returns a task that is completed once the tween has finished. Can be awaited in async functions.
+    /// </summary>
+    public readonly Task TweenCompletion => _completionSource.Task;
+    private readonly TaskCompletionSource<bool> _completionSource;
+
+    /// <summary>
+    /// Creates a tween between a Transform's current rotation and a given target rotation over a given period of time.
+    /// </summary>
+    /// <param name="duration"> The duration of the tween. </param>
+    /// <param name="transform"> The Tranform being rotated. </param>
+    /// <param name="target"> The target rotation of the tween. </param>
+    /// <param name="easing"> The easing mode (currently not supported). </param>
+    public TweenRotation(float duration, Transform transform, Quaternion target, Easing easing = Easing.linear)
+    {
+        Duration = duration;
+        Transform = transform;
+        Target = target;
+        Easing = easing;
+
+        _completionSource = new();
+        TweenLoop();
+    }
+
+    private async readonly void TweenLoop()
+    {
+        DateTime startTime = DateTime.Now;
+
+        Quaternion origin = Transform.rotation;
+
+        EasingFunction easing = new(Easing);
+
+        float progress = 0;
+
+        while (progress < 1)
+        {
+            await Task.Yield();
+
+            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress = Mathf.Clamp01(progress);
+
+            Transform.rotation = Quaternion.Slerp(origin, Target, easing.Ease(progress));
         }
 
         _completionSource.SetResult(true);
