@@ -48,7 +48,7 @@ public class Attack : ScriptableObject
         await Task.Delay(1000);
 
         attacker.Transform.rotation.SetLookRotation(opponent.Transform.position - attacker.Transform.position);
-        attacker.Profile.gameObject.BroadcastMessage("Attack");
+        attacker.Transform.BroadcastMessage("Attack");
         opponent.HP -= roundedDamage;
 
         return roundedDamage;
