@@ -29,6 +29,7 @@ public class Walkable : MonoBehaviour
         {
             Walker = walker;
             Walker.Agent.enabled = true;
+            Walker.Agent.updateRotation = true;
             Walker.StopAllCoroutines();
         }
     }
@@ -41,7 +42,7 @@ public class Walkable : MonoBehaviour
         public StandStill(Walkable walker) : base(walker)
         {
             Walker.Agent.isStopped = true;
-            Walker.Agent.enabled = false;
+            Walker.Agent.updateRotation = false;
             Walker.BroadcastMessage("ChangeMoving", false);
         }
     }

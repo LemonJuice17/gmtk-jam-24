@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "New Attack")]
 public class Attack : ScriptableObject
@@ -17,6 +15,9 @@ public class Attack : ScriptableObject
 
     public async Task<int> OnAttack(Combatant attacker, Combatant opponent)
     {
+        TweenRotation faceOpponent = new TweenRotation(0.2f, attacker.Transform, Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position), Easing.inOutSine);
+        await faceOpponent.TweenCompletion;
+
         float totalDamage =
             attacker.Profile.Strenth * StrengthDamageMultiplier +
             attacker.Profile.Charm * CharmDamageMultiplier +
@@ -47,7 +48,6 @@ public class Attack : ScriptableObject
 
         await Task.Delay(1000);
 
-        attacker.Transform.rotation.SetLookRotation(opponent.Transform.position - attacker.Transform.position);
         attacker.Transform.BroadcastMessage("Attack");
         opponent.HP -= roundedDamage;
 

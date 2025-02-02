@@ -57,15 +57,19 @@ public class CombatEncounter : MonoBehaviour
         // Move party to correct positions.
         Task[] moveToPositionTasks = new Task[3];
 
-        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
         Player.instance.CurrentWalkMode = new WalkToPoint(Player.instance, transform.position + RelativePlayerPosition);
+        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
         _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, transform.position + RelativeGilbertPosition);
 
-        moveToPositionTasks[0] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
-        moveToPositionTasks[1] = (Player.instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[0] = (Player.instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[1] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
         moveToPositionTasks[2] = (_gilbert.CurrentWalkMode as WalkToPoint).WaitForCompletion;
 
         await Task.WhenAll(moveToPositionTasks);
+
+        Player.instance.CurrentWalkMode = new StandStill(Player.instance);
+        _cattank.CurrentWalkMode = new StandStill(_cattank);
+        _gilbert.CurrentWalkMode = new StandStill(_gilbert);
 
         await Task.Delay(1000);
 
