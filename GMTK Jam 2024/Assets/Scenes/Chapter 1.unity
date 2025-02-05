@@ -33100,7 +33100,7 @@ PrefabInstance:
     - target: {fileID: 44710558860941249, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 136318524702800926, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33225,7 +33225,12 @@ PrefabInstance:
     - target: {fileID: 2078668279290285497, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849081531949030133, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4017416320794651440, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33255,12 +33260,12 @@ PrefabInstance:
     - target: {fileID: 7465963707326527358, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 363.58
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7465963707326527358, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 64.490005
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7621964479716587529, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33280,27 +33285,27 @@ PrefabInstance:
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 323.58
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 49.490005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 181.79
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7623890365278047663, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -34.745003
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53324,7 +53329,7 @@ NavMeshAgent:
   m_Acceleration: 9
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -53956,7 +53961,7 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -54524,7 +54529,7 @@ NavMeshAgent:
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

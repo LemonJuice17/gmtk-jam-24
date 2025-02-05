@@ -132,6 +132,7 @@ public class CombatEncounter : MonoBehaviour
                 GameManager.instance.CombatTurnOrderObjectReference.transform));
 
             _turnOrderIcons[i].transform.GetChild(0).GetComponent<Image>().sprite = CombatantQueue.Peek().Profile.Character.CharacterSprite;
+            _turnOrderIcons[i].name = CombatantQueue.Peek().Profile.Character.name;
             CombatantQueue.Enqueue(CombatantQueue.Peek());
             CombatantQueue.Dequeue();
 
@@ -145,8 +146,6 @@ public class CombatEncounter : MonoBehaviour
         while (true)
         {
             await Task.Delay(500);
-
-            GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
 
             Combatant nextCombatant = CombatantQueue.Peek();
             CombatantQueue.Dequeue();
@@ -186,6 +185,7 @@ public class CombatEncounter : MonoBehaviour
     private async Task AITurn(Combatant ai)
     {
         // Enable/disable relevant UI.
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = $"{ai.Profile.Character.CharacterName}'s Turn";
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
@@ -212,10 +212,20 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {ai.Profile.Attacks[randomAttackIndex].name}.";
 
         await Task.Delay(3000);
+
+        // If the attack killed the enemy.
+        if (opponent.HP == 0)
+        {
+            GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
+            await RemoveCombatant(opponent);
+        }
+
+        await Task.Delay(3000);
     }
 
     private async Task PlayerTurn()
     {
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = "Your Turn";
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
@@ -246,6 +256,72 @@ public class CombatEncounter : MonoBehaviour
         GameObject firstIcon = _turnOrderIcons[0];
         _turnOrderIcons.RemoveAt(0);
         _turnOrderIcons.Add(firstIcon);
+    }
+
+    private async Task RemoveCombatant(Combatant combatant)
+    {
+        CombatantList.Remove(combatant);
+        GameObject turnIcon = _turnOrderIcons.Find((icon) => icon.name == combatant.Profile.Character.name);
+
+        Tween removalTween = new(0.3f, turnIcon.transform, turnIcon.transform.position + new Vector3(0, 200), Easing.inSine);
+        await removalTween.TweenCompletion;
+
+        _turnOrderIcons.Remove(turnIcon);
+        Destroy(turnIcon);
+
+        await Task.Delay(1000);
+
+        float spacingStart = (CombatantList.Count - 1) * 0.5f * -TurnIconSpacing;
+
+        List<Task> cycleRemainingIcons = new();
+        for (int i = 0; i < _turnOrderIcons.Count; i++)
+        {
+            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + TurnIconSpacing * i, 0, 0);
+            Tween tween = new(0.6f, _turnOrderIcons[i].transform, position, Easing.inOutSine);
+            cycleRemainingIcons.Add(tween.TweenCompletion);
+        }
+
+        await Task.WhenAll(cycleRemainingIcons);
+
+        // If the dead combatant was meant to go next, remove them from the queue immediately.
+        Combatant nextCombatant = CombatantQueue.Peek();
+
+        if (nextCombatant == combatant)
+        {
+            CombatantQueue.Dequeue();
+        }
+
+        // Iterate through the combatant queue for a complete loop, removing the dead combatant.
+        else
+        {
+            bool removeDeadCombatantFromQueue = true;
+            while (removeDeadCombatantFromQueue)
+            {
+                Combatant next = CombatantQueue.Peek();
+                if (next == combatant)
+                {
+                    CombatantQueue.Dequeue();
+                }
+                else if (next == nextCombatant) removeDeadCombatantFromQueue = false;
+                else
+                {
+                    CombatantQueue.Dequeue();
+                    CombatantQueue.Enqueue(next);
+                }
+            }
+        }
+
+        // Check if all enemies are dead.
+        if (CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToList().Count == 0)
+        {
+            Debug.Log("All enemies dead.");
+        }
+
+        // Check if all allies are dead.
+        else if (CombatantList.Where((combatant) => combatant.Team == Team.ally).ToList().Count == 0)
+        {
+            Debug.Log("All allies dead.");
+        }
     }
 
     private void OnDrawGizmos()

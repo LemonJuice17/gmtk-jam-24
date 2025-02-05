@@ -30,7 +30,6 @@ public class CharacterAnimator : MonoBehaviour
     [UsedImplicitly]
     public void StopAllAnimations()
     {
-        Debug.Log("Stopping animations");
         _characterAnimator.enabled = false;
     }
 

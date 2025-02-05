@@ -79,7 +79,6 @@ public class Attack : ScriptableObject
             deadRigidBody.AddTorque(Random.rotation.eulerAngles, ForceMode.Impulse);
 
             opponent.Transform.BroadcastMessage("StopAllAnimations");
-            opponent.Die();
         }
 
         return roundedDamage;

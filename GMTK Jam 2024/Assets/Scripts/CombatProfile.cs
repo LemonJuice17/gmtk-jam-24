@@ -35,11 +35,6 @@ public class Combatant
         Team = team;
         IsPlayer = isPlayer;
     }
-
-    public void Die()
-    {
-        Debug.Log($"{Profile.Character.CharacterName} died lol.");
-    }
 }
 
 public enum Team
