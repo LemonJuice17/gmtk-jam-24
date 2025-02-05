@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,9 +14,12 @@ public class Attack : ScriptableObject
     public int D6Damage = 0;
     public int D8Damage = 0;
 
+    private Quaternion _opponentDirection;
+
     public async Task<int> OnAttack(Combatant attacker, Combatant opponent)
     {
-        TweenRotation faceOpponent = new TweenRotation(0.2f, attacker.Transform, Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position), Easing.inOutSine);
+        _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
+        TweenRotation faceOpponent = new TweenRotation(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
         await faceOpponent.TweenCompletion;
 
         float totalDamage =
@@ -48,8 +52,35 @@ public class Attack : ScriptableObject
 
         await Task.Delay(1000);
 
+        // Wait for the attack part of the attack animation.
         attacker.Transform.BroadcastMessage("Attack");
+        await attacker.Transform.GetComponentInChildren<CharacterAnimator>().AttackMade;
+
+        // Kill opponent if less than 0 HP.
         opponent.HP -= roundedDamage;
+
+        if (opponent.HP < 0) 
+        {
+            int overDamage = Mathf.Abs(opponent.HP);
+            // Ensures that multiplications with overDamage are at least multiplied by 1, while also ensuring a difference between 0 and 1 overdamage and so on.
+            overDamage++;
+
+            opponent.HP = 0;
+
+            Rigidbody deadRigidBody;
+
+            if (!opponent.Transform.TryGetComponent(out deadRigidBody)) deadRigidBody = opponent.Transform.AddComponent<Rigidbody>();
+
+            deadRigidBody.isKinematic = false;
+            Vector3 launchVector = ((opponent.Transform.position - attacker.Transform.position).normalized + Vector3.up).normalized * overDamage;
+            Debug.DrawLine(deadRigidBody.position, deadRigidBody.position + launchVector, Color.green, 3);
+
+            deadRigidBody.AddForce(launchVector, ForceMode.Impulse);
+            deadRigidBody.AddTorque(Random.rotation.eulerAngles, ForceMode.Impulse);
+
+            opponent.Transform.BroadcastMessage("StopAllAnimations");
+            opponent.Die();
+        }
 
         return roundedDamage;
     }

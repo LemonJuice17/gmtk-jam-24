@@ -23,27 +23,9 @@ public class Combatant
     public readonly bool IsPlayer;
 
     /// <summary>
-    /// The current HP of this Combatant. Automatically kills this Combatant if it reaches 0 or below.
+    /// The current HP of this Combatant.
     /// </summary>
-    public int HP
-    {
-        get => _hp;
-        
-        set
-        {
-            if (value <= 0)
-            {
-                _hp = 0;
-                Die();
-            }
-
-            else
-            {
-                _hp = value;
-            }
-        }
-    }
-    private int _hp;
+    public int HP;
 
     public Combatant(CombatProfile profile, Transform transform, Team team, bool isPlayer = false)
     {

@@ -30,6 +30,8 @@ public class Walkable : MonoBehaviour
             Walker = walker;
             Walker.Agent.enabled = true;
             Walker.Agent.updateRotation = true;
+            Walker.Agent.updatePosition = true;
+            Walker.Agent.updateUpAxis = true;
             Walker.StopAllCoroutines();
         }
     }
@@ -43,6 +45,8 @@ public class Walkable : MonoBehaviour
         {
             Walker.Agent.isStopped = true;
             Walker.Agent.updateRotation = false;
+            Walker.Agent.updatePosition = false;
+            Walker.Agent.updateUpAxis = false;
             Walker.BroadcastMessage("ChangeMoving", false);
         }
     }
