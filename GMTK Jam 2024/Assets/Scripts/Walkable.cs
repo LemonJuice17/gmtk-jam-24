@@ -82,7 +82,7 @@ public class Walkable : MonoBehaviour
             while (Vector3.Distance(Walker.transform.position, TargetPoint) > destinationYOffset)
             {
                 //Debug.Log($"{Walker.name} is trying to go to {Walker.Agent.destination}.");
-                //if (Walker.name == "Cattank") Debug.Log(Vector3.Distance(Walker.transform.position, TargetPoint));
+                //if (Walker.name == "Gillbert") Debug.Log(Vector3.Distance(Walker.transform.position, TargetPoint));
                 yield return null;
             }
 

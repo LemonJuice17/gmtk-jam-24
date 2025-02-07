@@ -86,7 +86,7 @@ public class Player : Walkable
         transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
     }
 
-    class PlayerMovement : WalkMode
+    public class PlayerMovement : WalkMode
     {
         public Player Player;
         public PlayerMovement(Walkable walker) : base(walker)

@@ -72,6 +72,8 @@ public class Attack : ScriptableObject
             if (!opponent.Transform.TryGetComponent(out deadRigidBody)) deadRigidBody = opponent.Transform.AddComponent<Rigidbody>();
 
             deadRigidBody.isKinematic = false;
+            deadRigidBody.constraints = RigidbodyConstraints.None;
+
             Vector3 launchVector = ((opponent.Transform.position - attacker.Transform.position).normalized + Vector3.up).normalized * overDamage;
             Debug.DrawLine(deadRigidBody.position, deadRigidBody.position + launchVector, Color.green, 3);
 

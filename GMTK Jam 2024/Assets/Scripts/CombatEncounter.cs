@@ -1,9 +1,11 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using static Player;
 using static Walkable;
 
 public class CombatEncounter : MonoBehaviour
@@ -41,12 +43,27 @@ public class CombatEncounter : MonoBehaviour
     /// </summary>
     public Queue<Combatant> CombatantQueue { get; private set; } = new();
 
+    /// <summary>
+    /// References to the turn order icon gameobjects.
+    /// </summary>
     private List<GameObject> _turnOrderIcons = new();
-    public float TurnIconSpacing = 60;
+    /// <summary>
+    /// The spacing between turn order icons.
+    /// </summary>
+    public float TurnIconSpacing = 80;
+
+    private CinemachineVirtualCamera _combatCamera;
+
+    bool _combatInProgress = true;
 
     public async void StartEncounter()
     {
-        Player.instance.Input.SwitchCurrentActionMap("Combat");
+        instance.Input.SwitchCurrentActionMap("Combat");
+
+        _combatCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+
+        if (_combatCamera != null) _combatCamera.Priority = 100;
+        else Debug.LogAssertion("This combat does not have an assigned virtual camera. Create one as a child of this object.");
 
         // Spawn enemy models.
         await InstantiateEnemies(EnemySpawnTime);
@@ -57,24 +74,24 @@ public class CombatEncounter : MonoBehaviour
         // Move party to correct positions.
         Task[] moveToPositionTasks = new Task[3];
 
-        Player.instance.CurrentWalkMode = new WalkToPoint(Player.instance, transform.position + RelativePlayerPosition);
+        instance.CurrentWalkMode = new WalkToPoint(instance, transform.position + RelativePlayerPosition);
         _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
         _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, transform.position + RelativeGilbertPosition);
 
-        moveToPositionTasks[0] = (Player.instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[0] = (instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
         moveToPositionTasks[1] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
         moveToPositionTasks[2] = (_gilbert.CurrentWalkMode as WalkToPoint).WaitForCompletion;
 
         await Task.WhenAll(moveToPositionTasks);
 
-        Player.instance.CurrentWalkMode = new StandStill(Player.instance);
+        instance.CurrentWalkMode = new StandStill(instance);
         _cattank.CurrentWalkMode = new StandStill(_cattank);
         _gilbert.CurrentWalkMode = new StandStill(_gilbert);
 
         await Task.Delay(1000);
 
         // Add all combatants to a single list.
-        CombatantList.Add(new Combatant(Player.instance.GetComponent<CombatProfile>(), Player.instance.transform, Team.ally, true));
+        CombatantList.Add(new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true));
         CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
         CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
 
@@ -143,7 +160,7 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay(1000);
 
         // Main combat loop.
-        while (true)
+        while (_combatInProgress)
         {
             await Task.Delay(500);
 
@@ -160,11 +177,6 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-    public void StopEncounter()
-    {
-        GameManager.instance.CombatTurnOrderObjectReference.SetActive(false);
-        GameManager.instance.CombatUIObjectReference.SetActive(false);
-    }
 
     private async Task InstantiateEnemies(float time)
     {
@@ -211,11 +223,11 @@ public class CombatEncounter : MonoBehaviour
 
         GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {ai.Profile.Attacks[randomAttackIndex].name}.";
 
-        await Task.Delay(3000);
-
+        
         // If the attack killed the enemy.
         if (opponent.HP == 0)
         {
+            await Task.Delay(3000);
             GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
             await RemoveCombatant(opponent);
         }
@@ -314,14 +326,58 @@ public class CombatEncounter : MonoBehaviour
         // Check if all enemies are dead.
         if (CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToList().Count == 0)
         {
+            StopEncounter();
+            CombatVictory();
             Debug.Log("All enemies dead.");
         }
 
         // Check if all allies are dead.
         else if (CombatantList.Where((combatant) => combatant.Team == Team.ally).ToList().Count == 0)
         {
+            StopEncounter();
+            CombatLoss();
             Debug.Log("All allies dead.");
         }
+    }
+
+    public void StopEncounter()
+    {
+        _combatInProgress = false;
+
+        foreach(GameObject child in GameManager.instance.CombatUIObjectReference.transform)
+        {
+            DestroyImmediate(child);
+        }
+
+        GameManager.instance.CombatTurnOrderObjectReference.SetActive(false);
+        GameManager.instance.CombatUIObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
+        GameManager.instance.CombatUINameText.text = "";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.text = "";
+
+        instance.CurrentWalkMode = new PlayerMovement(instance);
+        _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
+        _cattank.CurrentWalkMode = new FollowTarget(_cattank, instance.transform, _cattank.DistanceBeforeMoving);
+
+        instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        _gilbert.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        _cattank.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+        instance.Input.SwitchCurrentActionMap("Overworld");
+
+        _combatCamera.Priority = 10;
+    }
+
+    public void CombatVictory()
+    {
+
+    }
+
+    public void CombatLoss()
+    {
+
     }
 
     private void OnDrawGizmos()

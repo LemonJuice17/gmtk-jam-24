@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,6 +57,11 @@ public class GameManager : MonoBehaviour
     /// A "poof" particle system effect for when things are instantiated.
     /// </summary>
     public ParticleSystem InstantiationPoofEffect;
+
+    /// <summary>
+    /// The main camera that follows the player.
+    /// </summary>
+    public CinemachineVirtualCamera PlayerCamera;
 
     public static GameManager instance;
 

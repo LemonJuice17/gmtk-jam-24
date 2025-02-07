@@ -33100,7 +33100,7 @@ PrefabInstance:
     - target: {fileID: 44710558860941249, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 136318524702800926, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -33305,7 +33305,7 @@ PrefabInstance:
     - target: {fileID: 8895871207418376984, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48838,6 +48838,7 @@ MonoBehaviour:
   BlackScreenReference: {fileID: 602740464}
   InstantiationPoofEffect: {fileID: 3540951760205637037, guid: 900c07e92d2f1d74582d2762d3bc5d50,
     type: 3}
+  PlayerCamera: {fileID: 16174174}
 --- !u!4 &1937897664
 Transform:
   m_ObjectHideFlags: 0
@@ -52931,32 +52932,37 @@ PrefabInstance:
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.82
+      value: -3.053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.578
       objectReference: {fileID: 0}
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.44
+      value: 3.885
       objectReference: {fileID: 0}
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6140341
+      value: -0.30434832
       objectReference: {fileID: 0}
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23874739
+      value: -0.11932121
       objectReference: {fileID: 0}
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.701168
+      value: -0.87985414
       objectReference: {fileID: 0}
     - target: {fileID: 3743159433069470067, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.2726266
+      value: 0.34495103
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
@@ -53127,6 +53133,16 @@ PrefabInstance:
       propertyPath: OnVictory.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5838107725746059161, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: m_Priority
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5838107725746059161, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6579222466478951239, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
       propertyPath: m_Size.y
@@ -53217,7 +53233,8 @@ PrefabInstance:
       propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6750396768629811636, guid: 21d40e8bae43c6b42bf959e307c8a1cd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -53329,7 +53346,7 @@ NavMeshAgent:
   m_Acceleration: 9
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -53961,7 +53978,7 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -54529,7 +54546,7 @@ NavMeshAgent:
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
