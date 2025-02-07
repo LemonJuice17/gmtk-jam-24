@@ -19,7 +19,7 @@ public class Attack : ScriptableObject
     public async Task<int> OnAttack(Combatant attacker, Combatant opponent)
     {
         _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
-        TweenRotation faceOpponent = new TweenRotation(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
+        TweenRotation faceOpponent = new (0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
         await faceOpponent.TweenCompletion;
 
         float totalDamage =
@@ -67,9 +67,7 @@ public class Attack : ScriptableObject
 
             opponent.HP = 0;
 
-            Rigidbody deadRigidBody;
-
-            if (!opponent.Transform.TryGetComponent(out deadRigidBody)) deadRigidBody = opponent.Transform.AddComponent<Rigidbody>();
+            if (!opponent.Transform.TryGetComponent(out Rigidbody deadRigidBody)) deadRigidBody = opponent.Transform.AddComponent<Rigidbody>();
 
             deadRigidBody.isKinematic = false;
             deadRigidBody.constraints = RigidbodyConstraints.None;
@@ -80,7 +78,7 @@ public class Attack : ScriptableObject
             deadRigidBody.AddForce(launchVector, ForceMode.Impulse);
             deadRigidBody.AddTorque(Random.rotation.eulerAngles, ForceMode.Impulse);
 
-            opponent.Transform.BroadcastMessage("StopAllAnimations");
+            opponent.Transform.BroadcastMessage("StopAnimations");
         }
 
         return roundedDamage;

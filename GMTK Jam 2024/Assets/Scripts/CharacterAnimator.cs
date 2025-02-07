@@ -20,24 +20,27 @@ public class CharacterAnimator : MonoBehaviour
         _characterAnimator.SetTrigger("Attack");
         _attackMade = new();
     }
-
     [UsedImplicitly]
     public void ChangeMoving(bool isMoving)
     {
         _characterAnimator.SetBool("IsWalking", isMoving);
     }
-
     [UsedImplicitly]
-    public void StopAllAnimations()
+    public void StopAnimations()
     {
         _characterAnimator.enabled = false;
     }
-
+    [UsedImplicitly]
+    public void StartAnimations()
+    {
+        _characterAnimator.enabled = true;
+    }
+    [UsedImplicitly]
     public void PlayWalkSound()
     {
         if(GameManager.instance.WalkSFX != null) Instantiate(GameManager.instance.WalkSFX);
     }
-
+    [UsedImplicitly]
     public void PlayAttackSound()
     {
         Instantiate(GameManager.instance.AttackSFX);

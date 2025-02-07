@@ -57,7 +57,7 @@ public class Walkable : MonoBehaviour
         public Task WaitForCompletion => _completionSource.Task;
         private readonly TaskCompletionSource<bool> _completionSource = new();
 
-        private bool _agentEnabledStatus;
+        private readonly bool _agentEnabledStatus;
 
         public WalkToPoint(Walkable walker, Vector3 targetPoint) : base(walker)
         {

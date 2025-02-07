@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,11 +33,11 @@ public class Player : Walkable
 
     #region Action Map Input Handling
     // ---- Overworld Action Map Input Handling ---- //
-    public void OnMove(InputValue value)
+    [UsedImplicitly] public void OnMove(InputValue value)
     {
         _currentMoveDirection = value.Get<Vector3>();
     }
-    public void OnInteract() 
+    [UsedImplicitly] public void OnInteract() 
     {
         CurrentInteractable?.OnInteract();
     }
@@ -44,7 +45,7 @@ public class Player : Walkable
 
 
     // ---- Dialogue Action Map Input Handling ---- //
-    public void OnContinue()
+    [UsedImplicitly] public void OnContinue()
     {
         CurrentInteractable?.OnInteract();
     }
@@ -52,15 +53,15 @@ public class Player : Walkable
 
 
     // ---- Combat Action Map Input Handling ---- //
-    public void OnLeft()
+    [UsedImplicitly] public void OnLeft()
     {
         //CombatEncounter.InputLeft.Invoke();
     }
-    public void OnRight()
+    [UsedImplicitly] public void OnRight()
     {
         //CombatEncounter.InputRight.Invoke();
     }
-    public void OnSelect()
+    [UsedImplicitly] public void OnSelect()
     {
         //CombatEncounter.InputSelect.Invoke();
     }

@@ -46,7 +46,7 @@ public class CombatEncounter : MonoBehaviour
     /// <summary>
     /// References to the turn order icon gameobjects.
     /// </summary>
-    private List<GameObject> _turnOrderIcons = new();
+    private readonly List<GameObject> _turnOrderIcons = new();
     /// <summary>
     /// The spacing between turn order icons.
     /// </summary>
@@ -177,7 +177,6 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-
     private async Task InstantiateEnemies(float time)
     {
         _enemyTransforms = new Transform[Enemies.Length];
@@ -194,6 +193,10 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay((int)(time * 1000));
     }
 
+    /// <summary>
+    /// Automatically plays the given combatant's turn using a random attack from their CombatProfile and random target on the other team.
+    /// </summary>
+    /// <param name="ai"> The combatant who's turn to automatically play. </param>
     private async Task AITurn(Combatant ai)
     {
         // Enable/disable relevant UI.
@@ -202,7 +205,6 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.text = $"";
-
 
         await Task.Delay(1000);
 
@@ -246,11 +248,15 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay(1000);
     }
 
+    /// <summary>
+    /// Animates the cycling of the turn order UI, moving the first combatant to the back of the queue and shuffling the others forward to keep it centered.
+    /// </summary>
+    /// <returns></returns>
     private async Task CycleTurnOrderUI()
     {
-        Vector3 lastIconPosition = _turnOrderIcons[_turnOrderIcons.Count - 1].transform.position;
+        Vector3 lastIconPosition = _turnOrderIcons[^1].transform.position;
 
-        Tween tweenFirstIconOffscreen = new Tween(0.3f, _turnOrderIcons[0].transform, _turnOrderIcons[0].transform.position - new Vector3(1080, 0), Easing.inSine);
+        Tween tweenFirstIconOffscreen = new (0.3f, _turnOrderIcons[0].transform, _turnOrderIcons[0].transform.position - new Vector3(1080, 0), Easing.inSine);
 
         List<Task> shuffleTasks = new();
         for (int i = 1; i < _turnOrderIcons.Count; i++)
@@ -270,6 +276,10 @@ public class CombatEncounter : MonoBehaviour
         _turnOrderIcons.Add(firstIcon);
     }
 
+    /// <summary>
+    /// Removes a combatant from the CombatantQueue, Combants list, and animates the removal of their turn order UI. 
+    /// </summary>
+    /// <param name="combatant"> The combatant to remove. </param>
     private async Task RemoveCombatant(Combatant combatant)
     {
         CombatantList.Remove(combatant);
@@ -295,58 +305,41 @@ public class CombatEncounter : MonoBehaviour
 
         await Task.WhenAll(cycleRemainingIcons);
 
-        // If the dead combatant was meant to go next, remove them from the queue immediately.
-        Combatant nextCombatant = CombatantQueue.Peek();
-
-        if (nextCombatant == combatant)
+        // Remove the combatant from the CombatQueue
+        for (int i = 0; i <= CombatantList.Count; i++) 
         {
+            Combatant nextInQueue = CombatantQueue.Peek();
             CombatantQueue.Dequeue();
-        }
-
-        // Iterate through the combatant queue for a complete loop, removing the dead combatant.
-        else
-        {
-            bool removeDeadCombatantFromQueue = true;
-            while (removeDeadCombatantFromQueue)
+            if (nextInQueue != combatant)
             {
-                Combatant next = CombatantQueue.Peek();
-                if (next == combatant)
-                {
-                    CombatantQueue.Dequeue();
-                }
-                else if (next == nextCombatant) removeDeadCombatantFromQueue = false;
-                else
-                {
-                    CombatantQueue.Dequeue();
-                    CombatantQueue.Enqueue(next);
-                }
+                CombatantQueue.Enqueue(nextInQueue);
             }
         }
 
         // Check if all enemies are dead.
         if (CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToList().Count == 0)
         {
+            Debug.Log("All enemies dead.");
             StopEncounter();
             CombatVictory();
-            Debug.Log("All enemies dead.");
         }
 
         // Check if all allies are dead.
         else if (CombatantList.Where((combatant) => combatant.Team == Team.ally).ToList().Count == 0)
         {
+            Debug.Log("All allies dead.");
             StopEncounter();
             CombatLoss();
-            Debug.Log("All allies dead.");
         }
     }
 
-    public void StopEncounter()
+    public async void StopEncounter()
     {
         _combatInProgress = false;
 
-        foreach(GameObject child in GameManager.instance.CombatUIObjectReference.transform)
+        foreach(GameObject icon in _turnOrderIcons)
         {
-            DestroyImmediate(child);
+            Destroy(icon);
         }
 
         GameManager.instance.CombatTurnOrderObjectReference.SetActive(false);
@@ -361,13 +354,28 @@ public class CombatEncounter : MonoBehaviour
         _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
         _cattank.CurrentWalkMode = new FollowTarget(_cattank, instance.transform, _cattank.DistanceBeforeMoving);
 
-        instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        _gilbert.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        _cattank.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
 
         instance.Input.SwitchCurrentActionMap("Overworld");
 
         _combatCamera.Priority = 10;
+
+        await Task.Delay(1000);
+
+        static void ResetIfDead(GameObject partyMember, Vector3 resetPosition)
+        {
+            if (partyMember.TryGetComponent(out Rigidbody rb) && rb.constraints == RigidbodyConstraints.None)
+            {
+                rb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                rb.isKinematic = true;
+                GameManager.instance.CreatePoofEffect(partyMember.transform.position); 
+                partyMember.transform.SetPositionAndRotation(resetPosition, Quaternion.identity);
+                GameManager.instance.CreatePoofEffect(resetPosition);
+                partyMember.BroadcastMessage("StartAnimations");
+            }
+        }
     }
 
     public void CombatVictory()
