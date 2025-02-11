@@ -35,7 +35,7 @@ public class Attack : ScriptableObject
             await Task.Delay(200);
         }
 
-        for (int i = 0; i < D8Damage; i++)
+        for (int i = D6Damage; i < D6Damage + D8Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(8, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
             await Task.Delay(200);

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Player : Walkable
@@ -12,6 +13,11 @@ public class Player : Walkable
     public IInteractable CurrentInteractable;
 
     public static Player instance;
+
+    public UnityEvent MoveSelectionLeft = new();
+    public UnityEvent MoveSelectionRight = new();
+    public UnityEvent EnterSelection = new();
+    public UnityEvent CancelSelection = new();
 
     public PlayerInput Input { get; private set; }
 
@@ -55,15 +61,19 @@ public class Player : Walkable
     // ---- Combat Action Map Input Handling ---- //
     [UsedImplicitly] public void OnLeft()
     {
-        //CombatEncounter.InputLeft.Invoke();
+        MoveSelectionLeft.Invoke();
     }
     [UsedImplicitly] public void OnRight()
     {
-        //CombatEncounter.InputRight.Invoke();
+        MoveSelectionRight.Invoke();
     }
     [UsedImplicitly] public void OnSelect()
     {
-        //CombatEncounter.InputSelect.Invoke();
+        EnterSelection.Invoke();
+    }
+    [UsedImplicitly] public void OnCancel()
+    {
+        CancelSelection.Invoke();
     }
     #endregion Action Map Input Handling
 
@@ -98,6 +108,8 @@ public class Player : Walkable
             Walker.Agent.enabled = false;   
             Walker.BroadcastMessage("ChangeMoving", false);
             Walker._walkModeCoroutine = Walker.StartCoroutine(PlayerMovementLoop());
+
+            if (Player.TryGetComponent(out Rigidbody rb)) rb.isKinematic = false;
         }
 
         private IEnumerator PlayerMovementLoop()

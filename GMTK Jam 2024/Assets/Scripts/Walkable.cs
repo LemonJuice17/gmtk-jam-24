@@ -33,6 +33,7 @@ public class Walkable : MonoBehaviour
             Walker.Agent.updatePosition = true;
             Walker.Agent.updateUpAxis = true;
             Walker.StopAllCoroutines();
+            if (Walker.TryGetComponent(out Rigidbody rb)) rb.isKinematic = true;
         }
     }
 

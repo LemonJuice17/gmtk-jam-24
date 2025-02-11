@@ -1,8 +1,11 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static Player;
@@ -168,7 +171,7 @@ public class CombatEncounter : MonoBehaviour
             CombatantQueue.Dequeue();
             CombatantQueue.Enqueue(nextCombatant);
 
-            if (nextCombatant.IsPlayer) await PlayerTurn();
+            if (nextCombatant.IsPlayer) await PlayerTurn(nextCombatant);
             else await AITurn(nextCombatant);
 
             await Task.Delay(500);
@@ -214,38 +217,187 @@ public class CombatEncounter : MonoBehaviour
         List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
         Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
 
-        GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} is using {ai.Profile.Attacks[randomAttackIndex].name} on {opponent.Profile.Character.CharacterName}.";
-        
-        await Task.Delay(500);
-        
-        // Wait for the attack to finish.
-        int damageDealt = await ai.Profile.Attacks[randomAttackIndex].OnAttack(ai, opponent);
-
-        await Task.Delay(1000);
-
-        GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {ai.Profile.Attacks[randomAttackIndex].name}.";
-
-        
-        // If the attack killed the enemy.
-        if (opponent.HP == 0)
-        {
-            await Task.Delay(3000);
-            GameManager.instance.CombatUIDescriptionText.text = $"{ai.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
-            await RemoveCombatant(opponent);
-        }
-
-        await Task.Delay(3000);
+        await Attack(ai, opponent, opponent.Profile.Attacks[randomAttackIndex]);
     }
 
-    private async Task PlayerTurn()
+    Attack selectedAttack = null;
+    Combatant selectedCombatant = null;
+
+    Attack[] attackSelectionList = null;
+    Combatant[] combatantSelectionList = null;
+    TMP_Text[] selectionObjectList = null;
+
+    int playerSelectionIndex = 0;
+
+    bool isPlayerTurn;
+    bool selectingAttack;
+    bool selectingOpponent;
+
+    private async Task PlayerTurn(Combatant player)
     {
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = "Your Turn";
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
 
-        Debug.Log("Player turn not yet implemented. Skipping turn.");
+        isPlayerTurn = true;
+        selectingAttack = true;
+        selectingOpponent = false;
+
         await Task.Delay(1000);
+
+        instance.MoveSelectionLeft.AddListener(PlayerSelectionLeft);
+        instance.MoveSelectionRight.AddListener(PlayerSelectionRight);
+        instance.EnterSelection.AddListener(PlayerSelectionEnter);
+        instance.CancelSelection.AddListener(PlayerSelectionCancel);
+
+        while (isPlayerTurn)
+        {
+            ShowAvailableAttacks();
+
+            while (selectingAttack)
+            {
+                await Task.Yield();
+            }
+
+            ShowAvailableOpponents();
+
+            while (selectingOpponent)
+            {
+                await Task.Yield();
+            }
+        }
+
+        RemoveCurrentPlayerOptions();
+
+        instance.MoveSelectionLeft.RemoveListener(PlayerSelectionLeft);
+        instance.MoveSelectionRight.RemoveListener(PlayerSelectionRight);
+        instance.EnterSelection.RemoveListener(PlayerSelectionEnter);
+        instance.CancelSelection.RemoveListener(PlayerSelectionCancel);
+
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
+
+        await Attack(player, selectedCombatant, selectedAttack);
+
+        await Task.Delay(1000);
+
+        void ShowAvailableAttacks()
+        {
+            RemoveCurrentPlayerOptions();
+
+            attackSelectionList = player.Profile.Attacks;
+            selectionObjectList = new TMP_Text[attackSelectionList.Length];
+
+            for (int i = 0; i < attackSelectionList.Length; i++)
+            {
+                selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
+                selectionObjectList[i].text = player.Profile.Attacks[i].name;
+            }
+
+            playerSelectionIndex = 0;
+            selectionObjectList[playerSelectionIndex].color = Color.green;
+        }
+
+        void ShowAvailableOpponents()
+        {
+            RemoveCurrentPlayerOptions();
+
+            combatantSelectionList = CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToArray();
+            selectionObjectList = new TMP_Text[combatantSelectionList.Length];
+
+            for (int i = 0; i < combatantSelectionList.Length; i++)
+            {
+                selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
+                selectionObjectList[i].text = combatantSelectionList[i].Profile.name;
+            }
+
+            playerSelectionIndex = 0;
+            selectionObjectList[playerSelectionIndex].color = Color.green;
+        }
+
+        void RemoveCurrentPlayerOptions()
+        {
+            if (selectionObjectList == null) return;
+
+            foreach(TMP_Text textObject in selectionObjectList)
+            {
+                Destroy(textObject.gameObject);
+            }
+
+            selectionObjectList = null;
+        }
+    }
+
+    void PlayerSelectionLeft()
+    {
+        selectionObjectList[playerSelectionIndex].color = Color.white;
+
+        playerSelectionIndex--;
+
+        if(playerSelectionIndex < 0) playerSelectionIndex = selectionObjectList.Length - 1;
+
+        selectionObjectList[playerSelectionIndex].color = Color.green;
+    }
+
+    void PlayerSelectionRight()
+    {
+        selectionObjectList[playerSelectionIndex].color = Color.white;
+
+        playerSelectionIndex++;
+
+        if (playerSelectionIndex > selectionObjectList.Length - 1) playerSelectionIndex = 0;
+
+        selectionObjectList[playerSelectionIndex].color = Color.green;
+    }
+
+    void PlayerSelectionEnter()
+    {
+        if (selectingAttack)
+        {
+            selectedAttack = attackSelectionList[playerSelectionIndex];
+            selectingAttack = false;
+            selectingOpponent = true;
+        }
+
+        else if (selectingOpponent)
+        {
+            selectedCombatant = combatantSelectionList[playerSelectionIndex];
+            selectingOpponent = false;
+            isPlayerTurn = false;
+        }
+    }
+
+    void PlayerSelectionCancel()
+    {
+        if (selectingOpponent)
+        {
+            selectingAttack = true;
+            selectingOpponent = false;
+        }
+    }
+
+    private async Task Attack(Combatant attacker, Combatant opponent, Attack attack)
+    {
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is using {attack.name} on {opponent.Profile.Character.CharacterName}.";
+
+        await Task.Delay(500);
+
+        // Wait for the attack to finish.
+        int damageDealt = await attack.OnAttack(attacker, opponent);
+        await Task.Delay(1000);
+
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {attack.name}.";
+
+
+        // If the attack killed the enemy.
+        if (opponent.HP == 0)
+        {
+            await Task.Delay(3000);
+            GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
+            await RemoveCombatant(opponent);
+        }
+
+        await Task.Delay(3000);
     }
 
     /// <summary>
@@ -350,13 +502,14 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.text = "";
 
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
+
         instance.CurrentWalkMode = new PlayerMovement(instance);
         _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
         _cattank.CurrentWalkMode = new FollowTarget(_cattank, instance.transform, _cattank.DistanceBeforeMoving);
 
-        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
-        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
-        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
 
         instance.Input.SwitchCurrentActionMap("Overworld");
 

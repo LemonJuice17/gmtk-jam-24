@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
-  MaxHP: 100
-  Strenth: 10
+  MaxHP: 20
+  Strenth: 0
   Charm: 0
   Magic: 4
   Attacks:
