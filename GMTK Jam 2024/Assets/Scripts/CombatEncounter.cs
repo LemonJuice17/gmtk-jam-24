@@ -25,6 +25,11 @@ public class CombatEncounter : MonoBehaviour
     public Vector3 RelativePlayerPosition;
     public Vector3 RelativeGilbertPosition;
 
+    // The relative positions (from this Transform) the party will move to after losing this fight.
+    public Vector3 RelativeCattankPositionOnLoss;
+    public Vector3 RelativePlayerPositionOnLoss;
+    public Vector3 RelativeGilbertPositionOnLoss;
+
     // The enemy GameObjects and their relative positions (from this Transform) the'll be spawned in when the fight starts.
     public GameObject[] Enemies;
     public Vector3[] RelativeEnemyPositions;
@@ -36,9 +41,14 @@ public class CombatEncounter : MonoBehaviour
     public float EnemySpawnTime = 1;
 
     /// <summary>
-    /// A toggle for showing the positions that players and enemies will move to/be spawned in.
+    /// A toggle for showing the positions that allies and enemies will move to/be spawned in.
     /// </summary>
     public bool ShowCombatPositionGizmos;
+
+    /// <summary>
+    /// A toggle for showing the positions that allies will move to after losing this battle.
+    /// </summary>
+    public bool ShowLossPositionGizmos;
 
     // References to circumvent referencing their singletons every time.
     private PartyMember _cattank;
@@ -180,6 +190,8 @@ public class CombatEncounter : MonoBehaviour
 
             if (nextCombatant.IsPlayer) await PlayerTurn(nextCombatant);
             else await AITurn(nextCombatant);
+
+            if (!_combatInProgress) return;
 
             await Task.Delay(500);
             
@@ -509,9 +521,7 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.text = "";
 
-        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
-        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
-        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
+        
 
         instance.CurrentWalkMode = new PlayerMovement(instance);
         _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
@@ -523,29 +533,44 @@ public class CombatEncounter : MonoBehaviour
         _combatCamera.Priority = 10;
 
         await Task.Delay(1000);
-
-        static void ResetIfDead(GameObject partyMember, Vector3 resetPosition)
-        {
-            if (partyMember.TryGetComponent(out Rigidbody rb) && rb.constraints == RigidbodyConstraints.None)
-            {
-                rb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-                rb.isKinematic = true;
-                GameManager.instance.CreatePoofEffect(partyMember.transform.position); 
-                partyMember.transform.SetPositionAndRotation(resetPosition, Quaternion.identity);
-                GameManager.instance.CreatePoofEffect(resetPosition);
-                partyMember.BroadcastMessage("StartAnimations");
-            }
-        }
     }
 
     public void CombatVictory()
     {
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
+
         OnVictory.Invoke();
     }
 
     public void CombatLoss()
     {
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPositionOnLoss);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPositionOnLoss);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPositionOnLoss);
+
+        RemoveAllEnemyInstances();
+
         OnLoss.Invoke();
+
+        static void RemoveAllEnemyInstances()
+        {
+
+        }
+    }
+
+    private void ResetIfDead(GameObject partyMember, Vector3 resetPosition)
+    {
+        if (partyMember.TryGetComponent(out Rigidbody rb) && rb.constraints == RigidbodyConstraints.None)
+        {
+            rb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            rb.isKinematic = true;
+            GameManager.instance.CreatePoofEffect(partyMember.transform.position);
+            partyMember.transform.SetPositionAndRotation(resetPosition, Quaternion.identity);
+            GameManager.instance.CreatePoofEffect(resetPosition);
+            partyMember.BroadcastMessage("StartAnimations");
+        }
     }
 
     private void OnDrawGizmos()
@@ -563,6 +588,15 @@ public class CombatEncounter : MonoBehaviour
             {
                 Gizmos.DrawSphere(transform.position + RelativeEnemyPositions[i], 0.25f);
             }
+        }
+
+        if (ShowLossPositionGizmos)
+        {
+            Gizmos.color = Color.yellow;
+
+            Gizmos.DrawSphere(transform.position + RelativeCattankPositionOnLoss, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativePlayerPositionOnLoss, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativeGilbertPositionOnLoss, 0.25f);
         }
     }
 }

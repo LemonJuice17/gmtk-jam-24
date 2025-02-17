@@ -51470,10 +51470,14 @@ MonoBehaviour:
   RelativeCattankPosition: {x: 0, y: 0, z: 0}
   RelativePlayerPosition: {x: 0, y: 0, z: 0}
   RelativeGilbertPosition: {x: 0, y: 0, z: 0}
+  RelativeCattankPositionOnLoss: {x: 0, y: 0, z: 0}
+  RelativePlayerPositionOnLoss: {x: 0, y: 0, z: 0}
+  RelativeGilbertPositionOnLoss: {x: 0, y: 0, z: 0}
   Enemies: []
   RelativeEnemyPositions: []
   EnemySpawnTime: 1
   ShowCombatPositionGizmos: 0
+  ShowLossPositionGizmos: 0
   TurnIconSpacing: 60
 --- !u!1001 &2086974606
 PrefabInstance:
@@ -53013,6 +53017,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
+      propertyPath: ShowLossPositionGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
       propertyPath: RelativePlayerPosition.x
       value: -1.3
       objectReference: {fileID: 0}
@@ -53070,6 +53079,36 @@ PrefabInstance:
         type: 3}
       propertyPath: Combatants.Array.data[0].MaxHP
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativePlayerPositionOnLoss.x
+      value: -0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativePlayerPositionOnLoss.z
+      value: -1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativeCattankPositionOnLoss.x
+      value: -2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativeCattankPositionOnLoss.z
+      value: -0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativeGilbertPositionOnLoss.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
+        type: 3}
+      propertyPath: RelativeGilbertPositionOnLoss.z
+      value: -2.87
       objectReference: {fileID: 0}
     - target: {fileID: 4410063232225012307, guid: 21d40e8bae43c6b42bf959e307c8a1cd,
         type: 3}
