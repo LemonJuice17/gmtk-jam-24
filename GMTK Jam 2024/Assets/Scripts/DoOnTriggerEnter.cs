@@ -15,5 +15,8 @@ public class DoOnTriggerEnter : MonoBehaviour
             GetComponent<Collider>().enabled = false;
         }
     }
+
+    public void ReEnable() { if (TryGetComponent(out Collider collider)) collider.enabled = true; }
+
     public void DestroySelf() => Destroy(gameObject);
 }
