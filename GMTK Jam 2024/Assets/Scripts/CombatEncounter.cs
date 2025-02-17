@@ -1,18 +1,25 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static Player;
 using static Walkable;
 
 public class CombatEncounter : MonoBehaviour
 {
+    /// <summary>
+    /// Invoked when the player wins this combat.
+    /// </summary>
+    public UnityEvent OnVictory = new();
+    /// <summary>
+    /// Invoked when the player wins this combat.
+    /// </summary>
+    public UnityEvent OnLoss = new();
+
     // The relative positions (from this Transform) the party will move to when the fight starts.
     public Vector3 RelativeCattankPosition;
     public Vector3 RelativePlayerPosition;
@@ -533,12 +540,12 @@ public class CombatEncounter : MonoBehaviour
 
     public void CombatVictory()
     {
-
+        OnVictory.Invoke();
     }
 
     public void CombatLoss()
     {
-
+        OnLoss.Invoke();
     }
 
     private void OnDrawGizmos()
