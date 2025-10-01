@@ -1,85 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Dice : MonoBehaviour
+[Serializable]
+public class Dice
 {
-    public Vector3[] Sides;
-    public int[] SideValues;
+    public int Sides;
 
-    public float MaximumThrowMagnitude = 3;
-
-    private Rigidbody _rb;
-
-    public float VelocityMagnitudeStopLimit = 0.05f;
-    
-    // An event that's called with the rolled value once the roll is finished.
-    public UnityEvent<Combatant, int> RolledValue = new();
-
-    Combatant _roller;
-
-    public float DeleteAfterRoll = 1f;
-
-    private void Awake()
+    public Dice (int sides = 6)
     {
-        foreach (Vector3 side in Sides) { side.Normalize(); }
-        _rb = GetComponent<Rigidbody>();
-        transform.position += 3 * Vector3.up;
-    }
-
-    public void Roll(Combatant combatant) => Roll(combatant, transform.forward);
-    public void Roll(Combatant combatant, Vector3 throwDirection)
-    {
-        Invoke("StopRoll", 3);
-        InvokeRepeating("StopCheck", 0.5f, 0.1f);
-
-        _roller = combatant;
-
-        if (GameManager.instance.DiceRollup != null) Instantiate(GameManager.instance.DiceRollup);
-
-        transform.rotation = Random.rotation;
-
-        throwDirection.Normalize();
-
-        _rb.AddForce(throwDirection * MaximumThrowMagnitude, ForceMode.Impulse);
-    }
-
-    private void StopCheck()
-    {
-        if (_rb.velocity.magnitude < VelocityMagnitudeStopLimit) StopRoll();
-    }
-
-    public void StopRoll()
-    {
-        _rb.isKinematic = true;
-
-        // Dot product: 1 is same direction, 0 is perpendicular, -1 is opposite.
-        // Closest to 1 is closest to the same direction.
-
-        int closestIndex = -1;
-        float closestDot = -1;
-
-        for (int i = 0; i < Sides.Length; i++)
+        if (AllowedSideCounts.Contains(sides))
         {
-            float dot = Vector3.Dot(Vector3.up, transform.rotation * Sides[i]);
-
-            if(dot > closestDot)
-            {
-                closestIndex = i;
-                closestDot = dot;
-            }
+            Sides = sides;
         }
 
-        CancelInvoke("StopCheck");
-
-        RolledValue.Invoke(_roller, SideValues[closestIndex]);
-
-        Destroy(gameObject, DeleteAfterRoll);
+        else
+        {
+            throw new Exception($"A D{sides} has tried to be made. Dice with this number of faces are not currently allowed. Only the following are allowed: {AllowedSideCounts}");
+        }
     }
 
-    public void OnCollisionEnter()
-    {
-        if (GameManager.instance.DiceRoll != null) Instantiate(GameManager.instance.DiceRoll);
-    }
+    public static int[] AllowedSideCounts = { 6, 8 };
+
+    /// <summary>
+    /// Spawns a physical instance of this dice.
+    /// </summary>
+    /// <param name="position"> The position of the dice. </param>
+    /// <param name="parent"> The parent of the dice (optional) </param>
+    /// <returns></returns>
+    public DiceObject SpawnDice(Vector3 position, Transform parent = null) => GameManager.instance.CreateDice(Sides, position, parent);
 }

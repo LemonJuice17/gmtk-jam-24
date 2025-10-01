@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6193574955009236331}
   - component: {fileID: 3324825277392173790}
   - component: {fileID: 5710382563816103571}
+  - component: {fileID: 6076702212409267248}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -212,16 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7926d0b9801354ca870abf6263205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats:
-    MaxHP: 5
-    HP: 5
-    Strength: 1
-    Magic: 1
-    Charm: 1
-    TurnOrderIcon: {fileID: 21300000, guid: 6eb98f480d6214d4389d0ef06588d3a0, type: 3}
-    OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 0}
-    Attacks: 
   MoveSpeed: 5
 --- !u!114 &5710382563816103571
 MonoBehaviour:
@@ -254,6 +245,28 @@ MonoBehaviour:
   m_DefaultActionMap: Overworld
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!195 &6076702212409267248
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194873423912836709}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &4530173420769288387
 PrefabInstance:
   m_ObjectHideFlags: 0

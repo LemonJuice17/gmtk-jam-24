@@ -1,616 +1,602 @@
 using Cinemachine;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
+using static Player;
+using static Walkable;
 
 public class CombatEncounter : MonoBehaviour
 {
-    public Dictionary<Combatant, int> Combatants = new();
-    [HideInInspector] public List<Combatant> CombatantOrder = new();
-    [HideInInspector] public List<Combatant> AllyCombatants = new();
-    public List<Combatant> EnemyCombatants;
-    // These are copied from the two lists above, but don't get changed.
-    // Used for references after combat is done.
-    [HideInInspector] public List<Combatant> Allies;
-    [HideInInspector] public List<Combatant> Enemies;
-
-    public Vector3 AllyLineOffset = new Vector3(0, 0, -2);
-    public Vector3 EnemyLineOffset = new Vector3(0, 0, 2);
-
-    public float CombatantSpacing = 1;
-
-    int _rollsFinished = 0;
-
-    private CinemachineVirtualCamera _camera;
-
-    public float DicePositionMultiplier = 2.5f;
-
-    public float FightLoopUpdateTime = 5f;
-
-    [SerializeField] private int _currentTurnIndex;
-
-    private List<TMP_Text> _playerAttackText = new();
-
-    private int _selectedAttackIndex = 0;
-
-    public static UnityEvent InputLeft = new();
-    public static UnityEvent InputRight = new();
-    public static UnityEvent InputSelect = new();
-
+    /// <summary>
+    /// Invoked when the player wins this combat.
+    /// </summary>
     public UnityEvent OnVictory = new();
+    /// <summary>
+    /// Invoked when the player wins this combat.
+    /// </summary>
     public UnityEvent OnLoss = new();
 
-    public float DeathExplosionForce = 1000;
+    // The relative positions (from this Transform) the party will move to when the fight starts.
+    public Vector3 RelativeCattankPosition;
+    public Vector3 RelativePlayerPosition;
+    public Vector3 RelativeGilbertPosition;
 
-    private void Awake()
+    // The relative positions (from this Transform) the party will move to after losing this fight.
+    public Vector3 RelativeCattankPositionOnLoss;
+    public Vector3 RelativePlayerPositionOnLoss;
+    public Vector3 RelativeGilbertPositionOnLoss;
+
+    // The enemy GameObjects and their relative positions (from this Transform) the'll be spawned in when the fight starts.
+    public GameObject[] Enemies;
+    public Vector3[] RelativeEnemyPositions;
+    private Transform[] _enemyTransforms;
+
+    /// <summary>
+    /// How many seconds enemies will be given to spawn.
+    /// </summary>
+    public float EnemySpawnTime = 1;
+
+    /// <summary>
+    /// A toggle for showing the positions that allies and enemies will move to/be spawned in.
+    /// </summary>
+    public bool ShowCombatPositionGizmos;
+
+    /// <summary>
+    /// A toggle for showing the positions that allies will move to after losing this battle.
+    /// </summary>
+    public bool ShowLossPositionGizmos;
+
+    // References to circumvent referencing their singletons every time.
+    private PartyMember _cattank;
+    private PartyMember _gilbert;
+
+    /// <summary>
+    /// The list of all current combatants. Dead combatants are removed from this list.
+    /// </summary>
+    public List<Combatant> CombatantList { get; private set; } = new();
+    /// <summary>
+    /// The queue for combatants to attack in. Dead combatants are only removed when (what would be) their turn is reached.
+    /// </summary>
+    public Queue<Combatant> CombatantQueue { get; private set; } = new();
+
+    /// <summary>
+    /// References to the turn order icon gameobjects.
+    /// </summary>
+    private readonly List<GameObject> _turnOrderIcons = new();
+    /// <summary>
+    /// The spacing between turn order icons.
+    /// </summary>
+    public float TurnIconSpacing = 80;
+
+    private CinemachineVirtualCamera _combatCamera;
+
+    bool _combatInProgress = true;
+
+    public async void StartEncounter()
     {
-        _camera = GetComponentInChildren<CinemachineVirtualCamera>();
+        instance.Input.SwitchCurrentActionMap("Combat");
 
-        InputLeft.AddListener(PlayerInputLeft);
-        InputRight.AddListener(PlayerInputRight);
-        InputSelect.AddListener(PlayerInputSelect);
-    }
+        _combatCamera = GetComponentInChildren<CinemachineVirtualCamera>();
 
-    private void Start()
-    {
-        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
-        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        GameManager.instance.CombatUIObjectReference.SetActive(false);
-    }
+        if (_combatCamera != null) _combatCamera.Priority = 100;
+        else Debug.LogAssertion("This combat does not have an assigned virtual camera. Create one as a child of this object.");
 
-    public void StartCombat(Dialogue dialogue)
-    {
-        StartCombat();
-    }
+        // Spawn enemy models.
+        await InstantiateEnemies(EnemySpawnTime);
 
-    public void StartCombat()
-    {
-        Random.InitState(Environment.TickCount);
+        _cattank = GameManager.instance.CattankReference;
+        _gilbert = GameManager.instance.GilbertReference;
 
-        Player.instance.Input.SwitchCurrentActionMap("Combat");
-        _camera.Priority = 20;
+        // Move party to correct positions.
+        Task[] moveToPositionTasks = new Task[3];
 
-        _playerAttackText.Clear();
+        instance.CurrentWalkMode = new WalkToPoint(instance, transform.position + RelativePlayerPosition);
+        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
+        _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, transform.position + RelativeGilbertPosition);
 
-        foreach (Transform child in GameManager.instance.CombatUIPlayerOptionsObjectReference.transform)
+        moveToPositionTasks[0] = (instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[1] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+        moveToPositionTasks[2] = (_gilbert.CurrentWalkMode as WalkToPoint).WaitForCompletion;
+
+        await Task.WhenAll(moveToPositionTasks);
+
+        instance.CurrentWalkMode = new StandStill(instance);
+        _cattank.CurrentWalkMode = new StandStill(_cattank);
+        _gilbert.CurrentWalkMode = new StandStill(_gilbert);
+
+        await Task.Delay(1000);
+
+        // Add all combatants to a single list.
+        CombatantList.Add(new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true));
+        CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
+        CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
+
+        for (int i = 0; i < Enemies.Length; i++)
         {
-            Destroy(child.gameObject);
-        };
-
-        foreach (Attacks attack in Player.instance.Stats.Attacks)
-        {
-            _playerAttackText.Add(Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerOptionsObjectReference.transform));
-            _playerAttackText.Last().text = attack.ToString();
-            _playerAttackText.Last().color = GameManager.instance.UnselectedTextColour;
-        }
-
-        CombatantOrder.Clear();
-        Combatants.Clear();
-        AllyCombatants.Clear();
-        if (Enemies.Count != 0) EnemyCombatants = Enemies;
-
-        AllyCombatants.Add(Player.instance.Stats);
-
-        GameObject.FindGameObjectsWithTag("Party Member").ToList().ForEach(obj => AllyCombatants.Add(obj.GetComponent<PartyMember>().Stats));
-
-        AllyCombatants.ForEach((ally) => Combatants.Add(ally, 0));
-        EnemyCombatants.ForEach((enemy) => Combatants.Add(enemy, 0));
-
-        if (Allies.Count == 0) AllyCombatants.ForEach((ally) => Allies.Add(ally));
-        if (Enemies.Count == 0) EnemyCombatants.ForEach((enemy) => Enemies.Add(enemy));
-
-        foreach (var pair in Combatants)
-        {
-            pair.Key.HP = pair.Key.MaxHP;
-        }
-
-        GameManager.instance.FightMusic();
-
-        Invoke("PositionCombatants", 1);
-        Invoke("RollForInitiative", 2);
-    }
-
-    public void StopCombat()
-    {
-        if (Player.instance.Input.currentActionMap.name == "Combat")
-        {
-            Player.instance.Input.SwitchCurrentActionMap("Overworld");
-        }
-        
-        _camera.Priority = 1;
-
-        for (int i = 0; i < Allies.Count; i++)
-        {
-            Rigidbody rb = Allies[i].OverworldObject.GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.freezeRotation = true;
-            rb.velocity = Vector3.zero;
-            Allies[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-Allies.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-            Allies[i].OverworldObject.transform.rotation = Quaternion.identity;
-            if (Allies[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StartFollowLoop();
-        }
-
-        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.SetActive(false);
-        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        GameManager.instance.CombatUIObjectReference.SetActive(false);
-
-        GameManager.instance.NormalMusic();
-
-        CancelInvoke();
-    }
-
-    private void PositionCombatants()
-    {
-        Vector3 direction = EnemyLineOffset - AllyLineOffset;
-        direction.Normalize();
-
-        for(int i = 0; i < AllyCombatants.Count; i++)
-        {
-            AllyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (AllyLineOffset + new Vector3((-AllyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-            AllyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * direction, Vector3.up);
-            AllyCombatants[i].OverworldObject.GetComponent<Rigidbody>().isKinematic = true;
-            if (AllyCombatants[i].OverworldObject.TryGetComponent(out PartyMember pm)) pm.StopFollowLoop();
-        }
-
-        for (int i = 0; i < EnemyCombatants.Count; i++)
-        {
-            // Instantiate enemy (if needed)
-            if (EnemyCombatants[i].CombatantPrefab != null)
+            try
             {
-                EnemyCombatants[i].OverworldObject = Instantiate(EnemyCombatants[i].CombatantPrefab).transform;
-                EnemyCombatants[i].OverworldObject.name = EnemyCombatants[i].CombatantPrefab.name;
+                CombatantList.Add(new Combatant(Enemies[i].GetComponent<CombatProfile>(), _enemyTransforms[i], Team.enemy));
             }
-
-            // Position enemy
-            if (EnemyCombatants[i].OverworldObject != null)
+            catch
             {
-                EnemyCombatants[i].OverworldObject.transform.position = transform.position + (transform.rotation * (EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0)));
-                EnemyCombatants[i].OverworldObject.transform.rotation = Quaternion.LookRotation(transform.rotation * -direction, Vector3.up);
+                throw new System.Exception($"The enemy {Enemies[i].name} does not have an associated combat profile. Add a CombatProfile component to this enemy prefab try again.");
             }
         }
-    }
 
-    public void RollForInitiative()
-    {
-        Vector3 direction = EnemyLineOffset - AllyLineOffset;
-        direction.Normalize();
+        // Roll dice to get the order of combat.
+        Task<int>[] rollResults = new Task<int>[CombatantList.Count];
 
-        _rollsFinished = 0;
-
-        foreach (var combatant in AllyCombatants)
+        for (int i = 0; i < CombatantList.Count; i++)
         {
-            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
-            die.Roll(combatant);
-            die.RolledValue.AddListener(AddRollResult);
+            rollResults[i] = GameManager.instance.CreateDice(6, CombatantList[i].Transform.position + (Vector3.up * 2)).Roll(-CombatantList[i].Transform.forward * 1.5f);
+            await Task.Delay(200);
         }
 
-        foreach (var combatant in EnemyCombatants)
+        await Task.WhenAll(rollResults);
+
+        await Task.Delay(3000);
+
+        // Calculate the order of combat from the previously calculated rolls.
+        Dictionary<Combatant, int> combatantRolls = new();
+
+        for (int i = 0; i < rollResults.Length; i++)
         {
-            Dice die = Instantiate(GameManager.instance.D6).GetComponent<Dice>();
-            die.transform.position = combatant.OverworldObject.transform.position - (transform.rotation * direction * DicePositionMultiplier);
-            die.Roll(combatant);
-            die.RolledValue.AddListener(AddRollResult);
+            combatantRolls.Add(CombatantList[i], rollResults[i].Result);
         }
-    }
 
-    private void AddRollResult(Combatant combatant, int result)
-    {
-        Combatants[combatant] = result;
-        _rollsFinished++;
-        if (_rollsFinished == Combatants.Count) StartFightLoop();
-    }
+        CombatantQueue = new Queue<Combatant>(
+            combatantRolls.OrderByDescending(roll => roll.Value)
+            .Select(roll => roll.Key)
+            .ToList());
 
-    private void StartFightLoop()
-    {
-        CombatantOrder = Combatants.OrderByDescending(pair => pair.Value)
-                                   .Select(pair => pair.Key)
-                                   .ToList();
-
+        // Create the UI for showing turn order.
         GameManager.instance.CombatUIObjectReference.SetActive(true);
-        GenerateIcons(CombatantOrder);
+        GameManager.instance.CombatTurnOrderObjectReference.SetActive(true);
 
-        InvokeRepeating("FightLoop", FightLoopUpdateTime * 0.5f, FightLoopUpdateTime);
-    }
+        float spacingStart = (CombatantList.Count - 1) * 0.5f * -TurnIconSpacing;
 
-    public void GenerateIcons(List<Combatant> combatants)
-    {
-        foreach (Transform child in GameManager.instance.TurnOrderObjectReference.transform)
+        for (int i = 0; i < CombatantList.Count; i++)
         {
-            Destroy(child.gameObject);
-        };
+            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + TurnIconSpacing * i, 0, 0);
+            _turnOrderIcons.Add(Instantiate(
+                GameManager.instance.CombatTurnOrderIconPrefab,
+                position + new Vector3(1080, 0, 0),
+                Quaternion.identity,
+                GameManager.instance.CombatTurnOrderObjectReference.transform));
 
-        foreach (Combatant combatant in combatants)
+            _turnOrderIcons[i].transform.GetChild(0).GetComponent<Image>().sprite = CombatantQueue.Peek().Profile.Character.CharacterSprite;
+            _turnOrderIcons[i].name = CombatantQueue.Peek().Profile.Character.name;
+            CombatantQueue.Enqueue(CombatantQueue.Peek());
+            CombatantQueue.Dequeue();
+
+            new Tween(0.4f, _turnOrderIcons[i].transform, position, Easing.outSine);
+            await Task.Delay(400);
+        }
+
+        await Task.Delay(1000);
+
+        // Main combat loop.
+        while (_combatInProgress)
         {
-            GameObject newIcon = Instantiate(GameManager.instance.TurnOrderIconPrefab, GameManager.instance.TurnOrderObjectReference);
-            if(combatant.TurnOrderIcon != null) newIcon.transform.GetChild(0).GetComponent<Image>().sprite = combatant.TurnOrderIcon;
+            await Task.Delay(500);
+
+            Combatant nextCombatant = CombatantQueue.Peek();
+            CombatantQueue.Dequeue();
+            CombatantQueue.Enqueue(nextCombatant);
+
+            if (nextCombatant.IsPlayer) await PlayerTurn(nextCombatant);
+            else await AITurn(nextCombatant);
+
+            if (!_combatInProgress) return;
+
+            await Task.Delay(500);
+            
+            await CycleTurnOrderUI();
         }
     }
 
-    private void FightLoop()
+    private async Task InstantiateEnemies(float time)
+    {
+        _enemyTransforms = new Transform[Enemies.Length];
+
+        for (int i = 0; i < Enemies.Length; i++)
+        {
+            _enemyTransforms[i] = InstantiateCharacter.InstantiateCharacterStatic(
+                Enemies[i],
+                transform.position + RelativeEnemyPositions[i],
+                Quaternion.LookRotation(transform.position))
+                .transform;
+        }
+
+        await Task.Delay((int)(time * 1000));
+    }
+
+    /// <summary>
+    /// Automatically plays the given combatant's turn using a random attack from their CombatProfile and random target on the other team.
+    /// </summary>
+    /// <param name="ai"> The combatant who's turn to automatically play. </param>
+    private async Task AITurn(Combatant ai)
+    {
+        // Enable/disable relevant UI.
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
+        GameManager.instance.CombatUINameText.text = $"{ai.Profile.Character.CharacterName}'s Turn";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
+        GameManager.instance.CombatUIDescriptionText.text = $"";
+
+        await Task.Delay(1000);
+
+        // Randomly choose an attack and an opponent to attack.
+        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Length - 1);
+
+        List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
+        Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
+
+        await Attack(ai, opponent, opponent.Profile.Attacks[randomAttackIndex]);
+    }
+
+    Attack selectedAttack = null;
+    Combatant selectedCombatant = null;
+
+    Attack[] attackSelectionList = null;
+    Combatant[] combatantSelectionList = null;
+    TMP_Text[] selectionObjectList = null;
+
+    int playerSelectionIndex = 0;
+
+    bool isPlayerTurn;
+    bool selectingAttack;
+    bool selectingOpponent;
+
+    private async Task PlayerTurn(Combatant player)
     {
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
-
-        if (_currentTurnIndex >= CombatantOrder.Count) _currentTurnIndex = 0;
-
-        Combatant currentCombatant = CombatantOrder[_currentTurnIndex];
-
-        GameManager.instance.CombatUINameText.text = $"{currentCombatant.OverworldObject.name}'s Turn";
-
-        if (Player.instance != null && currentCombatant.OverworldObject == Player.instance.transform)
-        {
-            PlayersTurn();
-            return;
-        }
-
-        _currentTurnIndex++;
-
-        StartAttack(currentCombatant, currentCombatant.Attacks[Random.Range(0, currentCombatant.Attacks.Count - 1)]);
-    }
-
-    public void PlayersTurn()
-    {
-        CancelInvoke("FightLoop");
-        _currentTurnIndex++;
+        GameManager.instance.CombatUINameText.text = "Your Turn";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(true);
-        _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
-    }
 
-    private void PlayerInputLeft()
-    {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
-        if (_selectedAttackIndex > 0)
+        isPlayerTurn = true;
+        selectingAttack = true;
+        selectingOpponent = false;
+
+        await Task.Delay(1000);
+
+        instance.MoveSelectionLeft.AddListener(PlayerSelectionLeft);
+        instance.MoveSelectionRight.AddListener(PlayerSelectionRight);
+        instance.EnterSelection.AddListener(PlayerSelectionEnter);
+        instance.CancelSelection.AddListener(PlayerSelectionCancel);
+
+        while (isPlayerTurn)
         {
-            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
-            _selectedAttackIndex--;
-            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
-        }
-    }
-    private void PlayerInputRight()
-    {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
-        if (_selectedAttackIndex < Player.instance.Stats.Attacks.Count - 1)
-        {
-            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.UnselectedTextColour;
-            _selectedAttackIndex++;
-            _playerAttackText[_selectedAttackIndex].color = GameManager.instance.SelectedTextColour;
-        }
-    }
-    private void PlayerInputSelect()
-    {
-        if (!GameManager.instance.CombatUIPlayerOptionsObjectReference.activeSelf) return;
-        GameManager.instance.CombatUIPlayerOptionsObjectReference.gameObject.SetActive(false);
-        StartAttack(Player.instance.Stats, Player.instance.Stats.Attacks[_selectedAttackIndex]);
-        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
-    }
+            ShowAvailableAttacks();
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + (transform.rotation * AllyLineOffset), 0.5f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + (transform.rotation * EnemyLineOffset), 0.5f);
-    }
-
-    #region Attacks
-
-    private Attacks _currentAttack;
-    public void StartAttack(Combatant attacker, Attacks attack, Combatant victim = null)
-    {
-        _currentAttack = 0;
-        _currentRollTotal = 0;
-
-        switch (attack)
-        {
-            case Attacks.Punch:
-                RollDice(attacker, GameManager.instance.D6);
-                break;
-            case Attacks.Stabs:
-                RollDice(attacker, GameManager.instance.D6, 2);
-                break;
-            case Attacks.Slash:
-                RollDice(attacker, GameManager.instance.D8);
-                break;
-            case Attacks.Crush:
-                Attack(attacker, attack);
-                break;
-            case Attacks.Taunt:
-                Attack(attacker, attack);
-                break;
-            case Attacks.Mock:
-                RollDice(attacker, GameManager.instance.D6);
-                break;
-            case Attacks.Insult:
-                RollDice(attacker, GameManager.instance.D6, 2);
-                break;
-            case Attacks.Seduce:
-                RollDice(attacker, GameManager.instance.D8, 3);
-                break;
-            case Attacks.Blast:
-                RollDice(attacker, GameManager.instance.D8);
-                break;
-            case Attacks.Shrink:
-                Attack(attacker, attack);
-                break;
-            case Attacks.Fireball:
-                RollDice(attacker, GameManager.instance.D8, 3);
-                break;
-            case Attacks.Roll:
-                RollDice(attacker, GameManager.instance.D8, 5);
-                break;
-            case Attacks.Snore:
-                RollDice(attacker, GameManager.instance.D8, 4);
-                break;
-        }
-
-        _currentAttack = attack;
-    }
-
-    public void Attack(Combatant attacker, Attacks attack, int diceModifier = 0, Combatant victim = null)
-    {
-        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
-
-        switch (attack)
-        {
-            case Attacks.Punch:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name}, dealing {attacker.Strength} + {diceModifier} damage!";
-                    victim.HP -= attacker.Strength + diceModifier;
-                    break;
-                }
-            case Attacks.Stabs:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} stabbed {victim.OverworldObject.name} several times, dealing {attacker.Strength} + {diceModifier} damage!";
-                    victim.HP -= attacker.Strength + diceModifier;
-                    break;
-                }
-            case Attacks.Slash:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} slashed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} + {diceModifier} damage!";
-                    victim.HP -= attacker.Strength * 2 + diceModifier; ;
-                    break;
-                }
-            case Attacks.Crush:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} crushed {victim.OverworldObject.name}, dealing {attacker.Strength * 2} damage!";
-                    victim.HP -= attacker.Strength;
-                    break;
-                }
-            case Attacks.Taunt:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} taunted {victim.OverworldObject.name}, dealing {attacker.Charm} damage!";
-                    victim.HP -= attacker.Charm;
-                    break;
-                }
-            case Attacks.Mock:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} mocked {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
-                    victim.HP -= attacker.Charm + diceModifier;
-                    break;
-                }
-            case Attacks.Insult:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} insulted {victim.OverworldObject.name}, dealing {attacker.Charm} + {diceModifier} damage!";
-                    victim.HP -= attacker.Charm + diceModifier;
-                    break;
-                }
-            case Attacks.Seduce:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} seduced {victim.OverworldObject.name}, dealing {attacker.Charm} +  {diceModifier} damage!";
-                    victim.HP -= attacker.Charm + diceModifier;
-                    break;
-                }
-            case Attacks.Blast:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} blasted {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
-                    victim.HP -= attacker.Magic + diceModifier;
-                    break;
-                }
-            case Attacks.Shrink:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} shrank {victim.OverworldObject.name}, halving their size (and HP)!";
-                    victim.HP = (int)Math.Ceiling(victim.HP * 0.5f);
-                    victim.OverworldObject.localScale *= 0.5f;
-                    break;
-                }
-            case Attacks.Fireball:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} hurled a fireball at {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
-                    victim.HP -= attacker.Magic + diceModifier;
-                    break;
-                }
-            case Attacks.Roll:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} rolls over {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
-                    victim.HP -= attacker.Magic + diceModifier;
-                    break;
-                }
-            case Attacks.Snore:
-                {
-                    if (victim == null) victim = GetRandomOpponent(attacker);
-                    GameManager.instance.CombatUIDescriptionText.text = $"{attacker.OverworldObject.name} snores {victim.OverworldObject.name}, dealing {attacker.Magic} +  {diceModifier} damage!";
-                    victim.HP -= attacker.Magic + diceModifier;
-                    break;
-                }
-        }
-
-        attacker.OverworldObject.BroadcastMessage("Attack", SendMessageOptions.DontRequireReceiver);
-
-        if(victim.HP <= 0)
-        {
-            _killedCombatant = victim;
-            CancelInvoke("FightLoop");
-            Invoke("CombatantKilled", FightLoopUpdateTime);
-        }
-
-        else if(diceModifier != 0) InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
-    }
-
-    private int _rollCount = 1;
-    private int _currentRolls = 0;
-    private int _currentRollTotal = 0;
-
-    public void RollDice(Combatant attacker, GameObject diePrefab, int quantity = 1)
-    {
-        CancelInvoke("FightLoop");
-
-        Vector3 direction = EnemyLineOffset - AllyLineOffset;
-        direction.Normalize();
-
-        _rollCount = quantity;
-        _currentRolls = 0;
-        _currentRollTotal = 0;
-
-        for (int i = 0; i < quantity; i++)
-        {
-            Dice die = Instantiate(diePrefab).GetComponent<Dice>();
-            die.transform.position = attacker.OverworldObject.transform.position + (transform.rotation * direction * DicePositionMultiplier);
-            die.Roll(attacker);
-            die.RolledValue.AddListener(WaitForAllRolls);
-        }
-    }
-    
-    private void WaitForAllRolls(Combatant combatant, int roll)
-    {
-        _currentRollTotal += roll;
-        _currentRolls++;
-
-        if (_currentRolls >= _rollCount) Attack(combatant, _currentAttack, _currentRollTotal);
-    }
-
-    private Combatant _killedCombatant;
-
-    private void CombatantKilled()
-    {
-        GameManager.instance.CombatUIDescriptionText.text = $"{_killedCombatant.OverworldObject.name} has been slain!";
-
-        _currentTurnIndex--;
-
-        CombatantOrder.Remove(_killedCombatant);
-
-        if (_killedCombatant.OverworldObject.TryGetComponent(out Rigidbody rb))
-        {
-            rb.isKinematic = false;
-            rb.freezeRotation = false;
-            rb.AddExplosionForce(DeathExplosionForce, _killedCombatant.OverworldObject.transform.position + Vector3.down, 2);
-        }
-
-        AllyCombatants.Remove(_killedCombatant);
-
-        if (AllyCombatants.Contains(_killedCombatant)) AllyCombatants.Remove(_killedCombatant);
-        if (EnemyCombatants.Contains(_killedCombatant)) EnemyCombatants.Remove(_killedCombatant);
-
-        _killedCombatant = null;
-
-        if (AllyCombatants.Count == 0)
-        {
-            Invoke("DelayedLoss", 1);
-            return;
-        }
-
-        if (EnemyCombatants.Count == 0)
-        {
-            StopCombat();
-            OnVictory.Invoke();
-            Destroy(this);
-            Enemies.ForEach(enemy =>
+            while (selectingAttack)
             {
-                if (enemy.OverworldObject.TryGetComponent(out Dialogue deadNPCDialogue))
-                {
-                    Destroy(deadNPCDialogue);
-                }
-            });
-            return;
-        }
+                await Task.Yield();
+            }
 
-        _currentTurnIndex++;
+            ShowAvailableOpponents();
 
-        InvokeRepeating("FightLoop", FightLoopUpdateTime, FightLoopUpdateTime);
-    }
-
-    private void DelayedLoss() 
-    {
-        StopCombat();
-        OnLoss.Invoke();
-
-        // Position enemy
-        for (int i = 0; i < Enemies.Count; i++)
-        {
-            if (Enemies[i].OverworldObject != null)
+            while (selectingOpponent)
             {
-                Enemies[i].OverworldObject.transform.position = transform.position + EnemyLineOffset + new Vector3((-EnemyCombatants.Count + 1) * (CombatantSpacing * 0.5f) + (i * CombatantSpacing), 0, 0);
+                await Task.Yield();
             }
         }
+
+        RemoveCurrentPlayerOptions();
+
+        instance.MoveSelectionLeft.RemoveListener(PlayerSelectionLeft);
+        instance.MoveSelectionRight.RemoveListener(PlayerSelectionRight);
+        instance.EnterSelection.RemoveListener(PlayerSelectionEnter);
+        instance.CancelSelection.RemoveListener(PlayerSelectionCancel);
+
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
+
+        await Attack(player, selectedCombatant, selectedAttack);
+
+        await Task.Delay(1000);
+
+        void ShowAvailableAttacks()
+        {
+            RemoveCurrentPlayerOptions();
+
+            attackSelectionList = player.Profile.Attacks;
+            selectionObjectList = new TMP_Text[attackSelectionList.Length];
+
+            for (int i = 0; i < attackSelectionList.Length; i++)
+            {
+                selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
+                selectionObjectList[i].text = player.Profile.Attacks[i].name;
+            }
+
+            playerSelectionIndex = 0;
+            selectionObjectList[playerSelectionIndex].color = Color.green;
+        }
+
+        void ShowAvailableOpponents()
+        {
+            RemoveCurrentPlayerOptions();
+
+            combatantSelectionList = CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToArray();
+            selectionObjectList = new TMP_Text[combatantSelectionList.Length];
+
+            for (int i = 0; i < combatantSelectionList.Length; i++)
+            {
+                selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
+                selectionObjectList[i].text = combatantSelectionList[i].Profile.name;
+            }
+
+            playerSelectionIndex = 0;
+            selectionObjectList[playerSelectionIndex].color = Color.green;
+        }
+
+        void RemoveCurrentPlayerOptions()
+        {
+            if (selectionObjectList == null) return;
+
+            foreach(TMP_Text textObject in selectionObjectList)
+            {
+                Destroy(textObject.gameObject);
+            }
+
+            selectionObjectList = null;
+        }
     }
 
-    private Combatant GetRandomOpponent(Combatant attacker)
+    void PlayerSelectionLeft()
     {
-        if (AllyCombatants.Contains(attacker))
+        selectionObjectList[playerSelectionIndex].color = Color.white;
+
+        playerSelectionIndex--;
+
+        if(playerSelectionIndex < 0) playerSelectionIndex = selectionObjectList.Length - 1;
+
+        selectionObjectList[playerSelectionIndex].color = Color.green;
+    }
+
+    void PlayerSelectionRight()
+    {
+        selectionObjectList[playerSelectionIndex].color = Color.white;
+
+        playerSelectionIndex++;
+
+        if (playerSelectionIndex > selectionObjectList.Length - 1) playerSelectionIndex = 0;
+
+        selectionObjectList[playerSelectionIndex].color = Color.green;
+    }
+
+    void PlayerSelectionEnter()
+    {
+        if (selectingAttack)
         {
-            return EnemyCombatants[Random.Range(0, EnemyCombatants.Count - 1)];
+            selectedAttack = attackSelectionList[playerSelectionIndex];
+            selectingAttack = false;
+            selectingOpponent = true;
         }
 
-        else
+        else if (selectingOpponent)
         {
-            return AllyCombatants[Random.Range(0, AllyCombatants.Count - 1)];
+            selectedCombatant = combatantSelectionList[playerSelectionIndex];
+            selectingOpponent = false;
+            isPlayerTurn = false;
         }
     }
-    #endregion Attacks
-}
 
-[System.Serializable]
-public class Combatant
-{
-    public int MaxHP = 5;
-    public int HP = 5;
+    void PlayerSelectionCancel()
+    {
+        if (selectingOpponent)
+        {
+            selectingAttack = true;
+            selectingOpponent = false;
+        }
+    }
 
-    public int Strength = 1;
-    public int Magic = 1;
-    public int Charm = 1;
+    private async Task Attack(Combatant attacker, Combatant opponent, Attack attack)
+    {
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is using {attack.name} on {opponent.Profile.Character.CharacterName}.";
 
-    public Sprite TurnOrderIcon;
+        await Task.Delay(500);
 
-    public Transform OverworldObject;
-    public GameObject CombatantPrefab;
+        // Wait for the attack to finish.
+        int damageDealt = await attack.OnAttack(attacker, opponent);
+        await Task.Delay(1000);
 
-    public List<Attacks> Attacks;
-}
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {attack.name}.";
 
-public enum Attacks
-{
-    Punch,
-    Stabs,
-    Slash,
-    Crush,
-    Taunt,
-    Mock,
-    Insult,
-    Seduce,
-    Blast,
-    Shrink,
-    Fireball,
-    Roll,
-    Snore
+
+        // If the attack killed the enemy.
+        if (opponent.HP == 0)
+        {
+            await Task.Delay(3000);
+            GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
+            await RemoveCombatant(opponent);
+        }
+
+        await Task.Delay(3000);
+    }
+
+    /// <summary>
+    /// Animates the cycling of the turn order UI, moving the first combatant to the back of the queue and shuffling the others forward to keep it centered.
+    /// </summary>
+    /// <returns></returns>
+    private async Task CycleTurnOrderUI()
+    {
+        Vector3 lastIconPosition = _turnOrderIcons[^1].transform.position;
+
+        Tween tweenFirstIconOffscreen = new (0.3f, _turnOrderIcons[0].transform, _turnOrderIcons[0].transform.position - new Vector3(1080, 0), Easing.inSine);
+
+        List<Task> shuffleTasks = new();
+        for (int i = 1; i < _turnOrderIcons.Count; i++)
+        {
+            Tween tween = new(0.6f, _turnOrderIcons[i].transform, _turnOrderIcons[i].transform.position - new Vector3(TurnIconSpacing, 0), Easing.inOutSine);
+            shuffleTasks.Add(tween.TweenCompletion);
+        }
+
+        await tweenFirstIconOffscreen.TweenCompletion;
+        _turnOrderIcons[0].transform.position = lastIconPosition + new Vector3(1080, 0);
+        new Tween(0.3f, _turnOrderIcons[0].transform, lastIconPosition, Easing.outSine);
+
+        await Task.WhenAll(shuffleTasks);
+        
+        GameObject firstIcon = _turnOrderIcons[0];
+        _turnOrderIcons.RemoveAt(0);
+        _turnOrderIcons.Add(firstIcon);
+    }
+
+    /// <summary>
+    /// Removes a combatant from the CombatantQueue, Combants list, and animates the removal of their turn order UI. 
+    /// </summary>
+    /// <param name="combatant"> The combatant to remove. </param>
+    private async Task RemoveCombatant(Combatant combatant)
+    {
+        CombatantList.Remove(combatant);
+        GameObject turnIcon = _turnOrderIcons.Find((icon) => icon.name == combatant.Profile.Character.name);
+
+        Tween removalTween = new(0.3f, turnIcon.transform, turnIcon.transform.position + new Vector3(0, 200), Easing.inSine);
+        await removalTween.TweenCompletion;
+
+        _turnOrderIcons.Remove(turnIcon);
+        Destroy(turnIcon);
+
+        await Task.Delay(1000);
+
+        float spacingStart = (CombatantList.Count - 1) * 0.5f * -TurnIconSpacing;
+
+        List<Task> cycleRemainingIcons = new();
+        for (int i = 0; i < _turnOrderIcons.Count; i++)
+        {
+            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + TurnIconSpacing * i, 0, 0);
+            Tween tween = new(0.6f, _turnOrderIcons[i].transform, position, Easing.inOutSine);
+            cycleRemainingIcons.Add(tween.TweenCompletion);
+        }
+
+        await Task.WhenAll(cycleRemainingIcons);
+
+        // Remove the combatant from the CombatQueue
+        for (int i = 0; i <= CombatantList.Count; i++) 
+        {
+            Combatant nextInQueue = CombatantQueue.Peek();
+            CombatantQueue.Dequeue();
+            if (nextInQueue != combatant)
+            {
+                CombatantQueue.Enqueue(nextInQueue);
+            }
+        }
+
+        // Check if all enemies are dead.
+        if (CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToList().Count == 0)
+        {
+            Debug.Log("All enemies dead.");
+            StopEncounter();
+            CombatVictory();
+        }
+
+        // Check if all allies are dead.
+        else if (CombatantList.Where((combatant) => combatant.Team == Team.ally).ToList().Count == 0)
+        {
+            Debug.Log("All allies dead.");
+            StopEncounter();
+            CombatLoss();
+        }
+    }
+
+    public async void StopEncounter()
+    {
+        _combatInProgress = false;
+
+        foreach(GameObject icon in _turnOrderIcons)
+        {
+            Destroy(icon);
+        }
+
+        GameManager.instance.CombatTurnOrderObjectReference.SetActive(false);
+        GameManager.instance.CombatUIObjectReference.SetActive(false);
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
+        GameManager.instance.CombatUINameText.text = "";
+        GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
+        GameManager.instance.CombatUIDescriptionText.text = "";
+
+        
+
+        instance.CurrentWalkMode = new PlayerMovement(instance);
+        _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
+        _cattank.CurrentWalkMode = new FollowTarget(_cattank, instance.transform, _cattank.DistanceBeforeMoving);
+
+
+        instance.Input.SwitchCurrentActionMap("Overworld");
+
+        _combatCamera.Priority = 10;
+
+        await Task.Delay(1000);
+    }
+
+    public void CombatVictory()
+    {
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
+
+        OnVictory.Invoke();
+    }
+
+    public void CombatLoss()
+    {
+        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPositionOnLoss);
+        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPositionOnLoss);
+        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPositionOnLoss);
+
+        RemoveAllEnemyInstances();
+
+        OnLoss.Invoke();
+
+        static void RemoveAllEnemyInstances()
+        {
+
+        }
+    }
+
+    private void ResetIfDead(GameObject partyMember, Vector3 resetPosition)
+    {
+        if (partyMember.TryGetComponent(out Rigidbody rb) && rb.constraints == RigidbodyConstraints.None)
+        {
+            rb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            rb.isKinematic = true;
+            GameManager.instance.CreatePoofEffect(partyMember.transform.position);
+            partyMember.transform.SetPositionAndRotation(resetPosition, Quaternion.identity);
+            GameManager.instance.CreatePoofEffect(resetPosition);
+            partyMember.BroadcastMessage("StartAnimations");
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (ShowCombatPositionGizmos)
+        {
+            Gizmos.color = Color.green;
+
+            Gizmos.DrawSphere(transform.position + RelativeCattankPosition, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativePlayerPosition, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativeGilbertPosition, 0.25f);
+
+            Gizmos.color = Color.red;
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                Gizmos.DrawSphere(transform.position + RelativeEnemyPositions[i], 0.25f);
+            }
+        }
+
+        if (ShowLossPositionGizmos)
+        {
+            Gizmos.color = Color.yellow;
+
+            Gizmos.DrawSphere(transform.position + RelativeCattankPositionOnLoss, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativePlayerPositionOnLoss, 0.25f);
+            Gizmos.DrawSphere(transform.position + RelativeGilbertPositionOnLoss, 0.25f);
+        }
+    }
 }

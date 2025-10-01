@@ -96,20 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e171647c7fe164b8680e38464c00f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats:
-    MaxHP: 5
-    HP: 5
-    Strength: 1
-    Magic: 1
-    Charm: 1
-    TurnOrderIcon: {fileID: 21300000, guid: c484ec3f13d38c846bac154867ad8860, type: 3}
-    OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 0}
-    Attacks: 
-  PlayerFollowPosition: {x: -1, y: 0, z: -1.5}
-  MaxFollowDeviation: {x: 0.5, y: 0, z: 1}
-  FollowDistance: 2
-  FollowLoopRepetitionTime: 0.2
+  DistanceBeforeMoving: 2.5
 --- !u!195 &6182317116847132020
 NavMeshAgent:
   m_ObjectHideFlags: 0
