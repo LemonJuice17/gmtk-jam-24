@@ -11,6 +11,7 @@ public class Attack : ScriptableObject
     public float MagicDamageMultiplier = 0;
 
     [Space]
+    public int D4Damage = 0;
     public int D6Damage = 0;
     public int D8Damage = 0;
 
@@ -27,15 +28,21 @@ public class Attack : ScriptableObject
             attacker.Profile.Charm * CharmDamageMultiplier +
             attacker.Profile.Magic * MagicDamageMultiplier;
 
-        Task<int>[] rollResults = new Task<int>[D6Damage + D8Damage];
+        Task<int>[] rollResults = new Task<int>[D4Damage + D6Damage + D8Damage];
 
-        for (int i = 0; i < D6Damage; i++)
+        for (int i = 0; i < D4Damage; i++)
+        {
+            rollResults[i] = GameManager.instance.CreateDice(4, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
+            await Task.Delay(200);
+        }
+
+        for (int i = D4Damage; i < D4Damage + D6Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(6, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
             await Task.Delay(200);
         }
 
-        for (int i = D6Damage; i < D6Damage + D8Damage; i++)
+        for (int i = D4Damage + D6Damage; i < D4Damage + D6Damage + D8Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(8, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
             await Task.Delay(200);

@@ -48831,6 +48831,7 @@ MonoBehaviour:
     type: 3}
   UnselectedTextColour: {r: 1, g: 1, b: 1, a: 1}
   SelectedTextColour: {r: 0, g: 1, b: 0, a: 1}
+  D4: {fileID: 4471341343088865726, guid: daf1d845a5e53774580635c67ff688ed, type: 3}
   D6: {fileID: 434863027560665180, guid: ec536303bb6886744bc1c3436be608f3, type: 3}
   D8: {fileID: 339755087416591174, guid: 84597de8bb4d3ad4581497541237c849, type: 3}
   DiceRollupSFX: {fileID: 5168560046967374483, guid: 85d6c6cf67a96914c9501b186f3ed08b,

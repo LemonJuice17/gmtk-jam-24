@@ -9,6 +9,7 @@ public class DiceObject : MonoBehaviour
     /// A list of vectors representing the normal direction of each side.
     /// </summary>
     public Vector3[] Sides;
+    [SerializeField] private bool _showSideVectors = false;
     /// <summary>
     /// The value of each side from the Sides list by corresponding index.
     /// </summary>
@@ -46,7 +47,7 @@ public class DiceObject : MonoBehaviour
     private void Awake()
     {
         foreach (Vector3 side in Sides) { side.Normalize(); }
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponentInChildren<Rigidbody>();
         GameManager.instance.CreatePoofEffect(transform.position);
     }
 
@@ -116,6 +117,8 @@ public class DiceObject : MonoBehaviour
             Destroy(gameObject);
         });
 
+        Debug.Log($"Rolled side {closestIndex} with a value of {SideValues[closestIndex]} and a dot product of {closestDot}");
+
         return SideValues[closestIndex];
     }
 
@@ -123,5 +126,18 @@ public class DiceObject : MonoBehaviour
     public void OnCollisionEnter()
     {
         if (GameManager.instance.DiceRollSFX != null) Instantiate(GameManager.instance.DiceRollSFX);
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (_showSideVectors)
+        {
+            Gizmos.color = Color.green;
+
+            foreach (Vector3 vector in Sides)
+            {
+                Gizmos.DrawLine(transform.position, transform.position + vector);
+            }
+        }
     }
 }
