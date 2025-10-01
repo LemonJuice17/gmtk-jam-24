@@ -65,6 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7014732667218064121}
   - component: {fileID: 5792936264234429078}
+  - component: {fileID: 4874662581580476144}
   m_Layer: 0
   m_Name: Tall Rock 2
   m_TagString: Untagged
@@ -110,6 +111,22 @@ MonoBehaviour:
   scaleVarianceY: 0.5
   scaleVarianceZ: 0
   xzProportionalScale: 1
+--- !u!208 &4874662581580476144
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812636186446628634}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.65, y: 2.15, z: 0.65}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.08, y: 0, z: 0.21}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1206970373086559737
 PrefabInstance:
   m_ObjectHideFlags: 0
