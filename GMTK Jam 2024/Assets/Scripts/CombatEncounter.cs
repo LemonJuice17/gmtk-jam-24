@@ -302,7 +302,6 @@ public class CombatEncounter : MonoBehaviour
 
         void ShowAvailableAttacks()
         {
-            Debug.Log("Que?");
             RemoveCurrentPlayerOptions();
 
             attackSelectionList = player.Profile.Attacks;
@@ -310,7 +309,6 @@ public class CombatEncounter : MonoBehaviour
 
             for (int i = 0; i < attackSelectionList.Length; i++)
             {
-                Debug.Log("Que?!?");
                 selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
                 selectionObjectList[i].text = player.Profile.Attacks[i].name;
             }

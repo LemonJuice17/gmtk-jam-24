@@ -117,8 +117,6 @@ public class DiceObject : MonoBehaviour
             Destroy(gameObject);
         });
 
-        Debug.Log($"Rolled side {closestIndex} with a value of {SideValues[closestIndex]} and a dot product of {closestDot}");
-
         return SideValues[closestIndex];
     }
 
