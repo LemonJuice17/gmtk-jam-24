@@ -237,10 +237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
-  MaxHP: 20
-  Strenth: 0
+  MaxHP: 15
+  Strenth: 1
   Charm: 1
-  Magic: 1
+  Magic: 2
   Attacks:
   - {fileID: 11400000, guid: 9e202c83851c3234ebbc5bc92057ca3e, type: 2}
   - {fileID: 11400000, guid: 2e48e5d6747479d42b77ef5991fb003b, type: 2}
