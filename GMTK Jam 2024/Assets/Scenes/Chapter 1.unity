@@ -20024,6 +20024,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62080c2d4d46cd245a37b2d0135c503b, type: 3}
+--- !u!1001 &1300191457
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.72890556
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6846143
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 86.411
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741933667320629613, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_Name
+      value: Gatehouse
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8841d94b2ba99864e99df462abd40be6, type: 3}
 --- !u!4 &1305950202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2185627082539877215, guid: d379db6446388e1438350225e6317dad,
@@ -23888,6 +23956,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1661042526}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1662214128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 32.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.18129832
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9834282
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 159.109
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741933667320629613, guid: 8841d94b2ba99864e99df462abd40be6,
+        type: 3}
+      propertyPath: m_Name
+      value: Gatehouse (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8841d94b2ba99864e99df462abd40be6, type: 3}
 --- !u!1001 &1665061863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30728,12 +30864,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
-  MaxHP: 8
-  Strenth: 3
-  Charm: 0
+  MaxHP: 12
+  Strenth: 2
+  Charm: 4
   Magic: 0
   Attacks:
-  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}
+  - {fileID: 11400000, guid: 649530a4dc9fbcb48b7c2bb411097712, type: 2}
 --- !u!1 &7835884084950981349
 GameObject:
   m_ObjectHideFlags: 0
@@ -30820,12 +30956,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21, type: 2}
-  MaxHP: 4
-  Strenth: 0
-  Charm: 2
-  Magic: 1
+  MaxHP: 8
+  Strenth: 2
+  Charm: 1
+  Magic: 3
   Attacks:
-  - {fileID: 11400000, guid: 26c006d2787e2804b8eebaaa9b53a710, type: 2}
+  - {fileID: 11400000, guid: 62e75853886223c43a0572d5b684084a, type: 2}
 --- !u!4 &8672721919661407548
 Transform:
   m_ObjectHideFlags: 0
@@ -30934,3 +31070,5 @@ SceneRoots:
   - {fileID: 896737157}
   - {fileID: 1882058730}
   - {fileID: 1635868899}
+  - {fileID: 1300191457}
+  - {fileID: 1662214128}

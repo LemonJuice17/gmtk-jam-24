@@ -15,5 +15,7 @@ MonoBehaviour:
   StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 0
+  D4Damage: 0
   D6Damage: 0
   D8Damage: 0
+  AttackDescription: complimented
