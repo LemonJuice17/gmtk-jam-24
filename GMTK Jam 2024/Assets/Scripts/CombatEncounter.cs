@@ -397,7 +397,8 @@ public class CombatEncounter : MonoBehaviour
 
     private async Task Attack(Combatant attacker, Combatant opponent, Attack attack)
     {
-        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is using {attack.name} on {opponent.Profile.Character.CharacterName}.";
+        string attackMessage = attack.AttackDescription == "" ? $"used {attack.name} on" : attack.AttackDescription;
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} {attackMessage} {opponent.Profile.Character.CharacterName}.";
 
         await Task.Delay(500);
 
@@ -405,7 +406,7 @@ public class CombatEncounter : MonoBehaviour
         int damageDealt = await attack.OnAttack(attacker, opponent);
         await Task.Delay(1000);
 
-        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage to {opponent.Profile.Character.CharacterName} using {attack.name}.";
+        GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage.";
 
 
         // If the attack killed the enemy.

@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "New Attack")]
 public class Attack : ScriptableObject
@@ -14,6 +13,9 @@ public class Attack : ScriptableObject
     public int D4Damage = 0;
     public int D6Damage = 0;
     public int D8Damage = 0;
+
+    [Space]
+    public string AttackDescription;
 
     private Quaternion _opponentDirection;
 
