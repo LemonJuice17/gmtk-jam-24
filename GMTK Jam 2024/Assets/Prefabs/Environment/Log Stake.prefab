@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4403956112481335917
 Transform:
   m_ObjectHideFlags: 0
@@ -81,6 +81,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6760494890864395395}
+  - component: {fileID: 1404581521726266937}
   m_Layer: 0
   m_Name: Log Stake
   m_TagString: Untagged
@@ -105,6 +106,30 @@ Transform:
   - {fileID: 4403956112481335917}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1404581521726266937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722032790280621787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406c414deea3d514f9032c9cd0171666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setInitialValuesOnAwake: 1
+  randomiseOnAwake: 1
+  positionVarianceX: 0.022
+  positionVarianceY: 0.168
+  positionVarianceZ: 0.037
+  rotationVarianceX: 3
+  rotationVarianceY: 180
+  rotationVarianceZ: 3
+  scaleVarianceX: 0
+  scaleVarianceY: 0.05
+  scaleVarianceZ: 0
+  XZ_ProportionalScale: 1
 --- !u!1001 &8267388602417813139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162,11 +187,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5125120278470772098, guid: 787185ec6b2c8284a98b0a6c61d3d7a2,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.437
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 787185ec6b2c8284a98b0a6c61d3d7a2,
         type: 3}
