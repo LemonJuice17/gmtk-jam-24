@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public Color SelectedTextColour = Color.green;
 
     [Header("Dice Prefabs")]
+    public DiceObject D4;
     public DiceObject D6;
     public DiceObject D8;
 
@@ -78,6 +79,9 @@ public class GameManager : MonoBehaviour
     {
         switch (sides)
         {
+            case 4:
+                if (D4 == null) throw new Exception($"An attempt to make a D4 has been made when the prefab for the D4 in the GameManager has not been set.");
+                return Instantiate(D4, position, Quaternion.identity, parent);
             case 6:
                 if (D6 == null) throw new Exception($"An attempt to make a D6 has been made when the prefab for the D6 in the GameManager has not been set.");
                 return Instantiate(D6, position, Quaternion.identity, parent);
