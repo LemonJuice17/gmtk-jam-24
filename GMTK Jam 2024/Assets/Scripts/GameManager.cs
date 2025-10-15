@@ -1,7 +1,5 @@
 using Cinemachine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -50,6 +48,15 @@ public class GameManager : MonoBehaviour
     public AudioMixerSnapshot SnapshotFight;
 
     public float MusicTransitionTime = 2;
+
+    [Header("Stat Panels")]
+    public StatPanel[] StatPanels;
+
+    public Color PowerColour;
+    public Color CharmColour;
+    public Color MagicColour;
+
+    public float HPChangeAnimationTime = 0.3f;
 
     [Header("Misc References")]
     public Image BlackScreenReference;

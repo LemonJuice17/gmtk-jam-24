@@ -26,7 +26,7 @@ public class Attack : ScriptableObject
         await faceOpponent.TweenCompletion;
 
         float totalDamage =
-            attacker.Profile.Strenth * StrengthDamageMultiplier +
+            attacker.Profile.Power * StrengthDamageMultiplier +
             attacker.Profile.Charm * CharmDamageMultiplier +
             attacker.Profile.Magic * MagicDamageMultiplier;
 
@@ -67,7 +67,7 @@ public class Attack : ScriptableObject
 
         // Kill opponent if less than 0 HP.
         opponent.HP -= roundedDamage;
-
+        
         if (opponent.HP < 0) 
         {
             int overDamage = Mathf.Abs(opponent.HP);
@@ -89,6 +89,8 @@ public class Attack : ScriptableObject
 
             opponent.Transform.BroadcastMessage("StopAnimations");
         }
+
+        opponent.OnHPChanged.Invoke(opponent.HP);
 
         return roundedDamage;
     }
