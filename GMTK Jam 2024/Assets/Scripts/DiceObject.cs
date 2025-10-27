@@ -82,7 +82,7 @@ public class DiceObject : MonoBehaviour
         // Let the die actually start rolling before checking if it's stopped or not.
         await Task.Delay(100);
 
-        while (rigidbody.velocity.magnitude > VelocityMagnitudeStopLimit)
+        while (rigidbody.linearVelocity.magnitude > VelocityMagnitudeStopLimit)
         {
             await Task.Yield();
         }
