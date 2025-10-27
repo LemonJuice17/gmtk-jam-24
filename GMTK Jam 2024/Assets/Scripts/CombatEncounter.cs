@@ -234,7 +234,7 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay(1000);
 
         // Randomly choose an attack and an opponent to attack.
-        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Length - 1);
+        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Count - 1);
 
         List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
         Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
@@ -307,7 +307,7 @@ public class CombatEncounter : MonoBehaviour
         {
             RemoveCurrentPlayerOptions();
 
-            attackSelectionList = player.Profile.Attacks;
+            attackSelectionList = player.Profile.Attacks.ToArray();
             selectionObjectList = new TMP_Text[attackSelectionList.Length];
 
             for (int i = 0; i < attackSelectionList.Length; i++)

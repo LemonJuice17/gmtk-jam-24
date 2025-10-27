@@ -13,7 +13,8 @@ public class CombatProfile : MonoBehaviour
     public int Charm;
     public int Magic;
 
-    public Attack[] Attacks;
+    //public Attack[] Attacks;
+    public List<Attack> Attacks = new List<Attack>();
 }
 
 public class Combatant
