@@ -143,6 +143,81 @@ public readonly struct TweenRotation
 }
 
 /// <summary>
+/// Moves a Transform to a given position over a given period of time.
+/// </summary>
+public readonly struct TweenValue
+{
+    /// <summary>
+    /// The duration of this tween.
+    /// </summary>
+    public readonly float Duration;
+    /// <summary>
+    /// The starting value of this tween.
+    /// </summary>
+    public readonly float Origin;
+    /// <summary>
+    /// The target value of this tween.
+    /// </summary>
+    public readonly float Target;
+    /// <summary>
+    /// Action where the value should be set.
+    /// </summary>
+    public readonly Action<float> SetValue;
+    /// <summary>
+    /// The easing mode of this tween (linear by default).
+    /// </summary>
+    public readonly Easing Easing;
+
+    /// <summary>
+    /// Returns a task that is completed once the tween has finished. Can be awaited in async functions.
+    /// </summary>
+    public readonly Task TweenCompletion => _completionSource.Task;
+    private readonly TaskCompletionSource<bool> _completionSource;
+
+    /// <summary>
+    /// Creates a tween between a Transform's current position and a given target position over a given period of time.
+    /// </summary>
+    /// <param name="duration"> The duration of the tween. </param>
+    /// <param name="value"> The starting value. </param>
+    /// <param name="target"> The target position of the tween. </param>
+    /// <param name="setValue"> The lamba expression that sets the value. </param>
+    /// <param name="easing"> The easing mode (currently not supported). </param>
+    public TweenValue(float duration, float origin, float target, Action<float> setValue, Easing easing = Easing.linear)
+    {
+        Duration = duration;
+        Origin = origin;
+        Target = target;
+        SetValue = setValue;
+        Easing = easing;
+
+        _completionSource = new();
+        TweenLoop();
+    }
+
+    private async readonly void TweenLoop()
+    {
+        DateTime startTime = DateTime.Now;
+
+        EasingFunction easing = new(Easing);
+
+        float progress = 0;
+
+        while (progress < 1)
+        {
+            await Task.Yield();
+
+            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress = Mathf.Clamp01(progress);
+
+            SetValue(Mathf.Lerp(Origin, Target, easing.Ease(progress)));
+        }
+
+        _completionSource.SetResult(true);
+    }
+}
+
+
+/// <summary>
 /// Delays an action to after a certain period of time.
 /// </summary>
 public readonly struct DelayedAction

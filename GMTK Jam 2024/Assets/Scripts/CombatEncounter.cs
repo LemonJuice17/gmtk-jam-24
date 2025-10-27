@@ -153,6 +153,9 @@ public class CombatEncounter : MonoBehaviour
             .Select(roll => roll.Key)
             .ToList());
 
+        // Set up stat panels
+        InitStatPanels();
+
         // Create the UI for showing turn order.
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GameManager.instance.CombatTurnOrderObjectReference.SetActive(true);
@@ -502,6 +505,20 @@ public class CombatEncounter : MonoBehaviour
             Debug.Log("All allies dead.");
             StopEncounter();
             CombatLoss();
+        }
+    }
+
+    public void InitStatPanels()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            if (CombatantList.Count >= i + 1)
+            {
+                GameManager.instance.StatPanels[i].gameObject.SetActive(true);
+                GameManager.instance.StatPanels[i].InitPanel(CombatantList[i]);
+                CombatantList[i].OnHPChanged.AddListener(GameManager.instance.StatPanels[i].HPChange);
+            }
+            else GameManager.instance.StatPanels[i].gameObject.SetActive(false);
         }
     }
 
