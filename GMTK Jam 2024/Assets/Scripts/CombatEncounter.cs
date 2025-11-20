@@ -20,19 +20,22 @@ public class CombatEncounter : MonoBehaviour
     /// </summary>
     public UnityEvent OnLoss = new();
 
+    // Combat positions parent
+    public Transform combatPositionsParent;
+
     // The relative positions (from this Transform) the party will move to when the fight starts.
-    public Vector3 RelativeCattankPosition;
-    public Vector3 RelativePlayerPosition;
-    public Vector3 RelativeGilbertPosition;
+    [HideInInspector] public Transform RelativeCattankPosition;
+    [HideInInspector] public Transform RelativePlayerPosition;
+    [HideInInspector] public Transform RelativeGilbertPosition;
 
     // The relative positions (from this Transform) the party will move to after losing this fight.
-    public Vector3 RelativeCattankPositionOnLoss;
-    public Vector3 RelativePlayerPositionOnLoss;
-    public Vector3 RelativeGilbertPositionOnLoss;
+    [HideInInspector] public Transform RelativeCattankPositionOnLoss;
+    [HideInInspector] public Transform RelativePlayerPositionOnLoss;
+    [HideInInspector] public Transform RelativeGilbertPositionOnLoss;
 
     // The enemy GameObjects and their relative positions (from this Transform) the'll be spawned in when the fight starts.
     public GameObject[] Enemies;
-    public Vector3[] RelativeEnemyPositions;
+    [HideInInspector] public Transform[] RelativeEnemyPositions;
     private Transform[] _enemyTransforms;
 
     /// <summary>
@@ -91,12 +94,20 @@ public class CombatEncounter : MonoBehaviour
         _cattank = GameManager.instance.CattankReference;
         _gilbert = GameManager.instance.GilbertReference;
 
-        // Move party to correct positions.
-        Task[] moveToPositionTasks = new Task[3];
+        // Assign relative positions
+        RelativeCattankPosition = combatPositionsParent.GetChild(0);
+        RelativePlayerPosition = combatPositionsParent.GetChild(1);
+        RelativeGilbertPosition = combatPositionsParent.GetChild(2);
+        RelativeCattankPositionOnLoss = combatPositionsParent.GetChild(3);
+        RelativePlayerPositionOnLoss = combatPositionsParent.GetChild(4);
+        RelativeGilbertPositionOnLoss = combatPositionsParent.GetChild(5);
 
-        instance.CurrentWalkMode = new WalkToPoint(instance, transform.position + RelativePlayerPosition);
-        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, transform.position + RelativeCattankPosition);
-        _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, transform.position + RelativeGilbertPosition);
+    // Move party to correct positions.
+    Task[] moveToPositionTasks = new Task[3];
+
+        instance.CurrentWalkMode = new WalkToPoint(instance, RelativePlayerPosition.position);
+        _cattank.CurrentWalkMode = new WalkToPoint(_cattank, RelativeCattankPosition.position);
+        _gilbert.CurrentWalkMode = new WalkToPoint(_gilbert, RelativeGilbertPosition.position);
 
         moveToPositionTasks[0] = (instance.CurrentWalkMode as WalkToPoint).WaitForCompletion;
         moveToPositionTasks[1] = (_cattank.CurrentWalkMode as WalkToPoint).WaitForCompletion;
@@ -153,6 +164,9 @@ public class CombatEncounter : MonoBehaviour
             .Select(roll => roll.Key)
             .ToList());
 
+        // Set up stat panels
+        InitStatPanels();
+
         // Create the UI for showing turn order.
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GameManager.instance.CombatTurnOrderObjectReference.SetActive(true);
@@ -207,7 +221,7 @@ public class CombatEncounter : MonoBehaviour
         {
             _enemyTransforms[i] = InstantiateCharacter.InstantiateCharacterStatic(
                 Enemies[i],
-                transform.position + RelativeEnemyPositions[i],
+                combatPositionsParent.GetChild(i + 6).position,
                 Quaternion.LookRotation(transform.position))
                 .transform;
         }
@@ -231,7 +245,7 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay(1000);
 
         // Randomly choose an attack and an opponent to attack.
-        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Length - 1);
+        int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Count - 1);
 
         List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
         Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
@@ -304,7 +318,7 @@ public class CombatEncounter : MonoBehaviour
         {
             RemoveCurrentPlayerOptions();
 
-            attackSelectionList = player.Profile.Attacks;
+            attackSelectionList = player.Profile.Attacks.ToArray();
             selectionObjectList = new TMP_Text[attackSelectionList.Length];
 
             for (int i = 0; i < attackSelectionList.Length; i++)
@@ -505,6 +519,20 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
+    public void InitStatPanels()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            if (CombatantList.Count >= i + 1)
+            {
+                GameManager.instance.StatPanels[i].gameObject.SetActive(true);
+                GameManager.instance.StatPanels[i].InitPanel(CombatantList[i]);
+                CombatantList[i].OnHPChanged.AddListener(GameManager.instance.StatPanels[i].HPChange);
+            }
+            else GameManager.instance.StatPanels[i].gameObject.SetActive(false);
+        }
+    }
+
     public async void StopEncounter()
     {
         _combatInProgress = false;
@@ -538,18 +566,18 @@ public class CombatEncounter : MonoBehaviour
 
     public void CombatVictory()
     {
-        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPosition);
-        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPosition);
-        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPosition);
+        ResetIfDead(instance.gameObject, RelativePlayerPosition.position);
+        ResetIfDead(_gilbert.gameObject, RelativeGilbertPosition.position);
+        ResetIfDead(_cattank.gameObject, RelativeCattankPosition.position);
 
         OnVictory.Invoke();
     }
 
     public void CombatLoss()
     {
-        ResetIfDead(instance.gameObject, transform.position + RelativePlayerPositionOnLoss);
-        ResetIfDead(_gilbert.gameObject, transform.position + RelativeGilbertPositionOnLoss);
-        ResetIfDead(_cattank.gameObject, transform.position + RelativeCattankPositionOnLoss);
+        ResetIfDead(instance.gameObject, RelativePlayerPositionOnLoss.position);
+        ResetIfDead(_gilbert.gameObject, RelativeGilbertPositionOnLoss.position);
+        ResetIfDead(_cattank.gameObject, RelativeCattankPositionOnLoss.position);
 
         RemoveAllEnemyInstances();
 
@@ -574,7 +602,7 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if (ShowCombatPositionGizmos)
         {
@@ -599,5 +627,5 @@ public class CombatEncounter : MonoBehaviour
             Gizmos.DrawSphere(transform.position + RelativePlayerPositionOnLoss, 0.25f);
             Gizmos.DrawSphere(transform.position + RelativeGilbertPositionOnLoss, 0.25f);
         }
-    }
+    }*/
 }

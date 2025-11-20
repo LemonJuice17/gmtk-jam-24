@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CombatProfile : MonoBehaviour
 {
@@ -8,11 +9,12 @@ public class CombatProfile : MonoBehaviour
 
     public int MaxHP;
 
-    public int Strenth;
+    public int Power;
     public int Charm;
     public int Magic;
 
-    public Attack[] Attacks;
+    //public Attack[] Attacks;
+    public List<Attack> Attacks = new List<Attack>();
 }
 
 public class Combatant
@@ -21,6 +23,7 @@ public class Combatant
     public readonly Transform Transform;
     public readonly Team Team;
     public readonly bool IsPlayer;
+    public UnityEvent<int> OnHPChanged = new();
 
     /// <summary>
     /// The current HP of this Combatant.

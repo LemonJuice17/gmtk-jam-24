@@ -72,15 +72,15 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4811731222188366165, guid: 6c3ac31c551b5fd43b8b329f2437175e, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4297788679083500624, guid: 6c3ac31c551b5fd43b8b329f2437175e,
+    - targetCorrespondingSourceObject: {fileID: 6170374430356122171, guid: 6c3ac31c551b5fd43b8b329f2437175e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6154603745983813874}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c3ac31c551b5fd43b8b329f2437175e, type: 3}
---- !u!4 &1008487250256549174 stripped
+--- !u!4 &7204526979519699805 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4297788679083500624, guid: 6c3ac31c551b5fd43b8b329f2437175e,
+  m_CorrespondingSourceObject: {fileID: 6170374430356122171, guid: 6c3ac31c551b5fd43b8b329f2437175e,
     type: 3}
   m_PrefabInstance: {fileID: 3916457978202091878}
   m_PrefabAsset: {fileID: 0}
@@ -90,12 +90,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1008487250256549174}
+    m_TransformParent: {fileID: 7204526979519699805}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3b9e84237533ea94bb3a06b9181acd2c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b9e84237533ea94bb3a06b9181acd2c,
         type: 3}
@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3b9e84237533ea94bb3a06b9181acd2c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b9e84237533ea94bb3a06b9181acd2c,
         type: 3}
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665022834282663105, guid: 3b9e84237533ea94bb3a06b9181acd2c,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7dbbd10c6dec44d9090a0fc37b95a4fa, type: 2}
     m_RemovedComponents: []
