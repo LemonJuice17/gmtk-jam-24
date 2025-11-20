@@ -18,4 +18,5 @@ MonoBehaviour:
   D4Damage: 1
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: wimpily blasted
+  AttackDescription: 
+  AttackMessageDescription: wimpily blasted

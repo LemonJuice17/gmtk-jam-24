@@ -15,5 +15,8 @@ MonoBehaviour:
   StrengthDamageMultiplier: 2
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 0
+  D4Damage: 0
   D6Damage: 0
   D8Damage: 0
+  AttackDescription: Cattank unleashes double their strength to attack their foe
+  AttackMessageDescription: 

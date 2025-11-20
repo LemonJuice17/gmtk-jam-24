@@ -18,4 +18,5 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: bashed
+  AttackDescription: Use the power of strength to bash an opponent
+  AttackMessageDescription: bashed

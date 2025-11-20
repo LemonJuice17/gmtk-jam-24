@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     ///  The UI for displaying the player's available attack options
     /// </summary>
     public GameObject CombatUIPlayerAttackOptionsObjectReference;
+    public GameObject CombatUIPlayerAttackDescriptionObjectReference;
+    public TMP_Text CombatUIPlayerAttackDescriptionText;
     public TMP_Text CombatUIPlayerOptionsTextPrefab; // The prefab for player attacks
     public GameObject CombatTurnOrderObjectReference; // Where the turn order is shown
     /// <summary>

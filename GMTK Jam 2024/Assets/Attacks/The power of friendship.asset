@@ -18,4 +18,5 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: unleashed the power of friendship upon
+  AttackDescription: 
+  AttackMessageDescription: unleashed the power of friendship upon

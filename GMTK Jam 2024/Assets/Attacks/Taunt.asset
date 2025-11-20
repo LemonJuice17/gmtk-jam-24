@@ -18,4 +18,5 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: taunted
+  AttackDescription: Taunt someone with the power of double your charm
+  AttackMessageDescription: taunted

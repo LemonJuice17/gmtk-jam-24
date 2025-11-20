@@ -329,6 +329,7 @@ public class CombatEncounter : MonoBehaviour
 
             playerSelectionIndex = 0;
             selectionObjectList[playerSelectionIndex].color = Color.green;
+            SetAttackDescription(attackSelectionList[playerSelectionIndex].AttackDescription);
         }
 
         void ShowAvailableOpponents()
@@ -370,6 +371,8 @@ public class CombatEncounter : MonoBehaviour
         if(playerSelectionIndex < 0) playerSelectionIndex = selectionObjectList.Length - 1;
 
         selectionObjectList[playerSelectionIndex].color = Color.green;
+
+        if (selectingAttack) SetAttackDescription(attackSelectionList[playerSelectionIndex].AttackDescription);
     }
 
     void PlayerSelectionRight()
@@ -381,6 +384,8 @@ public class CombatEncounter : MonoBehaviour
         if (playerSelectionIndex > selectionObjectList.Length - 1) playerSelectionIndex = 0;
 
         selectionObjectList[playerSelectionIndex].color = Color.green;
+
+        if (selectingAttack) SetAttackDescription(attackSelectionList[playerSelectionIndex].AttackDescription);
     }
 
     void PlayerSelectionEnter()
@@ -390,6 +395,7 @@ public class CombatEncounter : MonoBehaviour
             selectedAttack = attackSelectionList[playerSelectionIndex];
             selectingAttack = false;
             selectingOpponent = true;
+            SetAttackDescription("");
         }
 
         else if (selectingOpponent)
@@ -409,9 +415,15 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
+    void SetAttackDescription(string description)
+    {
+        GameManager.instance.CombatUIPlayerAttackDescriptionText.text = description;
+        GameManager.instance.CombatUIPlayerAttackDescriptionObjectReference.SetActive(description != "");
+    }
+
     private async Task Attack(Combatant attacker, Combatant opponent, Attack attack)
     {
-        string attackMessage = attack.AttackDescription == "" ? $"used {attack.name} on" : attack.AttackDescription;
+        string attackMessage = attack.AttackMessageDescription == "" ? $"used {attack.name} on" : attack.AttackMessageDescription;
         GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} {attackMessage} {opponent.Profile.Character.CharacterName}.";
 
         await Task.Delay(500);

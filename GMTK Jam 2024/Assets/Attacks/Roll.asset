@@ -18,4 +18,5 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: rolled over
+  AttackDescription: 
+  AttackMessageDescription: rolled over

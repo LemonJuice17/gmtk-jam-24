@@ -16,6 +16,7 @@ public class Attack : ScriptableObject
 
     [Space]
     public string AttackDescription;
+    public string AttackMessageDescription;
 
     private Quaternion _opponentDirection;
 
