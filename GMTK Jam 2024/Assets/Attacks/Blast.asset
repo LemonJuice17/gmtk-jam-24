@@ -18,4 +18,7 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 1
   D8Damage: 0
-  AttackDescription: blasted
+  AttackDescription: 
+  AttackMessageDescription: blasted
+  DialogueChance: 0
+  DialogueOptions: []

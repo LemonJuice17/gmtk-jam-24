@@ -1,30 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 public class Dialogue : MonoBehaviour, IInteractable
 {
-    public DialogueBox BoxPrefab;
-
-    public List<DialogueText> DialogueList;
+    public List<DialogueText> DialogueList = new();
     [SerializeField] private int _currentDialogueIndex = 0;
 
     public DialogueText CurrentDialogue { get => DialogueList[_currentDialogueIndex]; }
-
-    public bool BoolUseStaticTime;
-
-    public float CharsPerSecond = 20f;
-    public float TimeToShowFullText = 10f;
-
     private DialogueBox _curentDialogueBox;
-
-   
 
     private bool WaitForContinue = false;
 
-    public UnityEvent<Dialogue> AfterDialogue;
+    public Task DialogueFinished => _dialogueFinished.Task;
+    private TaskCompletionSource<bool> _dialogueFinished = new();
+
+    public UnityEvent<Dialogue> AfterDialogue = new();
 
     public void OnInteract()
     {
@@ -60,7 +55,10 @@ public class Dialogue : MonoBehaviour, IInteractable
             }
         }
 
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
 
         NextDialogue();
     }
@@ -75,7 +73,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             return;
         }
 
-        if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(BoxPrefab, UICanvas.Transform);
+        if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
         LoadDialogue(CurrentDialogue);
 
         if(CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
@@ -88,10 +86,12 @@ public class Dialogue : MonoBehaviour, IInteractable
     public void EndDialogue()
     {
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
-        _currentDialogueIndex = 0;
-        AfterDialogue.Invoke(this);
-        Destroy(_curentDialogueBox.gameObject, 0);
         Player.instance.CurrentInteractable = null;
+        _currentDialogueIndex = 0;
+        Destroy(_curentDialogueBox.gameObject, 0);
+
+        _dialogueFinished.SetResult(true);
+        AfterDialogue.Invoke(this);
     }
 
     public void LoadDialogue(DialogueText dialogue)
@@ -104,12 +104,12 @@ public class Dialogue : MonoBehaviour, IInteractable
 
         _curentDialogueBox.Dialogue.text = dialogue.Text;
 
-        if (dialogue.character == null) return;
+        if (dialogue.Character == null) return;
 
-        if (dialogue.character.CharacterSprite != null) _curentDialogueBox.CharacterSprite.sprite = dialogue.character.CharacterSprite;
-        if (dialogue.character.CharacterBackgroundColor != null) _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.character.CharacterBackgroundColor;
-        if (dialogue.character.CharacterMainColor != null) _curentDialogueBox.CharacterName.color = dialogue.character.CharacterMainColor;
-        _curentDialogueBox.CharacterName.text = dialogue.character.CharacterName; 
+        if (dialogue.Character.CharacterSprite != null) _curentDialogueBox.CharacterSprite.sprite = dialogue.Character.CharacterSprite;
+        if (dialogue.Character.CharacterBackgroundColor != null) _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.Character.CharacterBackgroundColor;
+        if (dialogue.Character.CharacterMainColor != null) _curentDialogueBox.CharacterName.color = dialogue.Character.CharacterMainColor;
+        _curentDialogueBox.CharacterName.text = dialogue.Character.CharacterName; 
     }
 }
 
@@ -119,7 +119,7 @@ public class DialogueText
     [TextArea(3,3)]
     public string Text;
 
-    public Character character;
+    public Character Character;
 
     public bool UseCustomPositioning;
 
@@ -129,4 +129,10 @@ public class DialogueText
     public bool AutomaticContinueOnly = false;
 
     public UnityEvent<Dialogue> Actions = new();
+
+    public DialogueText(string text, Character character = null)
+    {
+        Text = text;
+        Character = character;
+    }
 }
