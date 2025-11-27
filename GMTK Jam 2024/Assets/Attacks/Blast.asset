@@ -20,3 +20,5 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: 
   AttackMessageDescription: blasted
+  DialogueChance: 0
+  DialogueOptions: []

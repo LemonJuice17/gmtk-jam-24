@@ -20,3 +20,5 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: 
   AttackMessageDescription: rolled over
+  DialogueChance: 0
+  DialogueOptions: []

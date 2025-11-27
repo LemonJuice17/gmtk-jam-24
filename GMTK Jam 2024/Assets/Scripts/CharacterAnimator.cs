@@ -7,7 +7,7 @@ public class CharacterAnimator : MonoBehaviour
     private Animator _characterAnimator;
 
     public Task AttackMade => _attackMade.Task;
-    private TaskCompletionSource<bool> _attackMade;
+    private TaskCompletionSource<bool> _attackMade = new();
 
     private void Awake()
     {
@@ -18,7 +18,6 @@ public class CharacterAnimator : MonoBehaviour
     public void Attack()
     {
         _characterAnimator.SetTrigger("Attack");
-        _attackMade = new();
     }
     [UsedImplicitly]
     public void ChangeMoving(bool isMoving)

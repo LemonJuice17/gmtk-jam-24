@@ -20,3 +20,5 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: Slash your foe with the power of your stength and a D4
   AttackMessageDescription: slashed
+  DialogueChance: 0
+  DialogueOptions: []

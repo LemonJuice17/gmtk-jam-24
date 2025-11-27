@@ -20,3 +20,6 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: Stab your enemy with the power of your stength and a D4
   AttackMessageDescription: stabbed
+  DialogueChance: 1
+  DialogueOptions:
+  - Fuck you bitch
