@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,18 +6,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Attack")]
 public class Attack : ScriptableObject
 {
+    [Header("Attack Multipliers")]
     public float StrengthDamageMultiplier = 0;
     public float CharmDamageMultiplier = 0;
     public float MagicDamageMultiplier = 0;
 
-    [Space]
+    [Header("Dice Used")]
     public int D4Damage = 0;
     public int D6Damage = 0;
     public int D8Damage = 0;
 
-    [Space]
+    [Header("Descriptions")]
     public string AttackDescription;
     public string AttackMessageDescription;
+
+    [Header("Dialogue Options")][Range(0, 1)]
+    public float DialogueChance = 0;
+    [TextArea(3, 3)]
+    public List<string> DialogueOptions = new();
 
     private Quaternion _opponentDirection;
 
@@ -64,7 +71,26 @@ public class Attack : ScriptableObject
 
         // Wait for the attack part of the attack animation.
         attacker.Transform.BroadcastMessage("Attack");
+
+        // Display dialogue and wait for it to finish.
+        if(DialogueChance > 0 && Random.Range(0f, 1f) <= DialogueChance)
+        {
+            // Create temporary GameObject for Dialogue component.
+            GameObject temporaryDialogueObject = new GameObject("Temporary Dialogue");
+            Dialogue temporaryDialogue = temporaryDialogueObject.AddComponent<Dialogue>();
+            string selectedDialogue = DialogueOptions[Random.Range(0, DialogueOptions.Count - 1)];
+            temporaryDialogue.DialogueList.Add(new DialogueText(selectedDialogue, attacker.Profile.Character));
+            GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
+            temporaryDialogue.StartDialogue();
+
+            await temporaryDialogue.DialogueFinished;
+
+            Player.instance.Input.SwitchCurrentActionMap("Combat");
+            Destroy(temporaryDialogue);
+        }
+        
         await attacker.Transform.GetComponentInChildren<CharacterAnimator>().AttackMade;
+        GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
 
         // Kill opponent if less than 0 HP.
         opponent.HP -= roundedDamage;
