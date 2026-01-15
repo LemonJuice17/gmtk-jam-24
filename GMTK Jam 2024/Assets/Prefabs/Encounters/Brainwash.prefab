@@ -95,7 +95,7 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
---- !u!1 &4780793631812951582
+--- !u!1 &1632996931674314536
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,81 +103,162 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7402848216559596525}
-  - component: {fileID: 5384243784798272100}
+  - component: {fileID: 5148184899113762148}
   m_Layer: 0
-  m_Name: After Dialogue
+  m_Name: Cattank
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7402848216559596525
+--- !u!4 &5148184899113762148
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780793631812951582}
+  m_GameObject: {fileID: 1632996931674314536}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: 1.809, y: 0, z: 1.791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3028683334636408216}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5384243784798272100
-MonoBehaviour:
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &2507214539382960899
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780793631812951582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
-    type: 3}
-  DialogueList:
-  - Text: 'What the hell was that about? '
-    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  - Text: "Those guys had chef hats, they must be the guys the rat was talking about.\r\nShame
-      they\u2019re brainwashed though, guess we\u2019ll have to just kill them all.\r\nNo
-      other choice."
-    character: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21, type: 2}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  - Text: ...
-    character: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0, type: 2}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  _currentDialogueIndex: 0
-  BoolUseStaticTime: 0
-  CharsPerSecond: 20
-  TimeToShowFullText: 10
-  AfterDialogue:
-    m_PersistentCalls:
-      m_Calls: []
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6378409477990574312}
+  m_Layer: 0
+  m_Name: Gillbert Loss
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6378409477990574312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507214539382960899}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: -0.8725315, y: 0, z: 2.3152523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &4032279710752401204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391169871902140286}
+  m_Layer: 0
+  m_Name: Combatant Positions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &391169871902140286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032279710752401204}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5148184899113762148}
+  - {fileID: 1698719379561955405}
+  - {fileID: 1591663567783452083}
+  - {fileID: 3319969261617672768}
+  - {fileID: 3279121286572563821}
+  - {fileID: 6378409477990574312}
+  - {fileID: 3268312557644416543}
+  - {fileID: 601564712626595841}
+  - {fileID: 6132560726956922239}
+  m_Father: {fileID: 3028683334636408216}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4613066586618180302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3279121286572563821}
+  m_Layer: 0
+  m_Name: Player Loss
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3279121286572563821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613066586618180302}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: 0.6302978, y: 0, z: 2.5261102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &5115153044831410912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3268312557644416543}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3268312557644416543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115153044831410912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.46, y: 0, z: -2.412}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5784381890882882138
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,8 +284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5784381890882882138}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47834498, y: 0.29379973, z: -0.17368865, w: 0.80913544}
-  m_LocalPosition: {x: -3.53, y: 10, z: -4.22}
+  m_LocalRotation: {x: 0.29682374, y: 0.567553, z: -0.22990538, w: 0.7327502}
+  m_LocalPosition: {x: -9.99, y: 10, z: -2.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -232,7 +313,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 3028683334636408216}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 68.69695
+    FieldOfView: 40
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -250,6 +331,240 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 7394867922553844768}
+--- !u!1 &5827916889546503236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3319969261617672768}
+  m_Layer: 0
+  m_Name: Cattank Loss
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3319969261617672768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827916889546503236}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: 1.8089997, y: 0, z: 1.7909999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &6043415121463122899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1591663567783452083}
+  m_Layer: 0
+  m_Name: Gillbert
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1591663567783452083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043415121463122899}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: -0.8725315, y: 0, z: 2.3152523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &6260993283002182673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601564712626595841}
+  m_Layer: 0
+  m_Name: Enemy (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &601564712626595841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260993283002182673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.87, y: 0, z: -2.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8023004676003812267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1698719379561955405}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1698719379561955405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8023004676003812267}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.05308503, z: -0, w: 0.99859}
+  m_LocalPosition: {x: 0.6302978, y: 0, z: 2.5261102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.086, z: 0}
+--- !u!1 &8236199239852744672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765670240575465971}
+  - component: {fileID: 7210944944309441413}
+  m_Layer: 0
+  m_Name: Fight End Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765670240575465971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236199239852744672}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.56673735, z: -0, w: 0.82389855}
+  m_LocalPosition: {x: -56.6494, y: -0.56, z: 31.333256}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3028683334636408216}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7210944944309441413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236199239852744672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueList:
+  - Text: Not... the cheese...
+    Character: {fileID: 11400000, guid: d4206b312df328244ae5b769486c0e8e, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  - Text: The cheese, meow?
+    Character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
+    UseCustomPositioning: 0
+    CustomPosition: {x: 0, y: 0, z: 0}
+    CustomScale: {x: 0, y: 0, z: 0}
+    AutomaticContinueOnly: 0
+    Actions:
+      m_PersistentCalls:
+        m_Calls: []
+  _currentDialogueIndex: 0
+  AfterDialogue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEncounter, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &8578321249883416686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6132560726956922239}
+  m_Layer: 0
+  m_Name: Enemy (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6132560726956922239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578321249883416686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.421, y: 0, z: -1.468}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 391169871902140286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8681831279668121322
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,8 +574,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3028683334636408216}
-  - component: {fileID: 2467520967643330188}
-  - component: {fileID: 5335844593970459767}
   - component: {fileID: 1264023701884515191}
   - component: {fileID: 3850663331987597491}
   m_Layer: 0
@@ -278,63 +591,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8681831279668121322}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.04, y: 0.56, z: -22.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9002328047150495031}
-  - {fileID: 7402848216559596525}
+  - {fileID: 765670240575465971}
+  - {fileID: 391169871902140286}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2467520967643330188
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8681831279668121322}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5335844593970459767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8681831279668121322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1b787c17dbded4795669b596cfc30d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DoStuff:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1264023701884515191}
-        m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
-        m_MethodName: StartDialogue
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1264023701884515191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,25 +613,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f40fd78745c53b4080855d6d7c305ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
-    type: 3}
   DialogueList:
   - Text: 'Ughhhh, you think you have won.. Against, me.. Billius Ronaldorico Bleatario..
       BUT! Haha..
 
       Hahahaha, I have assistance now! Go my brainwashed slaves!
       Defeat them!'
-    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  - Text: "Ah hah. Enemies! You will not defeat the magnifcentiecious Billius Ronaldorico
-      Bleatario.\r\nI will engage you in combat, and defeat you all spectacularly!\r"
-    character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
+    Character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -374,15 +628,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   _currentDialogueIndex: 0
-  BoolUseStaticTime: 0
-  CharsPerSecond: 20
-  TimeToShowFullText: 10
   AfterDialogue:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3850663331987597491}
         m_TargetAssemblyTypeName: CombatEncounter, Assembly-CSharp
-        m_MethodName: StartCombat
+        m_MethodName: StartEncounter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -404,31 +655,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CombatantOrder: []
-  AllyCombatants: []
-  EnemyCombatants:
-  - MaxHP: 10
-    HP: 10
-    Strength: 1
-    Magic: 2
-    Charm: 1
-    TurnOrderIcon: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
-    OverworldObject: {fileID: 0}
-    CombatantPrefab: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
-      type: 3}
-    Attacks: 0400000008000000
-  Allies: []
-  Enemies: []
-  AllyLineOffset: {x: 0, y: 0, z: 1.56}
-  EnemyLineOffset: {x: 0, y: 0, z: -2}
-  CombatantSpacing: 1
-  DicePositionMultiplier: 2.5
-  FightLoopUpdateTime: 5
-  _currentTurnIndex: 0
   OnVictory:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7210944944309441413}
+        m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
+        m_MethodName: StartDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnLoss:
     m_PersistentCalls:
       m_Calls: []
-  DeathExplosionForce: 100
+  combatPositionsParent: {fileID: 391169871902140286}
+  RelativeCattankPosition: {fileID: 0}
+  RelativePlayerPosition: {fileID: 0}
+  RelativeGilbertPosition: {fileID: 0}
+  RelativeCattankPositionOnLoss: {fileID: 0}
+  RelativePlayerPositionOnLoss: {fileID: 0}
+  RelativeGilbertPositionOnLoss: {fileID: 0}
+  Enemies:
+  - {fileID: 7973671401144322913, guid: 3cb325f3b6cbe49018be385335d90ba4, type: 3}
+  - {fileID: 7973671401144322913, guid: 15695bb79c5b04384b4a7baa88788729, type: 3}
+  RelativeEnemyPositions: []
+  EnemySpawnTime: 1
+  ShowCombatPositionGizmos: 0
+  ShowLossPositionGizmos: 0
+  TurnIconSpacing: 80

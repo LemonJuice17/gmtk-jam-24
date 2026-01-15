@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 6409227153423792647, guid: 6c3ac31c551b5fd43b8b329f2437175e,
         type: 3}
       propertyPath: m_Name
-      value: Wizard
+      value: Wizard 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -190,12 +190,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9, type: 2}
-  MaxHP: 15
-  Power: 0
+  MaxHP: 17
+  Power: 1
   Charm: 1
-  Magic: 2
+  Magic: 3
   Attacks:
   - {fileID: 11400000, guid: 9e202c83851c3234ebbc5bc92057ca3e, type: 2}
+  - {fileID: 11400000, guid: b8594c1156848a748a492d76a208bb01, type: 2}
   - {fileID: 11400000, guid: 2e48e5d6747479d42b77ef5991fb003b, type: 2}
 --- !u!65 &8915129454507579779
 BoxCollider:

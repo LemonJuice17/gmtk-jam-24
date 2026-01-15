@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3615d4f0983bfe46bdfddb6e2632d45, type: 3}
-  m_Name: Cleave
+  m_Name: Brainwashed
   m_EditorClassIdentifier: 
-  StrengthDamageMultiplier: 1
+  StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 0
   D4Damage: 0
-  D6Damage: 1
+  D6Damage: 0
   D8Damage: 0
   AttackDescription: 
-  AttackMessageDescription: cleaved
-  DialogueChance: 0
-  DialogueOptions: []
+  AttackMessageDescription: fights the brainwashing and ignores
+  DialogueChance: 1
+  DialogueOptions:
+  - guhhhhhhhhhhh
   DialogueDuration: 2
