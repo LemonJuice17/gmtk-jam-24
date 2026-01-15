@@ -24,6 +24,7 @@ public class Attack : ScriptableObject
     public float DialogueChance = 0;
     [TextArea(3, 3)]
     public List<string> DialogueOptions = new();
+    public float DialogueDuration = 2;
 
     private Quaternion _opponentDirection;
 
@@ -76,9 +77,11 @@ public class Attack : ScriptableObject
             GameObject temporaryDialogueObject = new GameObject("Temporary Dialogue");
             Dialogue temporaryDialogue = temporaryDialogueObject.AddComponent<Dialogue>();
             string selectedDialogue = DialogueOptions[Random.Range(0, DialogueOptions.Count - 1)];
-            temporaryDialogue.DialogueList.Add(new DialogueText(selectedDialogue, attacker.Profile.Character));
+            DialogueText text = new DialogueText(selectedDialogue, attacker.Profile.Character);
+            text.Actions.AddListener((dialogue) => dialogue.EndDialogue());
+            temporaryDialogue.DialogueList.Add(text);
             GameManager.instance.CombatUIPanelObjectReference.SetActive(false);
-            temporaryDialogue.StartDialogue();
+            temporaryDialogue.StartDialogue(false, DialogueDuration);
 
             await temporaryDialogue.DialogueFinished;
 
