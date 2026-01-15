@@ -82,7 +82,7 @@ Transform:
   m_GameObject: {fileID: 1812636186446628634}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 117.57904, y: 0.00000047683716, z: 13.537989}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406c414deea3d514f9032c9cd0171666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setInitialValuesOnAwake: 1
+  randomiseOnAwake: 1
   positionVarianceX: 0.1
   positionVarianceY: 0
   positionVarianceZ: 0.1
@@ -110,7 +112,7 @@ MonoBehaviour:
   scaleVarianceX: 0.25
   scaleVarianceY: 0.5
   scaleVarianceZ: 0
-  xzProportionalScale: 1
+  XZ_ProportionalScale: 0
 --- !u!208 &4874662581580476144
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -192,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5115791481708978579, guid: 74b198d1e9288244889d3dd32666b6ae,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 933c2df048620b144b8943ca83a063df, type: 2}
     m_RemovedComponents: []
