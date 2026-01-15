@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 6409227153423792647, guid: 6c3ac31c551b5fd43b8b329f2437175e,
         type: 3}
       propertyPath: m_Name
-      value: Wizard
+      value: Wizard 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

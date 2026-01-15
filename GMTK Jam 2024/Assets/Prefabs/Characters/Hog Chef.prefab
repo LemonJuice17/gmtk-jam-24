@@ -76,7 +76,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7153177436733090889}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6409227153423792647, guid: 6c3ac31c551b5fd43b8b329f2437175e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7359980794576492548}
   m_SourcePrefab: {fileID: 100100000, guid: 6c3ac31c551b5fd43b8b329f2437175e, type: 3}
 --- !u!4 &7204526979519699805 stripped
 Transform:
@@ -84,6 +88,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3916457978202091878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7973671401144322913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6409227153423792647, guid: 6c3ac31c551b5fd43b8b329f2437175e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3916457978202091878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7359980794576492548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7973671401144322913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c9577a22e10864b895fdeb4202620a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatProfile
+  Character: {fileID: 11400000, guid: d1cda16bb01a1f743990621f31470550, type: 2}
+  MaxHP: 15
+  Power: 2
+  Charm: 2
+  Magic: 0
+  Attacks:
+  - {fileID: 11400000, guid: 4508e4abc4132da488861d0c524fbbd6, type: 2}
+  - {fileID: 11400000, guid: 3818cc2e95abec841ade5ed037531501, type: 2}
 --- !u!1001 &7264175940063579042
 PrefabInstance:
   m_ObjectHideFlags: 0

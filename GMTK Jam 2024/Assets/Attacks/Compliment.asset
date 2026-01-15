@@ -20,3 +20,21 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: Give someone a nice compliment
   AttackMessageDescription: complimented
+  DialogueChance: 1
+  DialogueOptions:
+  - Your eyebrows look good!
+  - You speak at an adequate volume!
+  - You look like your hugs are not bad at all!
+  - I bet your shoes have pretty shoelaces!
+  - Your feet don't even smell that bad!
+  - If I had a gold nugget for each of your insecurities I would probably have none!
+  - You are loved!
+  - You must be really good at picking what movies to watch!
+  - I would leave no crumbs if you were the cook!
+  - I like your sprite!
+  - I would let you choose the music in a roadtrip!
+  - Your posture is completely normal and exudes confidence!
+  - You ears are a normal size!
+  - I bet you make your bed every morning!
+  - You look like you could kill a fly but choose not to!
+  DialogueDuration: 3

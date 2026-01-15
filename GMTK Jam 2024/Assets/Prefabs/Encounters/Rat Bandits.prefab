@@ -386,7 +386,7 @@ MonoBehaviour:
       - m_Target: {fileID: 7559509620103532251}
         m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
         m_MethodName: StartDialogue
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -472,7 +472,7 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Dialogue, Assembly-CSharp
         m_MethodName: StartDialogue
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -600,10 +600,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueList:
-  - Text: "How could this be!?? I, Billius Ronaldorico Bleatario, defeated by simple
-      plebians. \r\nI will be back! And you will rue the day you crossed paths with
-      mehhhehh."
-    Character: {fileID: 0}
+  - Text: Not... the cheese...
+    Character: {fileID: 11400000, guid: d4206b312df328244ae5b769486c0e8e, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -611,17 +609,8 @@ MonoBehaviour:
     Actions:
       m_PersistentCalls:
         m_Calls: []
-  - Text: "Let\u2019s just kill him and he won\u2019t be able to come after us."
-    Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
-    AutomaticContinueOnly: 0
-    Actions:
-      m_PersistentCalls:
-        m_Calls: []
-  - Text: "Nah leave him. He\u2019s running off anyway."
-    Character: {fileID: 0}
+  - Text: The cheese, meow?
+    Character: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577, type: 2}
     UseCustomPositioning: 0
     CustomPosition: {x: 0, y: 0, z: 0}
     CustomScale: {x: 0, y: 0, z: 0}
@@ -632,7 +621,19 @@ MonoBehaviour:
   _currentDialogueIndex: 0
   AfterDialogue:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEncounter, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5161659319047448180
 GameObject:
   m_ObjectHideFlags: 0
