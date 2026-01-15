@@ -69,11 +69,8 @@ public class Attack : ScriptableObject
 
         await Task.Delay(1000);
 
-        // Wait for the attack part of the attack animation.
-        attacker.Transform.BroadcastMessage("Attack");
-
         // Display dialogue and wait for it to finish.
-        if(DialogueChance > 0 && Random.Range(0f, 1f) <= DialogueChance)
+        if (DialogueChance > 0 && Random.Range(0f, 1f) <= DialogueChance)
         {
             // Create temporary GameObject for Dialogue component.
             GameObject temporaryDialogueObject = new GameObject("Temporary Dialogue");
@@ -88,14 +85,18 @@ public class Attack : ScriptableObject
             Player.instance.Input.SwitchCurrentActionMap("Combat");
             Destroy(temporaryDialogue);
         }
-        
-        await attacker.Transform.GetComponentInChildren<CharacterAnimator>().AttackMade;
+
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
 
+        // Wait for the attack part of the attack animation.
+        attacker.Transform.BroadcastMessage("Attack");
+        CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
+        if(ca != null) await ca.AttackMade;
+        
         // Kill opponent if less than 0 HP.
         opponent.HP -= roundedDamage;
         
-        if (opponent.HP < 0) 
+        if (opponent.HP <= 0) 
         {
             int overDamage = Mathf.Abs(opponent.HP);
             // Ensures that multiplications with overDamage are at least multiplied by 1, while also ensuring a difference between 0 and 1 overdamage and so on.

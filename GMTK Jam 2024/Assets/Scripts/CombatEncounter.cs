@@ -246,11 +246,10 @@ public class CombatEncounter : MonoBehaviour
 
         // Randomly choose an attack and an opponent to attack.
         int randomAttackIndex = Random.Range(0, ai.Profile.Attacks.Count - 1);
-
         List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
         Combatant opponent = enemies[Random.Range(0, enemies.Count - 1)];
 
-        await Attack(ai, opponent, opponent.Profile.Attacks[randomAttackIndex]);
+        await Attack(ai, opponent, ai.Profile.Attacks[randomAttackIndex]);
     }
 
     Attack selectedAttack = null;
