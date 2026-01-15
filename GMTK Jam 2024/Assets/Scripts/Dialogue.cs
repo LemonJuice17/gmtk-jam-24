@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -43,7 +44,8 @@ public class Dialogue : MonoBehaviour, IInteractable
         NextDialogue();
     }
 
-    public void StartDialogue(bool setInputActions = true)
+    public void StartDialogue() => StartDialogue(true);
+    public void StartDialogue(bool setInputActions = true, float timer = 0)
     {
         Player.instance.CurrentInteractable = this;
 
@@ -60,10 +62,10 @@ public class Dialogue : MonoBehaviour, IInteractable
             Debug.LogError(e);
         }
 
-        NextDialogue();
+        NextDialogue(timer);
     }
 
-    public void NextDialogue()
+    public async void NextDialogue(float timer = 0)
     {
         WaitForContinue = false;
 
@@ -76,7 +78,9 @@ public class Dialogue : MonoBehaviour, IInteractable
         if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
         LoadDialogue(CurrentDialogue);
 
-        if(CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
+        if (CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
+
+        if (timer > 0) await Task.Delay((int)(timer * 1000));
 
         CurrentDialogue.Actions.Invoke(this);
 
@@ -130,9 +134,10 @@ public class DialogueText
 
     public UnityEvent<Dialogue> Actions = new();
 
-    public DialogueText(string text, Character character = null)
+    public DialogueText(string text, Character character = null, bool autoContinue = false)
     {
         Text = text;
         Character = character;
+        AutomaticContinueOnly = autoContinue;
     }
 }
