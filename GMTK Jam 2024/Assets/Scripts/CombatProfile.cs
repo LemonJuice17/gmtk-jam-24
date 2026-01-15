@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,42 @@ public class CombatProfile : MonoBehaviour
     public int Charm;
     public int Magic;
 
-    //public Attack[] Attacks;
     public List<Attack> Attacks = new List<Attack>();
+
+    public int Level = 0;
+
+    public List<LevelUp> LevelUps = new();
+
+    public void LevelUp()
+    {
+        Level++;
+        if (LevelUps.Count < Level) return;
+        LevelUp thisLevel = LevelUps[Level - 1];
+
+        MaxHP += thisLevel.HP;
+        switch (thisLevel.Stat)
+        {
+            case Stats.power:
+                Power++; break;
+            case Stats.magic:
+                Magic++; break;
+            case Stats.charm:
+                Charm++; break;
+        }
+    }
+}
+
+[Serializable]
+public struct LevelUp
+{
+    public int HP;
+    public Stats Stat;
+
+    public LevelUp(Stats stat, int hp = 5)
+    {
+        Stat = stat;
+        HP = hp;
+    }
 }
 
 public class Combatant
@@ -38,6 +73,14 @@ public class Combatant
         Team = team;
         IsPlayer = isPlayer;
     }
+}
+
+public enum Stats
+{
+    none,
+    power,
+    charm,
+    magic
 }
 
 public enum Team
