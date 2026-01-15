@@ -102,8 +102,8 @@ public class CombatEncounter : MonoBehaviour
         RelativePlayerPositionOnLoss = combatPositionsParent.GetChild(4);
         RelativeGilbertPositionOnLoss = combatPositionsParent.GetChild(5);
 
-    // Move party to correct positions.
-    Task[] moveToPositionTasks = new Task[3];
+        // Move party to correct positions.
+        Task[] moveToPositionTasks = new Task[3];
 
         instance.CurrentWalkMode = new WalkToPoint(instance, RelativePlayerPosition.position);
         _cattank.CurrentWalkMode = new WalkToPoint(_cattank, RelativeCattankPosition.position);
@@ -517,6 +517,7 @@ public class CombatEncounter : MonoBehaviour
         if (CombatantList.Where((combatant) => combatant.Team == Team.enemy).ToList().Count == 0)
         {
             Debug.Log("All enemies dead.");
+            await LevelUp();
             StopEncounter();
             CombatVictory();
         }
@@ -544,7 +545,7 @@ public class CombatEncounter : MonoBehaviour
         }
     }
 
-    public async void StopEncounter()
+    public void StopEncounter()
     {
         _combatInProgress = false;
 
@@ -561,18 +562,32 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.text = "";
 
-        
-
         instance.CurrentWalkMode = new PlayerMovement(instance);
         _gilbert.CurrentWalkMode = new FollowTarget(_gilbert, instance.transform, _gilbert.DistanceBeforeMoving);
         _cattank.CurrentWalkMode = new FollowTarget(_cattank, instance.transform, _cattank.DistanceBeforeMoving);
 
-
         instance.Input.SwitchCurrentActionMap("Overworld");
 
         _combatCamera.Priority = 10;
+    }
 
-        await Task.Delay(1000);
+    public async Task LevelUp()
+    {
+        GameManager.instance.CombatUIDescriptionText.text = "The party has levelled up!";
+
+        instance.GetComponent<CombatProfile>().LevelUp();
+        _gilbert.GetComponent<CombatProfile>().LevelUp();
+        _cattank.GetComponent<CombatProfile>().LevelUp();
+
+        CombatantList = new();
+
+        CombatantList.Add(new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true));
+        CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
+        CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
+
+        InitStatPanels();
+
+        await Task.Delay(3000);
     }
 
     public void CombatVictory()

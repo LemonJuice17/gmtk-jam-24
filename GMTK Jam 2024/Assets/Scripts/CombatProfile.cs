@@ -23,7 +23,7 @@ public class CombatProfile : MonoBehaviour
     public void LevelUp()
     {
         Level++;
-        if (LevelUps.Count > Level) return;
+        if (LevelUps.Count < Level) return;
         LevelUp thisLevel = LevelUps[Level - 1];
 
         MaxHP += thisLevel.HP;
