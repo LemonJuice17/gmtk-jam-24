@@ -10,6 +10,7 @@ public class DiceObject : MonoBehaviour
     /// </summary>
     public Vector3[] Sides;
     [SerializeField] private bool _showSideVectors = false;
+    private Quaternion _objectRotation;
     /// <summary>
     /// The value of each side from the Sides list by corresponding index.
     /// </summary>
@@ -28,7 +29,7 @@ public class DiceObject : MonoBehaviour
     /// <summary>
     /// Stops the dice from rolling once it's velocity's magnitude is lower than this value.
     /// </summary>
-    public float VelocityMagnitudeStopLimit = 0.05f;
+    public float VelocityMagnitudeStopLimit = 0.01f;
     /// <summary>
     /// If the dice is still rolling after this many seconds, it is forcefully stopped.
     /// </summary>
@@ -65,6 +66,7 @@ public class DiceObject : MonoBehaviour
     {
         if (GameManager.instance.DiceRollupSFX != null) Instantiate(GameManager.instance.DiceRollupSFX);
 
+        _objectRotation = transform.rotation;
         transform.rotation = Random.rotation;
 
         rigidbody.AddForce(throwDirection.normalized * ThrowMagnitude, ForceMode.Impulse);
@@ -103,7 +105,7 @@ public class DiceObject : MonoBehaviour
 
         for (int i = 0; i < Sides.Length; i++)
         {
-            float dot = Vector3.Dot(Vector3.up, transform.rotation * Sides[i]);
+            float dot = Vector3.Dot(Vector3.up, _objectRotation * transform.rotation * Sides[i]);
 
             if(dot > closestDot)
             {
