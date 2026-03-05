@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Roll Over
+  m_EditorClassIdentifier: Assembly-CSharp::RollOver
+  StrengthDamageMultiplier: 0
+  CharmDamageMultiplier: 0
+  MagicDamageMultiplier: 0
+  D4Damage: 0
+  D6Damage: 0
+  D8Damage: 0
+  AttackDescription: Roll Over
+  AttackMessageDescription: In its slumber, the dragon rolls over and onto your party.
+    You're all crushed half to death.
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2
