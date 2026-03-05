@@ -396,7 +396,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   OnLoss:
     m_PersistentCalls:
@@ -426,6 +426,7 @@ MonoBehaviour:
   ShowCombatPositionGizmos: 0
   ShowLossPositionGizmos: 0
   TurnIconSpacing: 80
+  _combatCamera: {fileID: 169573060222209803}
 --- !u!1 &4315233321833650621
 GameObject:
   m_ObjectHideFlags: 0
