@@ -75,15 +75,13 @@ public class CombatEncounter : MonoBehaviour
     /// </summary>
     public float TurnIconSpacing = 80;
 
-    private CinemachineVirtualCamera _combatCamera;
+    [SerializeField] private CinemachineVirtualCamera _combatCamera;
 
     bool _combatInProgress = true;
 
     public async void StartEncounter()
     {
         instance.Input.SwitchCurrentActionMap("Combat");
-
-        _combatCamera = GetComponentInChildren<CinemachineVirtualCamera>();
 
         if (_combatCamera != null) _combatCamera.Priority = 100;
         else Debug.LogAssertion("This combat does not have an assigned virtual camera. Create one as a child of this object.");

@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1967834534155211187
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Text
+      value: Not... the cheese...
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Text
+      value: The cheese, meow?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: d4206b312df328244ae5b769486c0e8e,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 2037036005382734056, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091975455040809692, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_Name
+      value: Enc - Rat Bandits
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Text
+      value: Hm? Intruders!! Kill em boys!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Text
+      value: A real fight this time?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: d4206b312df328244ae5b769486c0e8e,
+        type: 2}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
+        type: 2}
+    - target: {fileID: 4119651803444261869, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 23.82583
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.3219
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983990996796621102, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636782973044219462, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636782973044219462, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e61d923b2ace4264e9b1d7f3fac82905, type: 3}
