@@ -427,8 +427,26 @@ public class CombatEncounter : MonoBehaviour
 
         await Task.Delay(500);
 
-        // Wait for the attack to finish.
-        int damageDealt = await attack.OnAttack(attacker, opponent);
+        if (attack is RollOver)
+        {
+            await (attack as RollOver).OnAttack(attacker, CombatantList.Where((c) => c.Team != attacker.Team).ToArray());
+            await Task.Delay(1000);
+            GameManager.instance.CombatUIDescriptionText.text = (attack as RollOver).AttackMessageDescription;
+            await Task.Delay(3000);
+            StopEncounter();
+            CombatVictory();
+            return;
+        }
+
+        int damageDealt = 0;
+
+        if (attack is PowerOfFriendship)
+        {
+            // TODO: Implement custom logic for The Power of Friendship attack.
+        }
+
+        else await attack.OnAttack(attacker, opponent);
+
         await Task.Delay(1000);
 
         GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage.";
