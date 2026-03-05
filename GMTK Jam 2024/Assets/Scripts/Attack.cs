@@ -86,7 +86,7 @@ public class Attack : ScriptableObject
             await temporaryDialogue.DialogueFinished;
 
             Player.instance.Input.SwitchCurrentActionMap("Combat");
-            Destroy(temporaryDialogue);
+            Destroy(temporaryDialogue.gameObject);
         }
 
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);

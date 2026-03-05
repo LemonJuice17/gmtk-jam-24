@@ -27,14 +27,17 @@ public class CombatProfile : MonoBehaviour
         LevelUp thisLevel = LevelUps[Level - 1];
 
         MaxHP += thisLevel.HP;
-        switch (thisLevel.Stat)
+        foreach(Stats stat in thisLevel.Stats)
         {
-            case Stats.power:
-                Power++; break;
-            case Stats.magic:
-                Magic++; break;
-            case Stats.charm:
-                Charm++; break;
+            switch (stat)
+            {
+                case Stats.power:
+                    Power++; break;
+                case Stats.magic:
+                    Magic++; break;
+                case Stats.charm:
+                    Charm++; break;
+            }
         }
     }
 }
@@ -43,11 +46,11 @@ public class CombatProfile : MonoBehaviour
 public struct LevelUp
 {
     public int HP;
-    public Stats Stat;
+    public Stats[] Stats;
 
-    public LevelUp(Stats stat, int hp = 5)
+    public LevelUp(Stats[] stat, int hp = 5)
     {
-        Stat = stat;
+        Stats = stat;
         HP = hp;
     }
 }

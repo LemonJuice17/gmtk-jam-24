@@ -42,7 +42,11 @@ public class CharacterAnimator : MonoBehaviour
     [UsedImplicitly]
     public void PlayAttackSound()
     {
-        Instantiate(GameManager.instance.AttackSFX);
-        _attackMade.SetResult(true);
+        try
+        {
+            Instantiate(GameManager.instance.AttackSFX);
+            _attackMade.SetResult(true);
+        }
+        catch { }
     }
 }
