@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Attack")]
@@ -28,11 +30,9 @@ public class Attack : ScriptableObject
 
     private Quaternion _opponentDirection;
 
-    public async Task<int> OnAttack(Combatant attacker, Combatant opponent)
+    public async virtual Task<int> OnAttack(Combatant attacker, Combatant opponent)
     {
-        _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
-        TweenRotation faceOpponent = new (0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
-        await faceOpponent.TweenCompletion;
+        await FaceOpponent(attacker, opponent);
 
         float totalDamage =
             attacker.Profile.Power * StrengthDamageMultiplier +
@@ -124,5 +124,61 @@ public class Attack : ScriptableObject
         opponent.OnHPChanged.Invoke(opponent.HP);
 
         return roundedDamage;
+    }
+
+    protected async Task FaceOpponent(Combatant attacker, Combatant opponent)
+    {
+        _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
+        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
+        await faceOpponent.TweenCompletion;
+    }
+
+    protected async Task FaceOpponent(Combatant attacker, Vector3 position)
+    {
+        _opponentDirection = Quaternion.LookRotation(position - attacker.Transform.position);
+        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
+        await faceOpponent.TweenCompletion;
+    }
+}
+
+[CreateAssetMenu(fileName = "Roll Over")]
+public class RollOver : Attack
+{
+    public RollOver() => AttackDescription = "Roll Over";
+
+    public async Task OnAttack(Combatant attacker, Combatant[] opponents)
+    {
+        await FaceOpponent(attacker, AverageCombatantPosition(opponents));
+
+        await Task.Delay(1000);
+
+        // Wait for the attack part of the attack animation.
+        attacker.Transform.BroadcastMessage("Attack");
+        CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
+        if (ca != null) await ca.AttackMade;
+
+        foreach (Combatant opponent in opponents) 
+        { 
+            opponent.HP = 1;
+            opponent.OnHPChanged.Invoke(opponent.HP);
+        }
+    }
+
+    private Vector3 AverageCombatantPosition(Combatant[] combatants)
+    {
+        Vector3 sumPos = new();
+        foreach(Combatant combatant in combatants) { sumPos += combatant.Transform.position; }
+        return sumPos / combatants.Length;
+    }
+}
+
+[CreateAssetMenu(fileName = "The Power Of Friendship")]
+public class PowerOfFriendship : Attack
+{
+    public PowerOfFriendship() => AttackDescription = "The Power of Friendship";
+
+    public async Task<int> OnAttack(Combatant[] attacker, Combatant opponent)
+    {
+        return 1;
     }
 }
