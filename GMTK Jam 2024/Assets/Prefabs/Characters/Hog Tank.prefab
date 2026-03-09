@@ -188,10 +188,11 @@ MonoBehaviour:
   Character: {fileID: 11400000, guid: f9eb07674c2ba1d48862b93197b46c70, type: 2}
   MaxHP: 20
   Power: 3
-  Charm: 2
+  Charm: 1
   Magic: 0
   Attacks:
   - {fileID: 11400000, guid: bbae670356707f642bd725ffae5eb2a5, type: 2}
-  - {fileID: 11400000, guid: d0243dd191382cd46a9c3f78b9ec0bfa, type: 2}
   - {fileID: 11400000, guid: 4508e4abc4132da488861d0c524fbbd6, type: 2}
   - {fileID: 11400000, guid: 4508e4abc4132da488861d0c524fbbd6, type: 2}
+  Level: 0
+  LevelUps: []

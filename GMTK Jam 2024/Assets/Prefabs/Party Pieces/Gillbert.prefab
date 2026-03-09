@@ -207,6 +207,16 @@ MonoBehaviour:
   Magic: 3
   Attacks:
   - {fileID: 11400000, guid: 62e75853886223c43a0572d5b684084a, type: 2}
+  Level: 0
+  LevelUps:
+  - HP: 1
+    Stats: 
+  - HP: 1
+    Stats: 02000000
+  - HP: 1
+    Stats: 
+  - HP: 1
+    Stats: 010000000300000003000000
 --- !u!1 &6497206649800223439
 GameObject:
   m_ObjectHideFlags: 0

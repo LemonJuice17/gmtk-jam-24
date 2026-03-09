@@ -15,8 +15,11 @@ MonoBehaviour:
   StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 1
   MagicDamageMultiplier: 0
-  D4Damage: 0
+  D4Damage: 1
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: Mock your adversary with the power of your charm
+  AttackDescription: Mock your adversary with the power of your charm + 1d4
   AttackMessageDescription: mocked
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2
