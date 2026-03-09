@@ -420,6 +420,17 @@ public class CombatEncounter : MonoBehaviour
 
     private async Task Attack(Combatant attacker, Combatant opponent, Attack attack)
     {
+        if (attacker.IsSkipTurn)
+        {
+            Image[] imageElements = _turnOrderIcons[0].GetComponentsInChildren<Image>();
+            foreach(Image img in imageElements) { img.color = Color.white; }
+
+            GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is too tired and rests for a turn.";
+            attacker.IsSkipTurn = false;
+            await Task.Delay(3000);
+            return;
+        }
+
         string attackMessage = attack.AttackMessageDescription == "" ? $"used {attack.name} on" : attack.AttackMessageDescription;
         GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} {attackMessage} {opponent.Profile.Character.CharacterName}.";
 
@@ -441,6 +452,22 @@ public class CombatEncounter : MonoBehaviour
         if (attack is PowerOfFriendship)
         {
             await (attack as PowerOfFriendship).OnAttack(CombatantList.Where((c) => c.Team == attacker.Team).ToArray(), opponent);
+            
+            Color fadeColour = new(0.75f, 0.75f, 0.75f, 0.75f);
+
+            int i = 0;
+            CombatantList.ForEach((c) =>
+            {
+                if(c != attacker && c.Team == attacker.Team)
+                {
+                    c.IsSkipTurn = true;
+
+                    Image[] imageElements = _turnOrderIcons[i].GetComponentsInChildren<Image>();
+                    foreach(Image img in imageElements) { img.color = fadeColour; }
+                }
+
+                i++;
+            });
         }
 
         else damageDealt = await attack.OnAttack(attacker, opponent);
