@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,7 +10,7 @@ public class Dialogue : MonoBehaviour, IInteractable
     [SerializeField] private int _currentDialogueIndex = 0;
 
     public DialogueText CurrentDialogue { get => DialogueList[_currentDialogueIndex]; }
-    private DialogueBox _curentDialogueBox;
+    private DialogueBox _currentDialogueBox;
 
     private bool WaitForContinue = false;
 
@@ -33,7 +30,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             if (Player.instance.Input.currentActionMap.name != "Dialogue")
             {
                 Player.instance.Input.SwitchCurrentActionMap("Dialogue");
-                // When switching action map, the interaction button is still held so the action gets reapeated, once for each action map.
+                // When switching action map, the interaction button is still held so the action gets repeated, once for each action map.
                 // This allows the action map to switch, but otherwise suppresses the first input to prevent double inputs.
                 return;
             }
@@ -75,7 +72,7 @@ public class Dialogue : MonoBehaviour, IInteractable
             return;
         }
 
-        if(_curentDialogueBox == null) _curentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
+        if(_currentDialogueBox == null) _currentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
         LoadDialogue(CurrentDialogue);
 
         if (CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
@@ -92,7 +89,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
         Player.instance.CurrentInteractable = null;
         _currentDialogueIndex = 0;
-        Destroy(_curentDialogueBox.gameObject, 0);
+        Destroy(_currentDialogueBox.gameObject, 0);
 
         _dialogueFinished.SetResult(true);
         AfterDialogue.Invoke(this);
@@ -102,18 +99,18 @@ public class Dialogue : MonoBehaviour, IInteractable
     {
         if (dialogue.UseCustomPositioning)
         {
-            _curentDialogueBox.transform.position = dialogue.CustomPosition;
-            _curentDialogueBox.transform.localScale = dialogue.CustomScale;
+            _currentDialogueBox.transform.position = dialogue.CustomPosition;
+            _currentDialogueBox.transform.localScale = dialogue.CustomScale;
         }
 
-        _curentDialogueBox.Dialogue.text = dialogue.Text;
+        _currentDialogueBox.Dialogue.text = dialogue.Text;
 
         if (dialogue.Character == null) return;
 
-        if (dialogue.Character.CharacterSprite != null) _curentDialogueBox.CharacterSprite.sprite = dialogue.Character.CharacterSprite;
-        if (dialogue.Character.CharacterBackgroundColor != null) _curentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.Character.CharacterBackgroundColor;
-        if (dialogue.Character.CharacterMainColor != null) _curentDialogueBox.CharacterName.color = dialogue.Character.CharacterMainColor;
-        _curentDialogueBox.CharacterName.text = dialogue.Character.CharacterName; 
+        if (dialogue.Character.CharacterSprite != null) _currentDialogueBox.CharacterSprite.sprite = dialogue.Character.CharacterSprite;
+        if (dialogue.Character.CharacterBackgroundColor != null) _currentDialogueBox.CharacterName.GetComponentInParent<Image>().color = dialogue.Character.CharacterBackgroundColor;
+        if (dialogue.Character.CharacterMainColor != null) _currentDialogueBox.CharacterName.color = dialogue.Character.CharacterMainColor;
+        _currentDialogueBox.CharacterName.text = dialogue.Character.CharacterName; 
     }
 }
 

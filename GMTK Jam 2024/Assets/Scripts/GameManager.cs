@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject CombatUIObjectReference; // The entire combat UI
     public GameObject CombatUIPanelObjectReference; // The panel at the bottom during combat
     public TMP_Text CombatUINameText; // The name of the current combatant
-    public TMP_Text CombatUIDescriptionText; // The text of the current decription
+    public TMP_Text CombatUIDescriptionText; // The text of the current description
     /// <summary>
     ///  The UI for displaying the player's available attack options
     /// </summary>
