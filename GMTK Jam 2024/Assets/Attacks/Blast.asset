@@ -16,9 +16,11 @@ MonoBehaviour:
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 1
   D4Damage: 0
-  D6Damage: 1
-  D8Damage: 0
-  AttackDescription: 
+  D6Damage: 0
+  D8Damage: 1
+  AttackDescription: Send out a blast of energy using <b><color=#35949F>Magic</color></b>
+    + <b>1d8</b>
   AttackMessageDescription: blasted
   DialogueChance: 0
   DialogueOptions: []
+  DialogueDuration: 2

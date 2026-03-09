@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3615d4f0983bfe46bdfddb6e2632d45, type: 3}
-  m_Name: Slash
-  m_EditorClassIdentifier: 
-  StrengthDamageMultiplier: 1
+  m_Name: Snore
+  m_EditorClassIdentifier: Assembly-CSharp::Attack
+  StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 0
-  D4Damage: 1
+  D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: Slash your foe using <b><color=#F59B14>Power</color></b> + <b>1d4</b>
-  AttackMessageDescription: slashed
+  AttackDescription: 
+  AttackMessageDescription: snored at
   DialogueChance: 0
-  DialogueOptions: []
+  DialogueOptions:
+  - <wave a=0.1>*snoooooore*</wave>
   DialogueDuration: 2

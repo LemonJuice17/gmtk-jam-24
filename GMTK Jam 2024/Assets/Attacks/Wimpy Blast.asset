@@ -15,8 +15,11 @@ MonoBehaviour:
   StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 0
   MagicDamageMultiplier: 1
-  D4Damage: 1
-  D6Damage: 0
+  D4Damage: 0
+  D6Damage: 1
   D8Damage: 0
   AttackDescription: 
   AttackMessageDescription: wimpily blasted
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2
