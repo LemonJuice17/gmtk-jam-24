@@ -80,12 +80,7 @@ public class Walkable : MonoBehaviour
             // Either way, this offset is used instead of 0 to account for this.
             float destinationYOffset = Walker.Agent.destination.y - TargetPoint.y;
 
-            while (Vector3.Distance(Walker.transform.position, TargetPoint) > destinationYOffset)
-            {
-                //Debug.Log($"{Walker.name} is trying to go to {Walker.Agent.destination}.");
-                //if (Walker.name == "Gillbert") Debug.Log(Vector3.Distance(Walker.transform.position, TargetPoint));
-                yield return null;
-            }
+            while (Vector3.Distance(Walker.transform.position, TargetPoint) > destinationYOffset) yield return null;
 
             Walker.Agent.isStopped = true;
             Walker.BroadcastMessage("ChangeMoving", false);

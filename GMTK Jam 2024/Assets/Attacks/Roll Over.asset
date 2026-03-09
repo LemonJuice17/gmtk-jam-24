@@ -19,8 +19,8 @@ MonoBehaviour:
   D6Damage: 0
   D8Damage: 0
   AttackDescription: Roll Over
-  AttackMessageDescription: In its slumber, the dragon rolls over and onto your party.
-    You're all crushed half to death.
+  AttackMessageDescription: The dragon rolls onto the party in it's sleep, crushing
+    them all half to death.
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2

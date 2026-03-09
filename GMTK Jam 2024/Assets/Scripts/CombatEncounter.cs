@@ -490,7 +490,7 @@ public class CombatEncounter : MonoBehaviour
     }
 
     /// <summary>
-    /// Removes a combatant from the CombatantQueue, Combants list, and animates the removal of their turn order UI. 
+    /// Removes a combatant from the CombatantQueue, Combatants list, and animates the removal of their turn order UI. 
     /// </summary>
     /// <param name="combatant"> The combatant to remove. </param>
     private async Task RemoveCombatant(Combatant combatant)

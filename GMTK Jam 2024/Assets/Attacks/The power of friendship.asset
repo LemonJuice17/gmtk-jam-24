@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3615d4f0983bfe46bdfddb6e2632d45, type: 3}
-  m_Name: The power of friendship
-  m_EditorClassIdentifier: 
-  StrengthDamageMultiplier: 1
-  CharmDamageMultiplier: 1
-  MagicDamageMultiplier: 1
+  m_Script: {fileID: 0}
+  m_Name: The Power Of Friendship
+  m_EditorClassIdentifier: Assembly-CSharp::PowerOfFriendship
+  StrengthDamageMultiplier: 0
+  CharmDamageMultiplier: 0
+  MagicDamageMultiplier: 0
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: 
-  AttackMessageDescription: unleashed the power of friendship upon
+  AttackDescription: The Power of Friendship
+  AttackMessageDescription: unleashed the power of friendship on
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2

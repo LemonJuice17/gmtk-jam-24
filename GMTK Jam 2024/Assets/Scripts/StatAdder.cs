@@ -4,7 +4,7 @@ public class StatAdder : MonoBehaviour
 {
     //public Attack AttackToGive;
     [SerializeField] private Stats StatToGive;
-    public int StatAmmount = 1;
+    public int StatAmount = 1;
 
     private enum Stats
     {
