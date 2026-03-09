@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Attack")]
@@ -95,11 +93,32 @@ public class Attack : ScriptableObject
         attacker.Transform.BroadcastMessage("Attack");
         CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
         if(ca != null) await ca.AttackMade;
-        
-        // Kill opponent if less than 0 HP.
-        opponent.HP -= roundedDamage;
-        
-        if (opponent.HP <= 0) 
+
+        AttackOpponent(attacker, opponent, roundedDamage);
+
+        return roundedDamage;
+    }
+
+    protected async Task FaceOpponent(Combatant attacker, Combatant opponent)
+    {
+        _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
+        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
+        await faceOpponent.TweenCompletion;
+    }
+    protected async Task FaceOpponent(Combatant attacker, Vector3 position)
+    {
+        _opponentDirection = Quaternion.LookRotation(position - attacker.Transform.position);
+        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
+        await faceOpponent.TweenCompletion;
+    }
+
+
+    protected void AttackOpponent(Combatant attacker, Combatant opponent, int damage) => 
+        AttackOpponent(attacker.Transform.position, opponent, damage);
+    protected void AttackOpponent(Vector3 attackOrigin, Combatant opponent, int damage) {
+        opponent.HP -= damage;
+
+        if (opponent.HP <= 0)
         {
             int overDamage = Mathf.Abs(opponent.HP);
             // Ensures that multiplications with overDamage are at least multiplied by 1, while also ensuring a difference between 0 and 1 overdamage and so on.
@@ -112,7 +131,7 @@ public class Attack : ScriptableObject
             deadRigidBody.isKinematic = false;
             deadRigidBody.constraints = RigidbodyConstraints.None;
 
-            Vector3 launchVector = ((opponent.Transform.position - attacker.Transform.position).normalized + Vector3.up).normalized * overDamage;
+            Vector3 launchVector = ((opponent.Transform.position - attackOrigin).normalized + Vector3.up).normalized * overDamage;
             Debug.DrawLine(deadRigidBody.position, deadRigidBody.position + launchVector, Color.green, 3);
 
             deadRigidBody.AddForce(launchVector, ForceMode.Impulse);
@@ -122,23 +141,15 @@ public class Attack : ScriptableObject
         }
 
         opponent.OnHPChanged.Invoke(opponent.HP);
-
-        return roundedDamage;
     }
 
-    protected async Task FaceOpponent(Combatant attacker, Combatant opponent)
+    protected Vector3 AverageCombatantPosition(Combatant[] combatants)
     {
-        _opponentDirection = Quaternion.LookRotation(opponent.Transform.position - attacker.Transform.position);
-        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
-        await faceOpponent.TweenCompletion;
+        Vector3 sumPos = new();
+        foreach (Combatant combatant in combatants) { sumPos += combatant.Transform.position; }
+        return sumPos / combatants.Length;
     }
 
-    protected async Task FaceOpponent(Combatant attacker, Vector3 position)
-    {
-        _opponentDirection = Quaternion.LookRotation(position - attacker.Transform.position);
-        TweenRotation faceOpponent = new(0.2f, attacker.Transform, _opponentDirection, Easing.inOutSine);
-        await faceOpponent.TweenCompletion;
-    }
 }
 
 [CreateAssetMenu(fileName = "Roll Over")]
@@ -163,13 +174,6 @@ public class RollOver : Attack
             opponent.OnHPChanged.Invoke(opponent.HP);
         }
     }
-
-    private Vector3 AverageCombatantPosition(Combatant[] combatants)
-    {
-        Vector3 sumPos = new();
-        foreach(Combatant combatant in combatants) { sumPos += combatant.Transform.position; }
-        return sumPos / combatants.Length;
-    }
 }
 
 [CreateAssetMenu(fileName = "The Power Of Friendship")]
@@ -177,8 +181,36 @@ public class PowerOfFriendship : Attack
 {
     public PowerOfFriendship() => AttackDescription = "The Power of Friendship";
 
-    public async Task<int> OnAttack(Combatant[] attacker, Combatant opponent)
+    public async Task<int> OnAttack(Combatant[] attackers, Combatant opponent)
     {
-        return 1;
+        List<Task> faceEnemyTasks = new();
+        foreach (Combatant attacker in attackers) { faceEnemyTasks.Add(FaceOpponent(attacker, opponent)); }
+        await Task.WhenAll(faceEnemyTasks);
+
+        List<Task<int>> rollResults = new();
+        foreach (Combatant attacker in attackers) 
+        {
+            rollResults.Add(GameManager.instance.CreateDice(8, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f));
+            await Task.Delay(200);
+        }
+        await Task.WhenAll(rollResults);
+
+        int damage = 0;
+        foreach (Task<int> rollResult in rollResults) { damage += rollResult.Result; }
+
+        await Task.Delay(1000);
+
+        List<Task> attackAnimations = new();
+        foreach (Combatant attacker in attackers)
+        {
+            attacker.Transform.BroadcastMessage("Attack");
+            CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
+            if (ca != null) attackAnimations.Add(ca.AttackMade);
+        }
+        await Task.WhenAll(attackAnimations);
+
+        AttackOpponent(AverageCombatantPosition(attackers), opponent, damage);
+
+        return damage;
     }
 }

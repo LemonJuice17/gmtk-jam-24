@@ -440,10 +440,10 @@ public class CombatEncounter : MonoBehaviour
 
         if (attack is PowerOfFriendship)
         {
-            // TODO: Implement custom logic for The Power of Friendship attack.
+            await (attack as PowerOfFriendship).OnAttack(CombatantList.Where((c) => c.Team == attacker.Team).ToArray(), opponent);
         }
 
-        else await attack.OnAttack(attacker, opponent);
+        else damageDealt = await attack.OnAttack(attacker, opponent);
 
         await Task.Delay(1000);
 
