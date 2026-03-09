@@ -298,3 +298,13 @@ MonoBehaviour:
   Attacks:
   - {fileID: 11400000, guid: 499f6231d025e7442af9f5eb7996d109, type: 2}
   - {fileID: 11400000, guid: 649530a4dc9fbcb48b7c2bb411097712, type: 2}
+  Level: 0
+  LevelUps:
+  - HP: 1
+    Stats: 
+  - HP: 1
+    Stats: 01000000
+  - HP: 1
+    Stats: 
+  - HP: 1
+    Stats: 010000000200000002000000
