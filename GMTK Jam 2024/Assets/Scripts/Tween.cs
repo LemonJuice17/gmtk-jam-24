@@ -34,7 +34,7 @@ public readonly struct Tween
     /// Creates a tween between a Transform's current position and a given target position over a given period of time.
     /// </summary>
     /// <param name="duration"> The duration of the tween. </param>
-    /// <param name="transform"> The Tranform being moved. </param>
+    /// <param name="transform"> The Transform being moved. </param>
     /// <param name="target"> The target position of the tween. </param>
     /// <param name="easing"> The easing mode (currently not supported). </param>
     public Tween(float duration, Transform transform, Vector3 target, Easing easing = Easing.linear)
@@ -104,7 +104,7 @@ public readonly struct TweenRotation
     /// Creates a tween between a Transform's current rotation and a given target rotation over a given period of time.
     /// </summary>
     /// <param name="duration"> The duration of the tween. </param>
-    /// <param name="transform"> The Tranform being rotated. </param>
+    /// <param name="transform"> The Transform being rotated. </param>
     /// <param name="target"> The target rotation of the tween. </param>
     /// <param name="easing"> The easing mode (currently not supported). </param>
     public TweenRotation(float duration, Transform transform, Quaternion target, Easing easing = Easing.linear)
@@ -180,7 +180,7 @@ public readonly struct TweenValue
     /// <param name="duration"> The duration of the tween. </param>
     /// <param name="value"> The starting value. </param>
     /// <param name="target"> The target position of the tween. </param>
-    /// <param name="setValue"> The lamba expression that sets the value. </param>
+    /// <param name="setValue"> The lambda expression that sets the value. </param>
     /// <param name="easing"> The easing mode (currently not supported). </param>
     public TweenValue(float duration, float origin, float target, Action<float> setValue, Easing easing = Easing.linear)
     {

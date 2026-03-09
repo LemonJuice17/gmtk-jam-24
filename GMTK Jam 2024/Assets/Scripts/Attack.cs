@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Attack")]
@@ -126,7 +125,7 @@ public class Attack : ScriptableObject
 
             opponent.HP = 0;
 
-            if (!opponent.Transform.TryGetComponent(out Rigidbody deadRigidBody)) deadRigidBody = opponent.Transform.AddComponent<Rigidbody>();
+            if (!opponent.Transform.TryGetComponent(out Rigidbody deadRigidBody)) deadRigidBody = opponent.Transform.gameObject.AddComponent<Rigidbody>();
 
             deadRigidBody.isKinematic = false;
             deadRigidBody.constraints = RigidbodyConstraints.None;
