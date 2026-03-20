@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3615d4f0983bfe46bdfddb6e2632d45, type: 3}
+  m_Name: Stink
+  m_EditorClassIdentifier: Assembly-CSharp::Attack
+  StrengthDamageMultiplier: 0
+  CharmDamageMultiplier: 1
+  MagicDamageMultiplier: 0
+  D4Damage: 1
+  D6Damage: 0
+  D8Damage: 0
+  AttackDescription: 
+  AttackMessageDescription: stinks, their stench envelops
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2

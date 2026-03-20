@@ -172,7 +172,7 @@ public class CombatEncounter : MonoBehaviour
                 Quaternion.identity,
                 GameManager.instance.CombatTurnOrderObjectReference.transform));
 
-            _turnOrderIcons[i].transform.GetChild(0).GetComponent<Image>().sprite = CombatantQueue.Peek().Profile.Character.CharacterSprite;
+            _turnOrderIcons[i].transform.GetChild(0).GetComponent<Image>().sprite = CombatantQueue.Peek().Profile.Character.CharacterCombatIcon;
             _turnOrderIcons[i].name = CombatantQueue.Peek().Profile.Character.name;
             CombatantQueue.Enqueue(CombatantQueue.Peek());
             CombatantQueue.Dequeue();
@@ -331,7 +331,7 @@ public class CombatEncounter : MonoBehaviour
             for (int i = 0; i < combatantSelectionList.Length; i++)
             {
                 selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
-                selectionObjectList[i].text = combatantSelectionList[i].Profile.name;
+                selectionObjectList[i].text = combatantSelectionList[i].Profile.Character.name;
             }
 
             playerSelectionIndex = 0;

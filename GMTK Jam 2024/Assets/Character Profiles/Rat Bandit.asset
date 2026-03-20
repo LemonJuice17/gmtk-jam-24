@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Rat Bandit
   CharacterSprite: {fileID: 21300000, guid: 4d414d970d6065e4aa91514db5c48674, type: 3}
+  CharacterCombatIcon: {fileID: 21300000, guid: 0adc61ee0a7799746aa19c03010c3d3a,
+    type: 3}
   CharacterMainColor: {r: 0.6886792, g: 0.17107952, b: 0.126691, a: 1}
   CharacterBackgroundColor: {r: 0.8773585, g: 0.5466643, b: 0.5255874, a: 1}

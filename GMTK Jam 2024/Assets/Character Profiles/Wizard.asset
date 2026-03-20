@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Wizard
   CharacterSprite: {fileID: 21300000, guid: e4bef9ee66b22124d9eac75e56f25b3a, type: 3}
+  CharacterCombatIcon: {fileID: 21300000, guid: f40eb6b23d5265641ada176b70a44900,
+    type: 3}
   CharacterMainColor: {r: 0.6132076, g: 0.18222678, b: 0.18222678, a: 1}
   CharacterBackgroundColor: {r: 0.7169812, g: 0.40840238, b: 0.39569244, a: 1}
