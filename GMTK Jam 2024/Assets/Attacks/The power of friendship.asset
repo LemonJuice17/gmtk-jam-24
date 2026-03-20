@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 6a0346ce5e1ef9d4bb788459c2585e9b, type: 3}
   m_Name: The Power Of Friendship
   m_EditorClassIdentifier: Assembly-CSharp::PowerOfFriendship
   StrengthDamageMultiplier: 0
@@ -18,8 +18,10 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: The Power of Friendship
-  AttackMessageDescription: unleashed the power of friendship on
+  AttackDescription: Combine forces with your allies using <b>1d8</b> for each active
+    party member
+  AttackMessageDescription: unleashed the <rainb f=0.5>power of friendship</rainb>
+    upon
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2

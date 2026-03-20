@@ -18,5 +18,9 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: Taunt someone with the power of double your charm
+  AttackDescription: "Taunt someone using <b><color=#B43686>Charm</color></b> \xD7
+    <b>2</b>"
   AttackMessageDescription: taunted
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2

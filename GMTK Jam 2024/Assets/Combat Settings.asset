@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70747055367bf2345a9d7a25e2119202, type: 3}
+  m_Name: Combat Settings
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEncounterSettings
+  EnemySpawnTime: 1
+  TurnIconSpacing: 80
+  SkipTurnFadeColour: {r: 0.75, g: 0.75, b: 0.75, a: 0.75}
+  TimeBetweenMoveToPositionAndDiceRoll: 1
+  TimeBetweenRollingEachDiceForTurnOrder: 0.2
+  TimeBetweenDiceRollAndTurnOrderDisplay: 2
+  TimeBetweenDisplayingEachTurnOrderIcon: 0.4
+  TimeBetweenTurnOrderDisplayAndCombatLoopStart: 0.75
+  TimeBeforeTurnStart: 0.5
+  TimeBetweenAttackEndAndTurnOrderCycling: 0.5
+  TimeBetweenDeclaringTurnAndAttack: 1
+  TimeBetweenAttackUsedMessageAndAttackAnimation: 0.5
+  TimeBetweenAttackAnimationAndAttackResultsText: 1
+  TimeAfterAttack: 1
+  TimeAfterPlayerTurn: 1
+  TimeBetweenRemovingTurnOrderIconAndResortingTurnOrderIcons: 1

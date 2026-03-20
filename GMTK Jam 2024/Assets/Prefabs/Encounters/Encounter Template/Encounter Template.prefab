@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7ee8fc9c402e54e9bed67637354a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatEncounter
+  Settings: {fileID: 11400000, guid: 0c70072452b378147aae68f75bab14e3, type: 2}
   OnVictory:
     m_PersistentCalls:
       m_Calls:
@@ -486,10 +487,8 @@ MonoBehaviour:
   RelativeGilbertPositionOnLoss: {fileID: 0}
   Enemies: []
   RelativeEnemyPositions: []
-  EnemySpawnTime: 1
   ShowCombatPositionGizmos: 0
   ShowLossPositionGizmos: 0
-  TurnIconSpacing: 80
   _combatCamera: {fileID: 169573060222209803}
 --- !u!1 &4315233321833650621
 GameObject:
