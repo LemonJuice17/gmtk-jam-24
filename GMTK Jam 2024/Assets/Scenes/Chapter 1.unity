@@ -18769,23 +18769,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enc - Brainwash
       objectReference: {fileID: 0}
-    - target: {fileID: 2200455941926095727, guid: e0f668dd2d34e9943b977d67f0e10925,
-        type: 3}
-      propertyPath: DialogueList.Array.data[0].Text
-      value: Take that, meow!
-      objectReference: {fileID: 0}
-    - target: {fileID: 2200455941926095727, guid: e0f668dd2d34e9943b977d67f0e10925,
-        type: 3}
-      propertyPath: DialogueList.Array.data[0].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
-        type: 2}
-    - target: {fileID: 3255803144433200063, guid: e0f668dd2d34e9943b977d67f0e10925,
-        type: 3}
-      propertyPath: DialogueList.Array.data[0].Text
-      value: "I have returned! And this time, you don\u2019t stand a chance against
-        THEIR might!"
-      objectReference: {fileID: 0}
     - target: {fileID: 6733620144935299687, guid: e0f668dd2d34e9943b977d67f0e10925,
         type: 3}
       propertyPath: m_LocalPosition.x
