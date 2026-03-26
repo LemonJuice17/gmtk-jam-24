@@ -36,18 +36,22 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: "How could this be!?? I, Billius Ronaldorico Bleatario, defeated by
-        simple plebians. \nI will be back! And you will rue the day you crossed paths
-        with mehhhehh."
+      value: How could this be?! I, Billius Ronaldorico Bleatario, defeated by simple
+        plebians.
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Text
+      value: I will be back! And you will rue the day you crossed paths with mehhhehh.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Text
       value: "Let\u2019s just kill him now and he won\u2019t be able to come after
         us."
       objectReference: {fileID: 0}
@@ -60,6 +64,12 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Character
       value: 
       objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
         type: 2}
