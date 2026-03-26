@@ -1,8 +1,8 @@
-using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : Walkable
 {
@@ -20,6 +20,8 @@ public class Player : Walkable
     public UnityEvent CancelSelection = new();
 
     public PlayerInput Input { get; private set; }
+
+    private bool _isPaused = false;
 
     new internal void Awake()
     {
@@ -39,39 +41,31 @@ public class Player : Walkable
 
     #region Action Map Input Handling
     // ---- Overworld Action Map Input Handling ---- //
-    [UsedImplicitly] public void OnMove(InputValue value)
-    {
-        _currentMoveDirection = value.Get<Vector3>();
-    }
-    [UsedImplicitly] public void OnInteract() 
-    {
-        CurrentInteractable?.OnInteract();
-    }
+    public void OnMove(InputValue value) => _currentMoveDirection = value.Get<Vector3>();
+    public void OnInteract() => CurrentInteractable?.OnInteract();
+    public void OnPause() => TogglePause();
 
 
 
     // ---- Dialogue Action Map Input Handling ---- //
-    [UsedImplicitly] public void OnContinue()
-    {
-        CurrentInteractable?.OnInteract();
-    }
+    public void OnContinue() => CurrentInteractable?.OnInteract();
 
 
 
     // ---- Combat Action Map Input Handling ---- //
-    [UsedImplicitly] public void OnLeft()
+    public void OnLeft()
     {
         MoveSelectionLeft.Invoke();
     }
-    [UsedImplicitly] public void OnRight()
+    public void OnRight()
     {
         MoveSelectionRight.Invoke();
     }
-    [UsedImplicitly] public void OnSelect()
+    public void OnSelect()
     {
         EnterSelection.Invoke();
     }
-    [UsedImplicitly] public void OnCancel()
+    public void OnCancel()
     {
         CancelSelection.Invoke();
     }
@@ -96,6 +90,31 @@ public class Player : Walkable
         transform.position += adjustedMoveVector;
         transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
     }
+
+
+    public void TogglePause()
+    {
+        if (_isPaused) UnPause();
+        else Pause();
+    }
+
+    public async void Pause()
+    {
+        Time.timeScale = 0;
+        await SceneManager.LoadSceneAsync("Options", LoadSceneMode.Additive);
+        GameManager.instance.PauseMenuOverlay.SetActive(true);
+        _isPaused = true;
+    }
+
+    public async void UnPause()
+    {
+        Time.timeScale = 1;
+        await SceneManager.UnloadSceneAsync("Options");
+        GameManager.instance.PauseMenuOverlay.SetActive(false);
+        _isPaused = false;
+    }
+
+
 
     public class PlayerMovement : WalkMode
     {
