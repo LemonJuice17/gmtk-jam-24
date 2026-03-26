@@ -92,30 +92,26 @@ public class Player : Walkable
     }
 
 
-    private void TogglePause()
+    public void TogglePause()
     {
-        if (_isPaused)
-        {
-            UnPause();
-            _isPaused = false;
-        }
-        else
-        {
-            Pause();
-            _isPaused = true;
-        }
+        if (_isPaused) UnPause();
+        else Pause();
     }
 
-    private async void Pause()
+    public async void Pause()
     {
         Time.timeScale = 0;
         await SceneManager.LoadSceneAsync("Options", LoadSceneMode.Additive);
+        GameManager.instance.PauseMenuOverlay.SetActive(true);
+        _isPaused = true;
     }
 
-    private async void UnPause()
+    public async void UnPause()
     {
         Time.timeScale = 1;
         await SceneManager.UnloadSceneAsync("Options");
+        GameManager.instance.PauseMenuOverlay.SetActive(false);
+        _isPaused = false;
     }
 
 
