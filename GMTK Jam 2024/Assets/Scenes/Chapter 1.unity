@@ -5029,18 +5029,12 @@ MonoBehaviour:
   DialogueList:
   - Text: What's this?
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
         m_Calls: []
   - Text: Oh, these are... uh...
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
@@ -5059,9 +5053,6 @@ MonoBehaviour:
           m_CallState: 2
   - Text: It's an ancient artefact!
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
@@ -5139,9 +5130,6 @@ MonoBehaviour:
   DialogueList:
   - Text: I heard recently the king fell ill, troubling times.
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
@@ -14420,6 +14408,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enc - Wizard 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4399288111734983154, guid: cfc25cf3d0e4cf844a845c2843f04ae4,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Text
+      value: "How could this be?! I, Billius Ronaldorico Bleatario, defeated by simple
+        plebians. \nI will be back! And you will rue the day you crossed paths with
+        mehhhehh."
+      objectReference: {fileID: 0}
     - target: {fileID: 9148607340260321530, guid: cfc25cf3d0e4cf844a845c2843f04ae4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22324,9 +22319,6 @@ MonoBehaviour:
   DialogueList:
   - Text: I heard recently the king fell ill, troubling times.
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
@@ -27780,9 +27772,6 @@ MonoBehaviour:
   DialogueList:
   - Text: "Hey guys, so for today\u2019s game session I have something different.\r"
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
@@ -27790,18 +27779,12 @@ MonoBehaviour:
   - Text: "This board game I bought will let you turn into your figures. It\u2019s
       the most immersive tabletop in stores at the moment."
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
         m_Calls: []
   - Text: I'll finish setting up and we can start.
     Character: {fileID: 0}
-    UseCustomPositioning: 0
-    CustomPosition: {x: 0, y: 0, z: 0}
-    CustomScale: {x: 0, y: 0, z: 0}
     AutomaticContinueOnly: 0
     Actions:
       m_PersistentCalls:
