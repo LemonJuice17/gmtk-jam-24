@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -13,15 +13,23 @@ public class MenuManager : MonoBehaviour
     public GameObject MenuButtons;
     public GameObject OptionsBackButton;
 
+    public AudioMixer AudioMixer;
+
     public void Awake()
     {
         if(instance != null) Destroy(this);
         else instance = this;
+
+        if(!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 0);
+        if(!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 0);
     }
 
     public void Start()
     {
         if(OptionsBackButton.activeSelf) OptionsBackButton.SetActive(false);
+
+        AudioMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat("SFXVolume"));
+        AudioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
     }
 
     public async void StartGame()
