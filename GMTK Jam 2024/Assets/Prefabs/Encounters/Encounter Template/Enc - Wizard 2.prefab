@@ -11,24 +11,120 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: "You think you have won... Against me... Billius Ronaldorico Bleatario...
-        BUT! I will return shortly\u2026"
+      value: How *cough* could this be..?
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Text
-      value: I sure hope not.
+      value: I am the most powerful of the goat arcane masters...
       objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Text
+      value: I have *cough* mastered even the hardest spells in the novice tier one
+        spell book...
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[3].Text
+      value: "Ha, only tier one? You\u2019re so weak! What a loser!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Text
+      value: "Gillbert, you haven\u2019t used a single healing spell all game, you
+        can\u2019t talk."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[5].Text
+      value: And your attacks are so weak meow!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[6].Text
+      value: "Don\u2019t ignore me! Mortals! You think you have won... Against Billius
+        Ronaldorico Bleatario... "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[7].Text
+      value: "BUT! I will return shortly\u2026 Cape swish"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[8].Text
+      value: He leaves so stylishly meow!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[9].Text
+      value: Why did he just say 'cape swish' out loud?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
+        type: 2}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Character
       value: 
+      objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[3].Character
+      value: 
       objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[5].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[6].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[7].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[8].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[9].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
         type: 2}
     - target: {fileID: 2037036005382734056, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -43,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -65,6 +161,12 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[3].Text
+      value: "He does smell pretty bad\u2026 But that might just be because he\u2019s
+        a goat. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Text
       value: A simple cheese thief, I? I think not! Avast, and face me at my worst
         puny mortals!
       objectReference: {fileID: 0}
@@ -83,6 +185,12 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[3].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
+        type: 2}
+    - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Character
       value: 
       objectReference: {fileID: 11400000, guid: 951e0b6242b07e746a6494341f74afc9,
         type: 2}
