@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Input",
     "maps": [
         {
@@ -123,7 +124,7 @@
                     "name": "Continue",
                     "type": "Button",
                     "id": "f32817ed-9ae8-4b6a-94b3-4ea35876882c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -135,6 +136,28 @@
                     "id": "2a842c72-53c9-45fe-a8b2-f231a455f847",
                     "path": "<Keyboard>/e",
                     "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e3b6e35-7f91-4cee-a9b4-3f7c6f3cd38a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b99fe309-99cb-41ec-a808-b7eacc5df1f2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Continue",
