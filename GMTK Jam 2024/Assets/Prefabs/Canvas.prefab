@@ -1686,6 +1686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 8833861765543697719}
   NameText: {fileID: 674595094794869070}
   HPSlider: {fileID: 1539603519277505520}
   HPText: {fileID: 7515968371128031218}
@@ -7394,6 +7395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 3708000697209742587}
   NameText: {fileID: 2374787644625365049}
   HPSlider: {fileID: 7545796976314061163}
   HPText: {fileID: 8223648581942326137}
@@ -9548,6 +9550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 5059209109494491749}
   NameText: {fileID: 2000667450833222242}
   HPSlider: {fileID: 7670179589438533833}
   HPText: {fileID: 1099982774726181107}
@@ -13391,6 +13394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 5986272565549258918}
   NameText: {fileID: 7164146377052698590}
   HPSlider: {fileID: 7644878299714483362}
   HPText: {fileID: 9005090120064223695}
@@ -14207,6 +14211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 2332381147701222546}
   NameText: {fileID: 2404443893753212695}
   HPSlider: {fileID: 5626674923510716222}
   HPText: {fileID: 6121450763489467943}
@@ -15277,6 +15282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25c4ccb6b723e498ffedbf3725a2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBackgroundImage: {fileID: 7539021415199849169}
   NameText: {fileID: 5933255308553956727}
   HPSlider: {fileID: 2469109172219884728}
   HPText: {fileID: 9147129309385376005}

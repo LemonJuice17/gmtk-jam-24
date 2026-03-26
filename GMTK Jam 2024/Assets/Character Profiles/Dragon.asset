@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Dragon
   CharacterSprite: {fileID: 21300000, guid: a71b0a9c70348fd4b95b37de89f24bec, type: 3}
+  CharacterCombatIcon: {fileID: 21300000, guid: 35972c3c84b40a945bcfe3156700e793,
+    type: 3}
   CharacterMainColor: {r: 0.13333334, g: 0.4039216, b: 0.20392159, a: 1}
   CharacterBackgroundColor: {r: 0.3764685, g: 0.5660378, b: 0.42592135, a: 1}

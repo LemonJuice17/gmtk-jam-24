@@ -6,6 +6,7 @@ public class StatPanel : MonoBehaviour
 {
     Combatant Combatant;
 
+    public Image nameBackgroundImage;
     public TMP_Text NameText;
 
     public Slider HPSlider;
@@ -20,6 +21,8 @@ public class StatPanel : MonoBehaviour
         Combatant = combatant;
 
         NameText.text = Combatant.Profile.Character.CharacterName;
+        NameText.color = Combatant.Profile.Character.CharacterMainColor;
+        nameBackgroundImage.color = Combatant.Profile.Character.CharacterBackgroundColor;
 
         HPSlider.maxValue = Combatant.Profile.MaxHP;
         HPSlider.value = Combatant.HP;
