@@ -97,11 +97,6 @@ public class Dialogue : MonoBehaviour, IInteractable
 
     public void LoadDialogue(DialogueText dialogue)
     {
-        if (dialogue.UseCustomPositioning)
-        {
-            _currentDialogueBox.transform.position = dialogue.CustomPosition;
-            _currentDialogueBox.transform.localScale = dialogue.CustomScale;
-        }
 
         _currentDialogueBox.Dialogue.text = dialogue.Text;
 
@@ -117,15 +112,10 @@ public class Dialogue : MonoBehaviour, IInteractable
 [Serializable]
 public class DialogueText
 {
-    [TextArea(3,3)]
+    [TextArea(2,2)]
     public string Text;
 
     public Character Character;
-
-    public bool UseCustomPositioning;
-
-    public Vector3 CustomPosition;
-    public Vector3 CustomScale;
 
     public bool AutomaticContinueOnly = false;
 
