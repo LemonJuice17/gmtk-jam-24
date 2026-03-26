@@ -19,7 +19,7 @@ MonoBehaviour:
   D6Damage: 0
   D8Damage: 0
   AttackDescription: 
-  AttackMessageDescription: stinks, their stench envelops
+  AttackMessageDescription: stinks, the stench envelops
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2
