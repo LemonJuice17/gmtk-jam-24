@@ -114,6 +114,17 @@ public class Player : Walkable
         _isPaused = false;
     }
 
+    public async void MainMenu()
+    {
+        Scene thisScene = SceneManager.GetActiveScene();
+
+        UnPause();
+        await SceneManager.LoadSceneAsync("Loading Screen", LoadSceneMode.Additive);
+        await SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
+        await SceneManager.UnloadSceneAsync("Loading Screen");
+        await SceneManager.UnloadSceneAsync(thisScene);
+        
+    }
 
 
     public class PlayerMovement : WalkMode
