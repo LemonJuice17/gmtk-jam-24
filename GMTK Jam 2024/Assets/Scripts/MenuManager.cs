@@ -11,11 +11,17 @@ public class MenuManager : MonoBehaviour
     public string GameScene;
 
     public GameObject MenuButtons;
+    public GameObject OptionsBackButton;
 
     public void Awake()
     {
         if(instance != null) Destroy(this);
         else instance = this;
+    }
+
+    public void Start()
+    {
+        if(OptionsBackButton.activeSelf) OptionsBackButton.SetActive(false);
     }
 
     public async void StartGame()
@@ -32,6 +38,14 @@ public class MenuManager : MonoBehaviour
     {
         await SceneManager.LoadSceneAsync(OptionsScreen, LoadSceneMode.Additive);
         MenuButtons.SetActive(false);
+        OptionsBackButton.SetActive(true);
+    }
+
+    public async void MainMenu()
+    {
+        await SceneManager.UnloadSceneAsync(OptionsScreen);
+        MenuButtons.SetActive(true);
+        OptionsBackButton.SetActive(false);
     }
 
     public void ExitGame() => Application.Quit();
