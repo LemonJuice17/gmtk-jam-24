@@ -331,7 +331,7 @@ public class CombatEncounter : MonoBehaviour
             for (int i = 0; i < combatantSelectionList.Length; i++)
             {
                 selectionObjectList[i] = Instantiate(GameManager.instance.CombatUIPlayerOptionsTextPrefab, GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.transform);
-                selectionObjectList[i].text = combatantSelectionList[i].Profile.Character.name;
+                selectionObjectList[i].text = combatantSelectionList[i].Profile.Character.CharacterName;
             }
 
             playerSelectionIndex = 0;
