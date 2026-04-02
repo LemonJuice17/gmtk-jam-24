@@ -94,7 +94,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
         Player.instance.CurrentInteractable = null;
         _currentDialogueIndex = 0;
-        Destroy(_currentDialogueBox.gameObject);
+        if(_currentDialogueBox.gameObject != null) Destroy(_currentDialogueBox.gameObject);
 
         _dialogueFinished.SetResult(true);
         AfterDialogue.Invoke(this);
