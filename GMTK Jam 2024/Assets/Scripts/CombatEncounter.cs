@@ -657,7 +657,11 @@ public class CombatEncounter : MonoBehaviour
     {
         if (partyMember.TryGetComponent(out Rigidbody rb) && rb.constraints == RigidbodyConstraints.None)
         {
-            rb.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            rb.GetComponent<Rigidbody>().constraints =
+                RigidbodyConstraints.FreezeRotationX |
+                RigidbodyConstraints.FreezeRotationY |
+                RigidbodyConstraints.FreezeRotationZ |
+                RigidbodyConstraints.FreezePositionY;
             rb.isKinematic = true;
             GameManager.instance.CreatePoofEffect(partyMember.transform.position);
             partyMember.transform.SetPositionAndRotation(resetPosition, Quaternion.identity);
