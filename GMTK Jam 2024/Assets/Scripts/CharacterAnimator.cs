@@ -6,7 +6,7 @@ public class CharacterAnimator : MonoBehaviour
     private Animator _characterAnimator;
 
     public Task AttackMade => _attackMade.Task;
-    private TaskCompletionSource<bool> _attackMade = new();
+    private TaskCompletionSource<bool> _attackMade;
 
     private void Awake()
     {
@@ -15,6 +15,7 @@ public class CharacterAnimator : MonoBehaviour
 
     public void Attack()
     {
+        _attackMade = new();
         _characterAnimator.SetTrigger("Attack");
     }
     public void ChangeMoving(bool isMoving)
@@ -35,11 +36,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void PlayAttackSound()
     {
-        try
-        {
-            Instantiate(GameManager.instance.AttackSFX);
-            _attackMade.SetResult(true);
-        }
-        catch { }
+        Instantiate(GameManager.instance.AttackSFX);
+        _attackMade.TrySetResult(true);
     }
 }
