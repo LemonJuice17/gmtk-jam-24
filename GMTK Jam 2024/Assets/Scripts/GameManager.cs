@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public CinemachineVirtualCamera PlayerCamera;
 
+    public GameObject PauseMenuOverlay;
+
     public static GameManager instance;
 
     private void Awake()
