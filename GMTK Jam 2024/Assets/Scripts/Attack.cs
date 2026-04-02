@@ -89,9 +89,12 @@ public class Attack : ScriptableObject
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
 
         // Wait for the attack part of the attack animation.
-        attacker.Transform.BroadcastMessage("Attack");
         CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
-        if(ca != null) await ca.AttackMade;
+        if(ca != null)
+        {
+            ca.Attack();
+            await ca.AttackMade;
+        }
 
         AttackOpponent(attacker, opponent, roundedDamage);
 
