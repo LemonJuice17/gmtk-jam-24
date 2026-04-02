@@ -43,32 +43,49 @@ public class Player : Walkable
 
     #region Action Map Input Handling
     // ---- Overworld Action Map Input Handling ---- //
-    public void OnMove(InputValue value) => _currentMoveDirection = value.Get<Vector3>();
-    public void OnInteract() => CurrentInteractable?.OnInteract();
+    public void OnMove(InputValue value) 
+    {
+        if (_isPaused) return;
+        _currentMoveDirection = value.Get<Vector3>();
+    }
+
+    public void OnInteract() 
+    {
+        if (_isPaused) return;
+        CurrentInteractable?.OnInteract();
+    } 
     public void OnPause() => TogglePause();
 
 
 
     // ---- Dialogue Action Map Input Handling ---- //
-    public void OnContinue() => CurrentInteractable?.OnInteract();
+    public void OnContinue() 
+    {
+        if (_isPaused) return;
+        CurrentInteractable?.OnInteract();
+    } 
 
 
 
     // ---- Combat Action Map Input Handling ---- //
     public void OnLeft()
     {
+        if (_isPaused) return;
         MoveSelectionLeft.Invoke();
     }
     public void OnRight()
     {
+        if (_isPaused) return;
         MoveSelectionRight.Invoke();
     }
     public void OnSelect()
     {
+        if (_isPaused) return;
         EnterSelection.Invoke();
     }
     public void OnCancel()
     {
+        if (_isPaused) return;
         CancelSelection.Invoke();
     }
     #endregion Action Map Input Handling
@@ -125,7 +142,6 @@ public class Player : Walkable
         await SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
         await SceneManager.UnloadSceneAsync("Loading Screen");
         await SceneManager.UnloadSceneAsync(thisScene);
-        
     }
 
 

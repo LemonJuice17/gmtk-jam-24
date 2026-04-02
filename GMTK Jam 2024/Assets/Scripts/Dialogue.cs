@@ -72,7 +72,12 @@ public class Dialogue : MonoBehaviour, IInteractable
             return;
         }
 
-        if(_currentDialogueBox == null) _currentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
+        if(_currentDialogueBox == null)
+        {
+            _currentDialogueBox = Instantiate(GameManager.instance.DialogueBoxPrefab, UICanvas.Transform);
+            _currentDialogueBox.transform.SetAsFirstSibling();
+        }
+
         LoadDialogue(CurrentDialogue);
 
         if (CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
@@ -89,7 +94,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         Player.instance.Input.SwitchCurrentActionMap("Overworld");
         Player.instance.CurrentInteractable = null;
         _currentDialogueIndex = 0;
-        Destroy(_currentDialogueBox.gameObject, 0);
+        Destroy(_currentDialogueBox.gameObject);
 
         _dialogueFinished.SetResult(true);
         AfterDialogue.Invoke(this);
