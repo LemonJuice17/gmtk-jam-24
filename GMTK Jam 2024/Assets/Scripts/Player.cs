@@ -9,6 +9,7 @@ public class Player : Walkable
     public float MoveSpeed = 2;
 
     private Vector3 _currentMoveDirection;
+    [HideInInspector] private Rigidbody Rigidbody;
 
     public IInteractable CurrentInteractable;
 
@@ -29,6 +30,7 @@ public class Player : Walkable
         else Destroy(this);
 
         Input = GetComponent<PlayerInput>();
+        Rigidbody = GetComponent<Rigidbody>();
 
         base.Awake(); 
     }
@@ -87,8 +89,8 @@ public class Player : Walkable
 
         Vector3 adjustedMoveVector = Camera.main.transform.rotation * direction.normalized * MoveSpeed * Time.deltaTime;
         adjustedMoveVector.y = 0;
-        transform.position += adjustedMoveVector;
-        transform.rotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
+        Quaternion modelRotation = Quaternion.LookRotation(adjustedMoveVector, Vector3.up);
+        Rigidbody.Move(transform.position + adjustedMoveVector, modelRotation);
     }
 
 
@@ -147,7 +149,7 @@ public class Player : Walkable
             while (true)
             {
                 Player.Move(Player._currentMoveDirection);
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
         }
     }
