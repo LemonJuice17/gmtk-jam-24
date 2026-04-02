@@ -1,0 +1,238 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2591319502629522562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.91031164
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4139237
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -48.903
+      objectReference: {fileID: 0}
+    - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845665577417925069, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_Name
+      value: Diag - Rat Village Intro
+      objectReference: {fileID: 0}
+    - target: {fileID: 3539757102279911050, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 9.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 3539757102279911050, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -1.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3539757102279911050, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 2.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Text
+      value: You enter through the gate, as it turns out this is a village entirely
+        for rats.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Text
+      value: The village seems sparsely populated, the rats look hungry and wary
+        of strangers.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Text
+      value: You get the impression that these people are usually quite friendly,
+        but are currently struggling through hard times.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[3].Text
+      value: "There\u2019s a large, manor-like house further into the village that
+        seems like it might be the Mayor's house."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Text
+      value: Well, this place is kind of miserable.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[5].Text
+      value: "I think it has a lovely ambience, meow! There\u2019s lots of trees!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[0].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec585e29aabd264aa70d92c405bd350,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[1].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec585e29aabd264aa70d92c405bd350,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[2].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec585e29aabd264aa70d92c405bd350,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[3].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec585e29aabd264aa70d92c405bd350,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[4].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 7be59198af45640309ec9b9f3cd3dd21,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: DialogueList.Array.data[5].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4155233196840527719}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3666781295935845248}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1845665577417925069, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 196925341371996714}
+  m_SourcePrefab: {fileID: 100100000, guid: 59ddeb0ee22ab534bb4005d34b558143, type: 3}
+--- !u!1 &3666781295935845248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230944442887388930, guid: 59ddeb0ee22ab534bb4005d34b558143,
+    type: 3}
+  m_PrefabInstance: {fileID: 2591319502629522562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4155233196840527719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1899513850572663781, guid: 59ddeb0ee22ab534bb4005d34b558143,
+    type: 3}
+  m_PrefabInstance: {fileID: 2591319502629522562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4209502583220284751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1845665577417925069, guid: 59ddeb0ee22ab534bb4005d34b558143,
+    type: 3}
+  m_PrefabInstance: {fileID: 2591319502629522562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &196925341371996714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209502583220284751}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 9.399803}
+  m_Center: {x: 2.73, y: 0, z: -1.8036517}
