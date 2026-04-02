@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9055efdffc404ef28a4de4f3e8c6100, type: 3}
   m_Name: Rat Man
   m_EditorClassIdentifier: 
-  CharacterName: Rat Man
+  CharacterName: Rat Villager
   CharacterSprite: {fileID: 21300000, guid: 4f8c76a24deb2a140979c7a329e03d3b, type: 3}
   CharacterCombatIcon: {fileID: 21300000, guid: 9bc7ea1e600785f47903408ae7bdb162,
     type: 3}
