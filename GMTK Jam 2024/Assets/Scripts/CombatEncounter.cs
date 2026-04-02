@@ -228,6 +228,8 @@ public class CombatEncounter : MonoBehaviour
         // Enable/disable relevant UI.
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = $"{ai.Profile.Character.CharacterName}'s Turn";
+        GameManager.instance.CombatUINameText.color = ai.Profile.Character.CharacterMainColor;
+        GameManager.instance.CombatUINameText.transform.GetComponentInParent<Image>().color = ai.Profile.Character.CharacterBackgroundColor;
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(false);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.text = $"";
@@ -259,6 +261,8 @@ public class CombatEncounter : MonoBehaviour
     {
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = "Your Turn";
+        GameManager.instance.CombatUINameText.color = player.Profile.Character.CharacterMainColor;
+        GameManager.instance.CombatUINameText.transform.GetComponentInParent<Image>().color = player.Profile.Character.CharacterBackgroundColor;
         GameManager.instance.CombatUIPlayerAttackOptionsObjectReference.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(false);
 
