@@ -19,11 +19,15 @@ public class Attack : ScriptableObject
     public string AttackDescription;
     public string AttackMessageDescription;
 
-    [Header("Dialogue Options")][Range(0, 1)]
+    [Header("Dialogue Options")]
+    [Range(0, 1)]
     public float DialogueChance = 0;
     [TextArea(3, 3)]
     public List<string> DialogueOptions = new();
     public float DialogueDuration = 2;
+
+    [Header("Audio Options")]
+    public SoundObject CustomAttackSound;
 
     private Quaternion _opponentDirection;
 
@@ -92,8 +96,10 @@ public class Attack : ScriptableObject
         CharacterAnimator ca = attacker.Transform.GetComponentInChildren<CharacterAnimator>();
         if(ca != null)
         {
+            if(CustomAttackSound != null) ca.AttackSFXOverride = CustomAttackSound;
             ca.Attack();
             await ca.AttackMade;
+            ca.AttackSFXOverride = null;
         }
 
         AttackOpponent(attacker, opponent, roundedDamage);
