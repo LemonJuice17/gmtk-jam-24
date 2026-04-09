@@ -18,13 +18,10 @@ public class StatPanel : MonoBehaviour
 
     private Color _baseColour;
 
-    void Awake()
-    {
-        _baseColour = PowerPipsParent.GetComponentInChildren<Image>().color;
-    }
-
     public void InitPanel(Combatant combatant)
     {
+        if(_baseColour.a == 0) _baseColour = PowerPipsParent.GetComponentInChildren<Image>().color;
+
         Combatant = combatant;
 
         NameText.text = Combatant.Profile.Character.CharacterName;
