@@ -8,6 +8,8 @@ public class CharacterAnimator : MonoBehaviour
     public Task AttackMade => _attackMade.Task;
     private TaskCompletionSource<bool> _attackMade;
 
+    public SoundObject AttackSFXOverride;
+
     private void Awake()
     {
         _characterAnimator = GetComponent<Animator>();
@@ -36,7 +38,8 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void PlayAttackSound()
     {
-        Instantiate(GameManager.instance.AttackSFX);
+        if(AttackSFXOverride != null) Instantiate(AttackSFXOverride);
+        else Instantiate(GameManager.instance.AttackSFX);
         _attackMade.TrySetResult(true);
     }
 }
