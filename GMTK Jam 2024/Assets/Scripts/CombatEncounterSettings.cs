@@ -12,7 +12,8 @@ public class CombatEncounterSettings : ScriptableObject {
     /// </summary>
     public float TurnIconSpacing = 80;
 
-    public Color SkipTurnFadeColour = new(0.75f, 0.75f, 0.75f, 0.75f);
+    public Color SkipTurnIconColour = new(0.75f, 0.75f, 0.75f, 0.75f);
+    public Color SkipTurnIconBackgroundColour = new(0, 0, 0, 0.75f);
 
 
     [Header("Combat Start Timings")]

@@ -62,6 +62,7 @@ public class Combatant
     public readonly Team Team;
     public readonly bool IsPlayer;
     public bool IsSkipTurn = false;
+    public GameObject TurnIcon;
     public UnityEvent<int> OnHPChanged = new();
 
     /// <summary>

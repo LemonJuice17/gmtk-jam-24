@@ -67,6 +67,9 @@ public class CombatEncounter : MonoBehaviour
     /// </summary>
     private readonly List<GameObject> _turnOrderIcons = new();
 
+    private Color _defaultTurnIconColor;
+    private Color _defaultTurnBackgroundColor;
+
     [SerializeField] private CinemachineVirtualCamera _combatCamera;
 
     bool _combatInProgress = true;
@@ -161,16 +164,23 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIObjectReference.SetActive(true);
         GameManager.instance.CombatTurnOrderObjectReference.SetActive(true);
 
+        _defaultTurnBackgroundColor = GameManager.instance.CombatTurnOrderIconPrefab.GetComponent<Image>().color;
+        _defaultTurnIconColor = GameManager.instance.CombatTurnOrderIconPrefab.transform.GetChild(0).GetComponent<Image>().color;
+
         float spacingStart = (CombatantList.Count - 1) * 0.5f * -Settings.TurnIconSpacing;
 
         for (int i = 0; i < CombatantList.Count; i++)
         {
             Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
-            _turnOrderIcons.Add(Instantiate(
+            
+            GameObject newIcon = Instantiate(
                 GameManager.instance.CombatTurnOrderIconPrefab,
                 position + new Vector3(1080, 0, 0),
                 Quaternion.identity,
-                GameManager.instance.CombatTurnOrderObjectReference.transform));
+                GameManager.instance.CombatTurnOrderObjectReference.transform);
+
+            _turnOrderIcons.Add(newIcon);
+            CombatantQueue.Peek().TurnIcon = newIcon;
 
             _turnOrderIcons[i].transform.GetChild(0).GetComponent<Image>().sprite = CombatantQueue.Peek().Profile.Character.CharacterCombatIcon;
             _turnOrderIcons[i].name = CombatantQueue.Peek().Profile.Character.name;
@@ -418,8 +428,8 @@ public class CombatEncounter : MonoBehaviour
     {
         if (attacker.IsSkipTurn)
         {
-            Image[] imageElements = _turnOrderIcons[0].GetComponentsInChildren<Image>();
-            foreach(Image img in imageElements) { img.color = Color.white; }
+            attacker.TurnIcon.GetComponent<Image>().color = _defaultTurnBackgroundColor;
+            attacker.TurnIcon.transform.GetChild(0).GetComponent<Image>().color = _defaultTurnIconColor;
 
             GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is too tired and rests for a turn.";
             attacker.IsSkipTurn = false;
@@ -456,8 +466,8 @@ public class CombatEncounter : MonoBehaviour
                 {
                     c.IsSkipTurn = true;
 
-                    Image[] imageElements = _turnOrderIcons[i].GetComponentsInChildren<Image>();
-                    foreach(Image img in imageElements) { img.color = Settings.SkipTurnFadeColour; }
+                    c.TurnIcon.GetComponent<Image>().color = Settings.SkipTurnIconBackgroundColour;
+                    c.TurnIcon.transform.GetChild(0).GetComponent<Image>().color = Settings.SkipTurnIconColour;
                 }
 
                 i++;
