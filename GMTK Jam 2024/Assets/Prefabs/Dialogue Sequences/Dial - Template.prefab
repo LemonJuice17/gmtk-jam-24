@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3539757102279911050}
   - component: {fileID: 7455643174133851167}
   m_Layer: 0
-  m_Name: Diag - Template
+  m_Name: Dial - Template
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
