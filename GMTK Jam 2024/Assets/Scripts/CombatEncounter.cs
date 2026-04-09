@@ -367,6 +367,8 @@ public class CombatEncounter : MonoBehaviour
 
     void PlayerSelectionLeft()
     {
+        if(Settings.PlayerChangeSelection != null) Instantiate(Settings.PlayerChangeSelection);
+
         selectionObjectList[playerSelectionIndex].color = Color.white;
 
         playerSelectionIndex--;
@@ -380,6 +382,8 @@ public class CombatEncounter : MonoBehaviour
 
     void PlayerSelectionRight()
     {
+        if(Settings.PlayerChangeSelection != null) Instantiate(Settings.PlayerChangeSelection);
+
         selectionObjectList[playerSelectionIndex].color = Color.white;
 
         playerSelectionIndex++;
@@ -393,6 +397,8 @@ public class CombatEncounter : MonoBehaviour
 
     void PlayerSelectionEnter()
     {
+        if(Settings.PlayerConfirmSelection != null) Instantiate(Settings.PlayerConfirmSelection);
+
         if (selectingAttack)
         {
             selectedAttack = attackSelectionList[playerSelectionIndex];
@@ -411,6 +417,8 @@ public class CombatEncounter : MonoBehaviour
 
     void PlayerSelectionCancel()
     {
+        if(Settings.PlayerUndoSelection != null) Instantiate(Settings.PlayerUndoSelection);
+
         if (selectingOpponent)
         {
             selectingAttack = true;
@@ -620,6 +628,7 @@ public class CombatEncounter : MonoBehaviour
 
     public async Task LevelUp()
     {
+        if(Settings.LevelUpJingle != null) Instantiate(Settings.LevelUpJingle);
         GameManager.instance.CombatUIDescriptionText.text = "The party has levelled up!";
 
         instance.GetComponent<CombatProfile>().LevelUp();

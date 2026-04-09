@@ -16,8 +16,12 @@ public class StatPanel : MonoBehaviour
     public GameObject CharmPipsParent;
     public GameObject MagicPipsParent;
 
+    private Color _baseColour;
+
     public void InitPanel(Combatant combatant)
     {
+        if(_baseColour.a == 0) _baseColour = PowerPipsParent.GetComponentInChildren<Image>().color;
+
         Combatant = combatant;
 
         NameText.text = Combatant.Profile.Character.CharacterName;
@@ -43,9 +47,11 @@ public class StatPanel : MonoBehaviour
     {
         Image[] pips = parent.GetComponentsInChildren<Image>();
 
-        for (int i = 0; i < statValue; i++)
+        // Magic numbers are bad, yes. I don't care rn. 5 is the max stat value.
+        for (int i = 0; i < 5; i++)
         {
-            pips[i].color = statColour;
+            if(i < statValue) pips[i].color = statColour;
+            else pips[i].color = _baseColour;
         }
     }
 }
