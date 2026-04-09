@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatEncounterSettings
   EnemySpawnTime: 1
   TurnIconSpacing: 80
-  SkipTurnFadeColour: {r: 0.75, g: 0.75, b: 0.75, a: 0.75}
+  SkipTurnIconColour: {r: 0.75, g: 0.75, b: 0.75, a: 0.75}
+  SkipTurnIconBackgroundColour: {r: 0, g: 0, b: 0, a: 0.5019608}
   TimeBetweenMoveToPositionAndDiceRoll: 1
   TimeBetweenRollingEachDiceForTurnOrder: 0.2
   TimeBetweenDiceRollAndTurnOrderDisplay: 2
