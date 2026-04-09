@@ -15,6 +15,11 @@ public class CombatEncounterSettings : ScriptableObject {
     public Color SkipTurnIconColour = new(0.75f, 0.75f, 0.75f, 0.75f);
     public Color SkipTurnIconBackgroundColour = new(0, 0, 0, 0.75f);
 
+    [Header("Sound Effects")]
+    public SoundObject PlayerChangeSelection;
+    public SoundObject PlayerConfirmSelection;
+    public SoundObject PlayerUndoSelection;
+    public SoundObject LevelUpJingle;
 
     [Header("Combat Start Timings")]
     public float TimeBetweenMoveToPositionAndDiceRoll = 1;
