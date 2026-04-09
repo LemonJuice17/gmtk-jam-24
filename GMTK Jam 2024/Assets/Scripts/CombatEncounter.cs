@@ -447,7 +447,7 @@ public class CombatEncounter : MonoBehaviour
 
         if (attack is PowerOfFriendship)
         {
-            await (attack as PowerOfFriendship).OnAttack(CombatantList.Where((c) => c.Team == attacker.Team).ToArray(), opponent);
+            damageDealt = await (attack as PowerOfFriendship).OnAttack(CombatantList.Where((c) => c.Team == attacker.Team).ToArray(), opponent);
 
             int i = 0;
             CombatantList.ForEach((c) =>
