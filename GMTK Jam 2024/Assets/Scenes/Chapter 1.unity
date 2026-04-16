@@ -20386,6 +20386,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -16.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1539603519277505520, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539603519277505520, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1687406064065182518, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_Enabled
@@ -20665,6 +20675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469109172219884728, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2847092231461745429, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
@@ -21271,6 +21286,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -16.25
       objectReference: {fileID: 0}
+    - target: {fileID: 5626674923510716222, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5777740044456766887, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -21686,6 +21706,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 64.490005
       objectReference: {fileID: 0}
+    - target: {fileID: 7545796976314061163, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7599439260531565530, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -21735,6 +21760,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644878299714483362, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670179589438533833, guid: 051c63f8e10968843ac34125626e1d53,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7731755069840509532, guid: 051c63f8e10968843ac34125626e1d53,
         type: 3}
