@@ -540,7 +540,8 @@ public class CombatEncounter : MonoBehaviour
         CombatantList.Remove(combatant);
         GameObject turnIcon = _turnOrderIcons.Find((icon) => icon.name == combatant.Profile.Character.name);
 
-        Tween removalTween = new(0.3f, turnIcon.transform, turnIcon.transform.position + new Vector3(0, 200), Easing.inSine);
+        RectTransform removeIconRect = turnIcon.GetComponent<RectTransform>();
+        TweenRect removalTween = new(0.3f, removeIconRect, removeIconRect.anchoredPosition3D + new Vector3(0, 240), Easing.inSine);
         await removalTween.TweenCompletion;
 
         _turnOrderIcons.Remove(turnIcon);
@@ -553,8 +554,9 @@ public class CombatEncounter : MonoBehaviour
         List<Task> cycleRemainingIcons = new();
         for (int i = 0; i < _turnOrderIcons.Count; i++)
         {
-            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
-            Tween tween = new(0.6f, _turnOrderIcons[i].transform, position, Easing.inOutSine);
+            RectTransform iconRect = _turnOrderIcons[i].GetComponent<RectTransform>();
+            Vector3 position = new(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
+            TweenRect tween = new(0.6f, iconRect, position, Easing.inOutSine);
             cycleRemainingIcons.Add(tween.TweenCompletion);
         }
 
