@@ -2882,80 +2882,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 182773259}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &184904020
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1207137167}
-    m_Modifications:
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.3137534
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.6190894
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.54311556
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.839658
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -95.696
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
-        type: 3}
-      propertyPath: m_Name
-      value: Wizard 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0ee87fc6d0aac4feeb608091042737b7, type: 3}
---- !u!4 &184904021 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 184904020}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &188207171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15186,13 +15112,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enc - Wizard 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4399288111734983154, guid: cfc25cf3d0e4cf844a845c2843f04ae4,
-        type: 3}
-      propertyPath: DialogueList.Array.data[0].Text
-      value: "How could this be?! I, Billius Ronaldorico Bleatario, defeated by simple
-        plebians. \nI will be back! And you will rue the day you crossed paths with
-        mehhhehh."
-      objectReference: {fileID: 0}
     - target: {fileID: 9148607340260321530, guid: cfc25cf3d0e4cf844a845c2843f04ae4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19905,11 +19824,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enc - Brainwash
       objectReference: {fileID: 0}
-    - target: {fileID: 2200455941926095727, guid: e0f668dd2d34e9943b977d67f0e10925,
-        type: 3}
-      propertyPath: DialogueList.Array.data[4].Text
-      value: '*sigh* I would love to see you play a pacifist run at least once, meow.'
-      objectReference: {fileID: 0}
     - target: {fileID: 6733620144935299687, guid: e0f668dd2d34e9943b977d67f0e10925,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19962,22 +19876,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5472931765988784230, guid: e0f668dd2d34e9943b977d67f0e10925,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 184904021}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f668dd2d34e9943b977d67f0e10925, type: 3}
 --- !u!4 &1207137166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6733620144935299687, guid: e0f668dd2d34e9943b977d67f0e10925,
-    type: 3}
-  m_PrefabInstance: {fileID: 1207137165}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1207137167 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5472931765988784230, guid: e0f668dd2d34e9943b977d67f0e10925,
     type: 3}
   m_PrefabInstance: {fileID: 1207137165}
   m_PrefabAsset: {fileID: 0}

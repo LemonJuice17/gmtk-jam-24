@@ -66,8 +66,7 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[4].Text
-      value: '*Sigh*. I would love to see you play a pacifist run at least once,
-        meow.'
+      value: '*sigh* I would love to see you play a pacifist run at least once, meow.'
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -105,8 +104,8 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[11].Text
-      value: "Hmm, perhaps the townsfolk know more\u2026 You should go speak with
-        the mayor, he lives in the town center, near the fountain."
+      value: Hmm, perhaps the townsfolk know more... You should go speak with the
+        mayor, he lives in the town center, near the fountain.
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -389,6 +388,90 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5010876576972985135, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2059671308414329338}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e61d923b2ace4264e9b1d7f3fac82905, type: 3}
+--- !u!4 &5472931765988784230 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5010876576972985135, guid: e61d923b2ace4264e9b1d7f3fac82905,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043137205880138569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1255292547989042380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5472931765988784230}
+    m_Modifications:
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3137534
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6190894
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.54311556
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.839658
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -95.696
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973671401144322913, guid: 0ee87fc6d0aac4feeb608091042737b7,
+        type: 3}
+      propertyPath: m_Name
+      value: Wizard 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ee87fc6d0aac4feeb608091042737b7, type: 3}
+--- !u!4 &2059671308414329338 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1008487250256549174, guid: 0ee87fc6d0aac4feeb608091042737b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1255292547989042380}
+  m_PrefabAsset: {fileID: 0}
