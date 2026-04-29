@@ -11,22 +11,22 @@ PrefabInstance:
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 127.962
+      value: 113.53
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000012828418
+      value: -0.0000010728836
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.778
+      value: 13.58
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9655225
+      value: 0.99272484
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.26031962
+      value: 0.120405085
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -30.178
+      value: 13.831
       objectReference: {fileID: 0}
     - target: {fileID: 834392932325388034, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -61,67 +61,69 @@ PrefabInstance:
     - target: {fileID: 1845665577417925069, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_Name
-      value: Dial - Hog Mayor
+      value: Dial - Hog Mayor Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845665577417925069, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3539757102279911050, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_Size.x
-      value: 4
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 3539757102279911050, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: m_Size.z
-      value: 4
+      value: 11.15
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.size
-      value: 17
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: Mr. Mayor, meow?
+      value: Adventurers! There's trouble!
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Text
-      value: Adventurers! To what do I owe the pleasure?
+      value: What happened, meow? Did the goat come back?
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[2].Text
-      value: " I\u2019m sorry but you\u2019ll have to make it quick! I\u2019m quite
-        preoccupied at the moment. A mad wizard has been brainwashing some of our
-        villagers and wreaking havoc!"
+      value: Rat Village, it's on fire! Please, help our neighbours!
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[3].Text
-      value: We are on an adventure to find some cheese that was stolen from the
-        rat village. We are searching for clues on the thief, do you know anything,
-        meow?
+      value: On fire, meow?!
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[4].Text
-      value: Oh but what a tragedy! Our rat neighbours are suffering the same fate
-        as us.
+      value: Yes! I would help them myself but we're still trying to solve the brainwashing
+        mayhem here...
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[5].Text
-      value: 'What do you mean? '
+      value: 'You''re the only ones that can help! Please, head over to Rat Village,
+        quickly! '
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[6].Text
-      value: Ah... One of our pigs was stolen by the beast that lives up the mountain.
+      value: Looks like the cheese will have to wait.
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[7].Text
-      value: One of your... Pigs?
+      value: We better get paid well for this.
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -176,13 +178,13 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueList.Array.data[0].Character
       value: 
-      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+      objectReference: {fileID: 11400000, guid: 230304fce29f0404dbdd572091030d03,
         type: 2}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[1].Character
       value: 
-      objectReference: {fileID: 11400000, guid: 230304fce29f0404dbdd572091030d03,
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
         type: 2}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -206,13 +208,13 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueList.Array.data[5].Character
       value: 
-      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
+      objectReference: {fileID: 11400000, guid: 230304fce29f0404dbdd572091030d03,
         type: 2}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[6].Character
       value: 
-      objectReference: {fileID: 11400000, guid: 230304fce29f0404dbdd572091030d03,
+      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
         type: 2}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
@@ -274,6 +276,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
         type: 2}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
+        type: 3}
+      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -306,22 +343,22 @@ PrefabInstance:
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04734049
+      value: -0.0624174
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0035075531
+      value: 0.0035075545
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.12516658
+      value: 0.10098758
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.19662367
+      value: 0.38820612
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
@@ -331,7 +368,7 @@ PrefabInstance:
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.98047906
+      value: 0.9215726
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
@@ -346,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 172.501
+      value: 134.314
       objectReference: {fileID: 0}
     - target: {fileID: 1008487250256549174, guid: 3cb325f3b6cbe49018be385335d90ba4,
         type: 3}
