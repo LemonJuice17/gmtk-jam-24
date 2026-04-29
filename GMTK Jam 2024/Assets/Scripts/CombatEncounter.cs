@@ -171,8 +171,9 @@ public class CombatEncounter : MonoBehaviour
 
         for (int i = 0; i < CombatantList.Count; i++)
         {
-            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
-            
+            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);    
+            Vector3 rectPosition = new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
+
             GameObject newIcon = Instantiate(
                 GameManager.instance.CombatTurnOrderIconPrefab,
                 position + new Vector3(1080, 0, 0),
@@ -187,7 +188,7 @@ public class CombatEncounter : MonoBehaviour
             CombatantQueue.Enqueue(CombatantQueue.Peek());
             CombatantQueue.Dequeue();
 
-            new Tween(0.4f, _turnOrderIcons[i].transform, position, Easing.outSine);
+            new TweenRect(0.4f, _turnOrderIcons[i].GetComponent<RectTransform>(), rectPosition, Easing.outSine);
             await Task.Delay((int)(Settings.TimeBetweenDisplayingEachTurnOrderIcon * 1000));
         }
 
@@ -506,20 +507,22 @@ public class CombatEncounter : MonoBehaviour
     /// <returns></returns>
     private async Task CycleTurnOrderUI()
     {
-        Vector3 lastIconPosition = _turnOrderIcons[^1].transform.position;
+        Vector3 lastIconPosition = _turnOrderIcons[^1].GetComponent<RectTransform>().anchoredPosition3D;
 
-        Tween tweenFirstIconOffscreen = new (0.3f, _turnOrderIcons[0].transform, _turnOrderIcons[0].transform.position - new Vector3(1080, 0), Easing.inSine);
+        RectTransform firstIconRect = _turnOrderIcons[0].GetComponent<RectTransform>();
+        TweenRect tweenFirstIconOffscreen = new(0.3f, firstIconRect, firstIconRect.anchoredPosition3D - new Vector3(1920, 0), Easing.inSine);
 
         List<Task> shuffleTasks = new();
         for (int i = 1; i < _turnOrderIcons.Count; i++)
         {
-            Tween tween = new(0.6f, _turnOrderIcons[i].transform, _turnOrderIcons[i].transform.position - new Vector3(Settings.TurnIconSpacing, 0), Easing.inOutSine);
+            RectTransform iconRect = _turnOrderIcons[i].GetComponent<RectTransform>();
+            TweenRect tween = new(0.6f, iconRect, iconRect.anchoredPosition3D - new Vector3(Settings.TurnIconSpacing, 0), Easing.inOutSine);
             shuffleTasks.Add(tween.TweenCompletion);
         }
 
         await tweenFirstIconOffscreen.TweenCompletion;
-        _turnOrderIcons[0].transform.position = lastIconPosition + new Vector3(1080, 0);
-        new Tween(0.3f, _turnOrderIcons[0].transform, lastIconPosition, Easing.outSine);
+        firstIconRect.anchoredPosition3D = lastIconPosition + new Vector3(1920, 0);
+        new TweenRect(0.3f, firstIconRect, lastIconPosition, Easing.outSine);
 
         await Task.WhenAll(shuffleTasks);
         

@@ -68,6 +68,78 @@ public readonly struct Tween
             Transform.position = Vector3.Lerp(origin, Target, easing.Ease(progress));
         }
 
+        Transform.position = Target;
+        _completionSource.SetResult(true);
+    }
+}
+
+/// <summary>
+/// Moves a Transform to a given position over a given period of time.
+/// </summary>
+public readonly struct TweenRect
+{
+    /// <summary>
+    /// The duration of this tween.
+    /// </summary>
+    public readonly float Duration;
+    /// <summary>
+    /// The RectTransform being controlled by this tween.
+    /// </summary>
+    public readonly RectTransform Rect;
+    /// <summary>
+    /// The target position of this tween.
+    /// </summary>
+    public readonly Vector3 Target;
+    /// <summary>
+    /// The easing mode of this tween (linear by default).
+    /// </summary>
+    public readonly Easing Easing;
+
+    /// <summary>
+    /// Returns a task that is completed once the tween has finished. Can be awaited in async functions.
+    /// </summary>
+    public readonly Task TweenCompletion => _completionSource.Task;
+    private readonly TaskCompletionSource<bool> _completionSource;
+
+    /// <summary>
+    /// Creates a tween between a Transform's current position and a given target position over a given period of time.
+    /// </summary>
+    /// <param name="duration"> The duration of the tween. </param>
+    /// <param name="rect"> The RectTransform being moved. </param>
+    /// <param name="target"> The target position of the tween. </param>
+    /// <param name="easing"> The easing mode (currently not supported). </param>
+    public TweenRect(float duration, RectTransform rect, Vector3 target, Easing easing = Easing.linear)
+    {
+        Duration = duration;
+        Rect = rect;
+        Target = target;
+        Easing = easing;
+
+        _completionSource = new();
+        TweenLoop();
+    }
+
+    private async readonly void TweenLoop()
+    {
+        DateTime startTime = DateTime.Now;
+
+        Vector3 origin = Rect.anchoredPosition3D;
+
+        EasingFunction easing = new(Easing);
+
+        float progress = 0;
+
+        while (progress < 1)
+        {
+            await Task.Yield();
+
+            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress = Mathf.Clamp01(progress);
+
+            Rect.anchoredPosition3D = Vector3.Lerp(origin, Target, easing.Ease(progress));
+        }
+
+        Rect.anchoredPosition3D = Target;
         _completionSource.SetResult(true);
     }
 }
@@ -138,6 +210,7 @@ public readonly struct TweenRotation
             Transform.rotation = Quaternion.Slerp(origin, Target, easing.Ease(progress));
         }
 
+        Transform.rotation = Target;
         _completionSource.SetResult(true);
     }
 }
@@ -212,6 +285,7 @@ public readonly struct TweenValue
             SetValue(Mathf.Lerp(Origin, Target, easing.Ease(progress)));
         }
 
+        SetValue(Target);
         _completionSource.SetResult(true);
     }
 }
