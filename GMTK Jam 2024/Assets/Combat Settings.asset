@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Combat Settings
   m_EditorClassIdentifier: Assembly-CSharp::CombatEncounterSettings
   EnemySpawnTime: 1
-  TurnIconSpacing: 80
+  TurnIconSpacing: 160
   SkipTurnIconColour: {r: 0.75, g: 0.75, b: 0.75, a: 0.75}
   SkipTurnIconBackgroundColour: {r: 0, g: 0, b: 0, a: 0.5019608}
+  PlayerChangeSelection: {fileID: 0}
+  PlayerConfirmSelection: {fileID: 0}
+  PlayerUndoSelection: {fileID: 0}
+  LevelUpJingle: {fileID: 0}
   TimeBetweenMoveToPositionAndDiceRoll: 1
   TimeBetweenRollingEachDiceForTurnOrder: 0.2
   TimeBetweenDiceRollAndTurnOrderDisplay: 2
