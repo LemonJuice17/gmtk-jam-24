@@ -96,7 +96,7 @@ public class Dialogue : MonoBehaviour, IInteractable
         _currentDialogueIndex = 0;
         if(_currentDialogueBox.gameObject != null) Destroy(_currentDialogueBox.gameObject);
 
-        _dialogueFinished.SetResult(true);
+        _dialogueFinished.TrySetResult(true);
         AfterDialogue.Invoke(this);
     }
 
