@@ -143,7 +143,7 @@ public class Attack : ScriptableObject
             Debug.DrawLine(deadRigidBody.position, deadRigidBody.position + launchVector, Color.green, 3);
 
             deadRigidBody.AddForce(launchVector, ForceMode.Impulse);
-            deadRigidBody.AddTorque(Random.rotation.eulerAngles, ForceMode.Impulse);
+            deadRigidBody.AddTorque(Vector3.Cross(Random.rotation.eulerAngles, launchVector), ForceMode.Impulse);
 
             opponent.Transform.BroadcastMessage("StopAnimations");
         }
