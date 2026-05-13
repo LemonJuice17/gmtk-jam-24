@@ -142,7 +142,8 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueList.Array.data[11].Text
       value: Usually it lives way high up at the top of the mountain. But conveniently
-        at the moment it's taking a nap just over there past the end of our village.
+        at the moment it's taking a nap just over there, past the wheat fields of
+        our village.
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}

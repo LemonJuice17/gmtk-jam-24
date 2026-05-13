@@ -18,9 +18,9 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: "Taunt someone using <b><color=#B43686>Charm</color></b> \xD7
-    <b>2</b>"
+  AttackDescription: "Taunt someone using <charm>Charm</charm> \xD7 <b>2</b>"
   AttackMessageDescription: taunted
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2
+  CustomAttackSound: {fileID: 0}

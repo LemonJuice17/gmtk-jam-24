@@ -18,9 +18,9 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 1
-  AttackDescription: Send out a blast of energy using <b><color=#35949F>Magic</color></b>
-    + <b>1d8</b>
+  AttackDescription: Send out a blast of energy using <magic>Magic</magic> + <b>1d8</b>
   AttackMessageDescription: blasted
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2
+  CustomAttackSound: {fileID: 0}

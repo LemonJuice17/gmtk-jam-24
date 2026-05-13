@@ -85,7 +85,7 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.size
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -143,6 +143,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
+      propertyPath: DialogueList.Array.data[10].Text
+      value: "Well, if the thief isn\u2019t the pigs, and it isn\u2019t the dragon,
+        and it isn\u2019t us, then who is it?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[11].Text
+      value: "It definitely wasn\u2019t one of us right, meow?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[12].Text
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[13].Text
+      value: "Why are you looking at me? I didn\u2019t do it."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[14].Text
+      value: "Well, let\u2019s head back to the village for now. Perhaps the mayor
+        might have another lead for us."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
       propertyPath: DialogueList.Array.data[1].Character
       value: 
       objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
@@ -195,6 +222,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ce0410a202b6bcc4ea48b891ad18e3d2,
         type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[10].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[11].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[12].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[13].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 42983cc6bc6894058b76e65e2d009577,
+        type: 2}
+    - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
+        type: 3}
+      propertyPath: DialogueList.Array.data[14].Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fdec45c381d34a74b8059684ae013b0,
+        type: 2}
     - target: {fileID: 2037036005382734056, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: m_IsActive
@@ -213,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: zzzzzzzzzz
+      value: <act>zzzzzzzzzz</act>
       objectReference: {fileID: 0}
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
