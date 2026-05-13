@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: How *cough* could this be..?
+      value: How <act>cough</act> could this be..?
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -26,8 +26,8 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[2].Text
-      value: I have *cough* mastered even the hardest spells in the novice tier one
-        spell book...
+      value: I have <act>cough</act> mastered even the hardest spells in the novice
+        tier one spell book...
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -54,7 +54,7 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[7].Text
-      value: "BUT! I will return shortly\u2026 Cape swish"
+      value: "BUT! I will return shortly\u2026 Cape swish."
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}

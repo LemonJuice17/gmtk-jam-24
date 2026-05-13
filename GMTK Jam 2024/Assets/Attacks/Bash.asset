@@ -18,7 +18,9 @@ MonoBehaviour:
   D4Damage: 0
   D6Damage: 0
   D8Damage: 0
-  AttackDescription: Use Power to bash an opponent
+  AttackDescription: Use <power>Power</power> to bash an opponent
   AttackMessageDescription: bashed
   DialogueChance: 0
   DialogueOptions: []
+  DialogueDuration: 2
+  CustomAttackSound: {fileID: 0}

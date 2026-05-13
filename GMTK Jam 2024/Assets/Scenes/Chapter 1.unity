@@ -2882,119 +2882,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 182773259}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &188207171
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1895762666}
-    m_Modifications:
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 1013945860}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: AddAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: GiveAttack, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2650393983164183343, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: AfterDialogue.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 17.968859
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 8.891631
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9529107
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.30325106
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -20.983
-      objectReference: {fileID: 0}
-    - target: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6494977561933412093, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      propertyPath: m_Name
-      value: Dial - Mock
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6494977561933412093, guid: feaaec22aff426649b480ef41ba89c1a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1013945860}
-  m_SourcePrefab: {fileID: 100100000, guid: feaaec22aff426649b480ef41ba89c1a, type: 3}
---- !u!4 &188207172 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5200407757238106162, guid: feaaec22aff426649b480ef41ba89c1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 188207171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &194488189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11803,6 +11690,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103501272}
     m_Modifications:
+    - target: {fileID: 14887910860056475, guid: db17cdc78f2f645488cc58d6bb9e1c3d,
+        type: 3}
+      propertyPath: DialogueList.Array.data[3].Text
+      value: <act>Dies</act>
+      objectReference: {fileID: 0}
     - target: {fileID: 994367702452956513, guid: db17cdc78f2f645488cc58d6bb9e1c3d,
         type: 3}
       propertyPath: m_Name
@@ -17434,26 +17326,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d379db6446388e1438350225e6317dad, type: 3}
---- !u!1 &1013945856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6494977561933412093, guid: feaaec22aff426649b480ef41ba89c1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 188207171}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1013945860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013945856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 797ef3d3055fc0e48ab94900a0faf0db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GiveAttack
-  attack: {fileID: 11400000, guid: 6f63e9847915fd44aac8501615360b1d, type: 2}
-  profile: {fileID: 3581033570675846809}
 --- !u!4 &1022386621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1215726956720850754, guid: ac8b7a4ec449e4b1daf28a8115b2b106,
@@ -19973,6 +19845,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 822077779}
     m_Modifications:
+    - target: {fileID: 3225499851941249571, guid: 3affeaf46c2b3f94987e9a32ccf8a526,
+        type: 3}
+      propertyPath: DialogueList.Array.data[13].Text
+      value: Mreooooowwwww! <act>cat noises</act>
+      objectReference: {fileID: 0}
     - target: {fileID: 4620938420754123070, guid: 3affeaf46c2b3f94987e9a32ccf8a526,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24537,16 +24414,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 822077779}
     m_Modifications:
-    - target: {fileID: 1546379339686339974, guid: 2c4ef13fda192474b9fea72be1165810,
+    - target: {fileID: 3369964295669300344, guid: 2c4ef13fda192474b9fea72be1165810,
         type: 3}
-      propertyPath: m_Size.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1546379339686339974, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 5
-      objectReference: {fileID: 0}
+      propertyPath: profile
+      value: 
+      objectReference: {fileID: 3581033570675846809}
     - target: {fileID: 3458257050563734542, guid: 2c4ef13fda192474b9fea72be1165810,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24602,43 +24474,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dial - Rat Mayor
       objectReference: {fileID: 0}
-    - target: {fileID: 4836208987523180307, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: DialogueList.Array.data[0].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fb089bb53e76c947815f089c458cf53,
-        type: 2}
-    - target: {fileID: 4836208987523180307, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: DialogueList.Array.data[2].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fb089bb53e76c947815f089c458cf53,
-        type: 2}
-    - target: {fileID: 4836208987523180307, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: DialogueList.Array.data[3].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fb089bb53e76c947815f089c458cf53,
-        type: 2}
-    - target: {fileID: 4836208987523180307, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: DialogueList.Array.data[6].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fb089bb53e76c947815f089c458cf53,
-        type: 2}
-    - target: {fileID: 4836208987523180307, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      propertyPath: DialogueList.Array.data[7].Character
-      value: 
-      objectReference: {fileID: 11400000, guid: 6d0efa64e2919784faa0a215428858c9,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6709654951218921549, guid: 2c4ef13fda192474b9fea72be1165810,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 188207172}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c4ef13fda192474b9fea72be1165810, type: 3}
 --- !u!4 &1356247158 stripped
@@ -31854,12 +31692,6 @@ Transform:
   - {fileID: 366409764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1895762666 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6709654951218921549, guid: 2c4ef13fda192474b9fea72be1165810,
-    type: 3}
-  m_PrefabInstance: {fileID: 1356247157}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1910566946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2939009037234948267, guid: 8841d94b2ba99864e99df462abd40be6,
