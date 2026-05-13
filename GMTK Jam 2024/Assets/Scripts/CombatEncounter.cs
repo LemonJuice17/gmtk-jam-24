@@ -658,6 +658,8 @@ public class CombatEncounter : MonoBehaviour
         ResetIfDead(_gilbert.gameObject, RelativeGilbertPosition.position);
         ResetIfDead(_cattank.gameObject, RelativeCattankPosition.position);
 
+        RemoveAllEnemyInstances();
+
         OnVictory.Invoke();
     }
 
@@ -670,10 +672,14 @@ public class CombatEncounter : MonoBehaviour
         RemoveAllEnemyInstances();
 
         OnLoss.Invoke();
+    }
 
-        static void RemoveAllEnemyInstances()
+    public void RemoveAllEnemyInstances()
+    {
+        foreach(Transform enemy in _enemyTransforms)
         {
-
+            GameManager.instance.CreatePoofEffect(enemy.position);
+            Destroy(enemy.gameObject);
         }
     }
 
