@@ -115,9 +115,12 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay((int)(Settings.TimeBetweenMoveToPositionAndDiceRoll * 1000));
 
         // Add all combatants to a single list.
-        CombatantList.Add(new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true));
-        CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
-        CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
+        CombatantList = new()
+        {
+            new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true),
+            new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally),
+            new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally)
+        };
 
         for (int i = 0; i < Enemies.Length; i++)
         {
@@ -540,7 +543,8 @@ public class CombatEncounter : MonoBehaviour
         CombatantList.Remove(combatant);
         GameObject turnIcon = _turnOrderIcons.Find((icon) => icon.name == combatant.Profile.Character.name);
 
-        Tween removalTween = new(0.3f, turnIcon.transform, turnIcon.transform.position + new Vector3(0, 200), Easing.inSine);
+        RectTransform removeIconRect = turnIcon.GetComponent<RectTransform>();
+        TweenRect removalTween = new(0.3f, removeIconRect, removeIconRect.anchoredPosition3D + new Vector3(0, 240), Easing.inSine);
         await removalTween.TweenCompletion;
 
         _turnOrderIcons.Remove(turnIcon);
@@ -553,8 +557,9 @@ public class CombatEncounter : MonoBehaviour
         List<Task> cycleRemainingIcons = new();
         for (int i = 0; i < _turnOrderIcons.Count; i++)
         {
-            Vector3 position = GameManager.instance.CombatTurnOrderObjectReference.transform.position + new Vector3(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
-            Tween tween = new(0.6f, _turnOrderIcons[i].transform, position, Easing.inOutSine);
+            RectTransform iconRect = _turnOrderIcons[i].GetComponent<RectTransform>();
+            Vector3 position = new(spacingStart + Settings.TurnIconSpacing * i, 0, 0);
+            TweenRect tween = new(0.6f, iconRect, position, Easing.inOutSine);
             cycleRemainingIcons.Add(tween.TweenCompletion);
         }
 
@@ -656,6 +661,8 @@ public class CombatEncounter : MonoBehaviour
         ResetIfDead(_gilbert.gameObject, RelativeGilbertPosition.position);
         ResetIfDead(_cattank.gameObject, RelativeCattankPosition.position);
 
+        RemoveAllEnemyInstances();
+
         OnVictory.Invoke();
     }
 
@@ -668,10 +675,14 @@ public class CombatEncounter : MonoBehaviour
         RemoveAllEnemyInstances();
 
         OnLoss.Invoke();
+    }
 
-        static void RemoveAllEnemyInstances()
+    public void RemoveAllEnemyInstances()
+    {
+        foreach(Transform enemy in _enemyTransforms)
         {
-
+            GameManager.instance.CreatePoofEffect(enemy.position);
+            Destroy(enemy.gameObject);
         }
     }
 
