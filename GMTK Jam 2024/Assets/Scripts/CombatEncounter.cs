@@ -115,9 +115,12 @@ public class CombatEncounter : MonoBehaviour
         await Task.Delay((int)(Settings.TimeBetweenMoveToPositionAndDiceRoll * 1000));
 
         // Add all combatants to a single list.
-        CombatantList.Add(new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true));
-        CombatantList.Add(new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally));
-        CombatantList.Add(new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally));
+        CombatantList = new()
+        {
+            new Combatant(instance.GetComponent<CombatProfile>(), instance.transform, Team.ally, true),
+            new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally),
+            new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally)
+        };
 
         for (int i = 0; i < Enemies.Length; i++)
         {
