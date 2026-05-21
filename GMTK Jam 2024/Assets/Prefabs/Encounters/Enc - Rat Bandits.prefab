@@ -53,7 +53,7 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: Hm? Intruders!! Kill em boys!
+      value: Hmm? Intruders! Kill 'em boys!
       objectReference: {fileID: 0}
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}

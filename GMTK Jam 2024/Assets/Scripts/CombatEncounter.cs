@@ -121,6 +121,8 @@ public class CombatEncounter : MonoBehaviour
             new Combatant(_cattank.GetComponent<CombatProfile>(), _cattank.transform, Team.ally),
             new Combatant(_gilbert.GetComponent<CombatProfile>(), _gilbert.transform, Team.ally)
         };
+        
+        CombatantQueue.Clear();
 
         for (int i = 0; i < Enemies.Length; i++)
         {
@@ -171,6 +173,8 @@ public class CombatEncounter : MonoBehaviour
         _defaultTurnIconColor = GameManager.instance.CombatTurnOrderIconPrefab.transform.GetChild(0).GetComponent<Image>().color;
 
         float spacingStart = (CombatantList.Count - 1) * 0.5f * -Settings.TurnIconSpacing;
+        
+        _turnOrderIcons.Clear();
 
         for (int i = 0; i < CombatantList.Count; i++)
         {
