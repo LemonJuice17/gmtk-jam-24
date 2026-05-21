@@ -108,6 +108,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -166,8 +167,8 @@ MonoBehaviour:
   databaseBehaviors: {fileID: 11400000, guid: 98aa2b74f2918e34497bec3d12bb1795, type: 2}
   databaseAppearances: {fileID: 11400000, guid: 3d3f660a6ecac934080cde646fb5eb59,
     type: 2}
-  useDefaultStyleSheet: 1
-  styleSheet: {fileID: 0}
+  useDefaultStyleSheet: 0
+  styleSheet: {fileID: 11400000, guid: 3841a19e35c5445418c557a3caa8dadb, type: 2}
   databaseActions: {fileID: 11400000, guid: 0db6ed31f113efc4284eb571e80f6657, type: 2}
   defaultAppearancesTags:
   - size
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -498,8 +500,8 @@ MonoBehaviour:
   databaseBehaviors: {fileID: 11400000, guid: 98aa2b74f2918e34497bec3d12bb1795, type: 2}
   databaseAppearances: {fileID: 11400000, guid: 3d3f660a6ecac934080cde646fb5eb59,
     type: 2}
-  useDefaultStyleSheet: 1
-  styleSheet: {fileID: 0}
+  useDefaultStyleSheet: 0
+  styleSheet: {fileID: 11400000, guid: 3841a19e35c5445418c557a3caa8dadb, type: 2}
   databaseActions: {fileID: 11400000, guid: 0db6ed31f113efc4284eb571e80f6657, type: 2}
   defaultAppearancesTags:
   - size

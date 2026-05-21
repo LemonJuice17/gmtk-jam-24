@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[0].Text
-      value: 'You run into what seems to be a hog man harassing a hog woman. '
+      value: 'You run into what seems to be a scuffle taking place. '
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}

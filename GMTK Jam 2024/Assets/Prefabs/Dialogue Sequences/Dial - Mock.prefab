@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
       propertyPath: DialogueList.Array.data[11].Text
-      value: '*whisper* *whisper* *whisper*'
+      value: <act>whisper</act> <act>whisper</act> <act>whisper</act>
       objectReference: {fileID: 0}
     - target: {fileID: 7455643174133851167, guid: 59ddeb0ee22ab534bb4005d34b558143,
         type: 3}
