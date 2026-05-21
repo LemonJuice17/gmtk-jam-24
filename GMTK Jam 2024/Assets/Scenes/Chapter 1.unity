@@ -31982,7 +31982,7 @@ MonoBehaviour:
   BlackScreenReference: {fileID: 602740464}
   DialogueBoxPrefab: {fileID: 7758224166574442553, guid: c0dcacbd2ed547b40aa12e7ca9a0aa84,
     type: 3}
-  InstantiationPoofEffect: {fileID: 3540951760205637037, guid: 900c07e92d2f1d74582d2762d3bc5d50,
+  InstantiationPoofEffect: {fileID: 5295848594033052949, guid: 89f4a699f289a984f8ebde187bd011ba,
     type: 3}
   PlayerCamera: {fileID: 16174174}
   PauseMenuOverlay: {fileID: 1253123635}
