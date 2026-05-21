@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,7 +33,7 @@ public class DiceObject : MonoBehaviour
     /// If the dice is still rolling after this many seconds, it is forcefully stopped.
     /// </summary>
     public float ForceStopTimeout = 3f;
-    
+
     /// <summary>
     /// An event that's called with the rolled value once the roll is finished.
     /// </summary>
@@ -70,19 +69,20 @@ public class DiceObject : MonoBehaviour
         transform.rotation = Random.rotation;
 
         rigidbody.AddForce(throwDirection.normalized * ThrowMagnitude, ForceMode.Impulse);
-
-        await Task.WhenAny(StopCheck(), Task.Delay((int)(ForceStopTimeout * 1000)));
+        await Task.WhenAny(StopCheck(), RollTimeout(ForceStopTimeout));
 
         return StopRoll();
     }
 
+    private async Task RollTimeout(float seconds) => await Awaitable.WaitForSecondsAsync(seconds);
+
     /// <summary>
-    /// Checks the die's curent velocity magnitude and stops it if it's below the VelocityMagnitudeStopLimit.
+    /// Checks the die's current velocity magnitude and stops it if it's below the VelocityMagnitudeStopLimit.
     /// </summary>
     private async Task StopCheck()
     {
         // Let the die actually start rolling before checking if it's stopped or not.
-        await Task.Delay(100);
+        await Awaitable.WaitForSecondsAsync(0.1f);
 
         while (rigidbody.linearVelocity.magnitude > VelocityMagnitudeStopLimit)
         {

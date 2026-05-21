@@ -45,19 +45,19 @@ public class Attack : ScriptableObject
         for (int i = 0; i < D4Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(4, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
-            await Task.Delay(200);
+            await Awaitable.WaitForSecondsAsync(0.2f);
         }
 
         for (int i = D4Damage; i < D4Damage + D6Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(6, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
-            await Task.Delay(200);
+            await Awaitable.WaitForSecondsAsync(0.2f);
         }
 
         for (int i = D4Damage + D6Damage; i < D4Damage + D6Damage + D8Damage; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(8, attacker.Transform.position + (Vector3.up * 2)).Roll(-attacker.Transform.forward * 1.5f);
-            await Task.Delay(200);
+            await Awaitable.WaitForSecondsAsync(0.2f);
         }
 
         await Task.WhenAll(rollResults);
@@ -69,7 +69,7 @@ public class Attack : ScriptableObject
 
         int roundedDamage = Mathf.RoundToInt(totalDamage);
 
-        await Task.Delay(1000);
+        await Awaitable.WaitForSecondsAsync(1);
 
         // Display dialogue and wait for it to finish.
         if (DialogueChance > 0 && Random.Range(0f, 1f) <= DialogueChance)
