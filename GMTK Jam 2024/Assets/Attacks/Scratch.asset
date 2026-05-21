@@ -20,3 +20,8 @@ MonoBehaviour:
   D8Damage: 0
   AttackDescription: 
   AttackMessageDescription: scratched
+  DialogueChance: 0
+  DialogueOptions: []
+  DialogueDuration: 2
+  CustomAttackSound: {fileID: 5168560046967374483, guid: 4fedb8b3542feda4a898887386890b53,
+    type: 3}

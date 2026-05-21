@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cheese
   m_EditorClassIdentifier: 
   CharacterName: Cheese
-  CharacterSprite: {fileID: 21300000, guid: 31ae41c86561e774c8f2a60bdd237c09, type: 3}
+  CharacterSprite: {fileID: 21300000, guid: 39659e55e7ab22a438131f2507aa1eb6, type: 3}
   CharacterCombatIcon: {fileID: 21300000, guid: 31ae41c86561e774c8f2a60bdd237c09,
     type: 3}
   CharacterMainColor: {r: 0.9056604, g: 0.7561051, b: 0.07262372, a: 1}

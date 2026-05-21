@@ -23,3 +23,5 @@ MonoBehaviour:
   DialogueChance: 0
   DialogueOptions: []
   DialogueDuration: 2
+  CustomAttackSound: {fileID: 5168560046967374483, guid: 6f1d6418b6d7fa54f99f6e103db1273d,
+    type: 3}

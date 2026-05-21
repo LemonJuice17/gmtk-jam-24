@@ -22,5 +22,6 @@ MonoBehaviour:
   AttackMessageDescription: fights the brainwashing and ignores
   DialogueChance: 1
   DialogueOptions:
-  - guhhhhhhhhhhh
+  - <wave a=0.1>Guhhhh
   DialogueDuration: 2
+  CustomAttackSound: {fileID: 0}
