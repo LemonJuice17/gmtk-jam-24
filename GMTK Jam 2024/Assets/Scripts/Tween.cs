@@ -315,7 +315,7 @@ public readonly struct DelayedAction
 
     private async readonly void Delay()
     {
-        await Task.Delay((int)(Duration * 1000));
+        await Awaitable.WaitForSecondsAsync(Duration);
         Action();
     }
 }

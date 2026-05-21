@@ -277,8 +277,6 @@ public class CombatEncounter : MonoBehaviour
 
     private async Task PlayerTurn(Combatant player)
     {
-        Debug.Log("Player turn");
-
         GameManager.instance.CombatUIPanelObjectReference.SetActive(true);
         GameManager.instance.CombatUINameText.text = "Your Turn";
         GameManager.instance.CombatUINameText.color = player.Profile.Character.CharacterMainColor;
@@ -299,8 +297,6 @@ public class CombatEncounter : MonoBehaviour
 
         while (isPlayerTurn)
         {
-            Debug.Log("Is player turn");
-
             ShowAvailableAttacks();
 
             while (selectingAttack)
@@ -331,7 +327,6 @@ public class CombatEncounter : MonoBehaviour
 
         void ShowAvailableAttacks()
         {
-            Debug.Log("Show Available Attacks");
             RemoveCurrentPlayerOptions();
 
             attackSelectionList = player.Profile.Attacks.ToArray();
@@ -441,7 +436,6 @@ public class CombatEncounter : MonoBehaviour
 
     void SetAttackDescription(string description)
     {
-        Debug.Log("Set description");
         GameManager.instance.CombatUIPlayerAttackDescriptionText.text = description;
         GameManager.instance.CombatUIPlayerAttackDescriptionObjectReference.SetActive(description != "");
     }
