@@ -62,7 +62,7 @@ public readonly struct Tween
         {
             await Task.Yield();
 
-            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress += Time.deltaTime / Duration;
             progress = Mathf.Clamp01(progress);
 
             Transform.position = Vector3.Lerp(origin, Target, easing.Ease(progress));
@@ -132,8 +132,8 @@ public readonly struct TweenRect
         while (progress < 1)
         {
             await Task.Yield();
-
-            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            
+            progress += Time.deltaTime / Duration;
             progress = Mathf.Clamp01(progress);
 
             Rect.anchoredPosition3D = Vector3.Lerp(origin, Target, easing.Ease(progress));
@@ -203,8 +203,8 @@ public readonly struct TweenRotation
         while (progress < 1)
         {
             await Task.Yield();
-
-            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            
+            progress += Time.deltaTime / Duration;
             progress = Mathf.Clamp01(progress);
 
             Transform.rotation = Quaternion.Slerp(origin, Target, easing.Ease(progress));
@@ -279,7 +279,7 @@ public readonly struct TweenValue
         {
             await Task.Yield();
 
-            progress = ((float)(DateTime.Now - startTime).TotalSeconds) / Duration;
+            progress += Time.deltaTime / Duration;
             progress = Mathf.Clamp01(progress);
 
             SetValue(Mathf.Lerp(Origin, Target, easing.Ease(progress)));

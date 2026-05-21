@@ -82,7 +82,7 @@ public class Dialogue : MonoBehaviour, IInteractable
 
         if (CurrentDialogue.AutomaticContinueOnly) WaitForContinue = true;
 
-        if (timer > 0) await Task.Delay((int)(timer * 1000));
+        if (timer > 0) await Awaitable.WaitForSecondsAsync(timer);
 
         CurrentDialogue.Actions.Invoke(this);
 
