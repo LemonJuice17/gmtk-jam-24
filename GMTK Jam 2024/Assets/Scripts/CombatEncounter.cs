@@ -112,7 +112,7 @@ public class CombatEncounter : MonoBehaviour
         _cattank.CurrentWalkMode = new StandStill(_cattank);
         _gilbert.CurrentWalkMode = new StandStill(_gilbert);
 
-        await Task.Delay((int)(Settings.TimeBetweenMoveToPositionAndDiceRoll * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenMoveToPositionAndDiceRoll);
 
         // Add all combatants to a single list.
         CombatantList = new()
@@ -142,12 +142,12 @@ public class CombatEncounter : MonoBehaviour
         for (int i = 0; i < CombatantList.Count; i++)
         {
             rollResults[i] = GameManager.instance.CreateDice(6, CombatantList[i].Transform.position + (Vector3.up * 2)).Roll(-CombatantList[i].Transform.forward * 1.5f);
-            await Task.Delay((int)(Settings.TimeBetweenRollingEachDiceForTurnOrder * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenRollingEachDiceForTurnOrder);
         }
 
         await Task.WhenAll(rollResults);
 
-        await Task.Delay((int)(Settings.TimeBetweenDiceRollAndTurnOrderDisplay * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenDiceRollAndTurnOrderDisplay);
 
         // Calculate the order of combat from the previously calculated rolls.
         Dictionary<Combatant, int> combatantRolls = new();
@@ -196,15 +196,15 @@ public class CombatEncounter : MonoBehaviour
             CombatantQueue.Dequeue();
 
             new TweenRect(0.4f, _turnOrderIcons[i].GetComponent<RectTransform>(), rectPosition, Easing.outSine);
-            await Task.Delay((int)(Settings.TimeBetweenDisplayingEachTurnOrderIcon * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenDisplayingEachTurnOrderIcon);
         }
-
-        await Task.Delay((int)(Settings.TimeBetweenDisplayingEachTurnOrderIcon * 1000));
+        
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenDisplayingEachTurnOrderIcon);
 
         // Main combat loop.
         while (_combatInProgress)
         {
-            await Task.Delay((int)(Settings.TimeBetweenAttackEndAndTurnOrderCycling * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenAttackEndAndTurnOrderCycling);
 
             Combatant nextCombatant = CombatantQueue.Peek();
             CombatantQueue.Dequeue();
@@ -215,13 +215,13 @@ public class CombatEncounter : MonoBehaviour
 
             if (!_combatInProgress) return;
 
-            await Task.Delay((int)(Settings.TimeBetweenAttackEndAndTurnOrderCycling * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenAttackEndAndTurnOrderCycling);
             
             await CycleTurnOrderUI();
         }
     }
 
-    private async Task InstantiateEnemies(float time)
+    private async Task InstantiateEnemies(float seconds)
     {
         _enemyTransforms = new Transform[Enemies.Length];
 
@@ -234,7 +234,7 @@ public class CombatEncounter : MonoBehaviour
                 .transform;
         }
 
-        await Task.Delay((int)(time * 1000));
+        await Awaitable.WaitForSecondsAsync(seconds);
     }
 
     /// <summary>
@@ -252,7 +252,7 @@ public class CombatEncounter : MonoBehaviour
         GameManager.instance.CombatUIDescriptionText.gameObject.SetActive(true);
         GameManager.instance.CombatUIDescriptionText.text = $"";
 
-        await Task.Delay((int)(Settings.TimeBetweenDeclaringTurnAndAttack * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenDeclaringTurnAndAttack);
 
         // Randomly choose an opponent to attack and which attack to attack them with.
         List<Combatant> enemies = CombatantList.Where((combatant) => ai.Team != combatant.Team).ToList();
@@ -288,7 +288,7 @@ public class CombatEncounter : MonoBehaviour
         selectingAttack = true;
         selectingOpponent = false;
 
-        await Task.Delay((int)(Settings.TimeBetweenDeclaringTurnAndAttack * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenDeclaringTurnAndAttack);
 
         instance.MoveSelectionLeft.AddListener(PlayerSelectionLeft);
         instance.MoveSelectionRight.AddListener(PlayerSelectionRight);
@@ -323,7 +323,7 @@ public class CombatEncounter : MonoBehaviour
 
         await Attack(player, selectedCombatant, selectedAttack);
 
-        await Task.Delay((int)(Settings.TimeAfterPlayerTurn * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeAfterPlayerTurn);
 
         void ShowAvailableAttacks()
         {
@@ -449,21 +449,21 @@ public class CombatEncounter : MonoBehaviour
 
             GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} is too tired and rests for a turn.";
             attacker.IsSkipTurn = false;
-            await Task.Delay((int)(Settings.TimeAfterAttack * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeAfterAttack);
             return;
         }
 
         string attackMessage = attack.AttackMessageDescription == "" ? $"used {attack.name} on" : attack.AttackMessageDescription;
         GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} {attackMessage} {opponent.Profile.Character.CharacterName}.";
 
-        await Task.Delay((int)(Settings.TimeBetweenAttackUsedMessageAndAttackAnimation * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenAttackUsedMessageAndAttackAnimation);
 
         if (attack is RollOver)
         {
             await (attack as RollOver).OnAttack(attacker, CombatantList.Where((c) => c.Team != attacker.Team).ToArray());
-            await Task.Delay((int)(Settings.TimeBetweenAttackAnimationAndAttackResultsText * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenAttackAnimationAndAttackResultsText);
             GameManager.instance.CombatUIDescriptionText.text = (attack as RollOver).AttackMessageDescription;
-            await Task.Delay((int)(Settings.TimeAfterAttack * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeAfterAttack);
             StopEncounter();
             CombatVictory();
             return;
@@ -492,7 +492,7 @@ public class CombatEncounter : MonoBehaviour
 
         else damageDealt = await attack.OnAttack(attacker, opponent);
 
-        await Task.Delay((int)(Settings.TimeBetweenAttackAnimationAndAttackResultsText * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenAttackAnimationAndAttackResultsText);
 
         GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} dealt {damageDealt} damage.";
 
@@ -500,12 +500,12 @@ public class CombatEncounter : MonoBehaviour
         // If the attack killed the enemy.
         if (opponent.HP == 0)
         {
-            await Task.Delay((int)(Settings.TimeAfterAttack * 1000));
+            await Awaitable.WaitForSecondsAsync(Settings.TimeAfterAttack);
             GameManager.instance.CombatUIDescriptionText.text = $"{attacker.Profile.Character.CharacterName} slayed {opponent.Profile.Character.CharacterName}.";
             await RemoveCombatant(opponent);
         }
-
-        await Task.Delay((int)(Settings.TimeAfterAttack * 1000));
+        
+        await Awaitable.WaitForSecondsAsync(Settings.TimeAfterAttack);
     }
 
     /// <summary>
@@ -554,7 +554,7 @@ public class CombatEncounter : MonoBehaviour
         _turnOrderIcons.Remove(turnIcon);
         Destroy(turnIcon);
 
-        await Task.Delay((int)(Settings.TimeBetweenRemovingTurnOrderIconAndResortingTurnOrderIcons * 1000));
+        await Awaitable.WaitForSecondsAsync(Settings.TimeBetweenRemovingTurnOrderIconAndResortingTurnOrderIcons);
 
         float spacingStart = (CombatantList.Count - 1) * 0.5f * -Settings.TurnIconSpacing;
 
