@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3615d4f0983bfe46bdfddb6e2632d45, type: 3}
-  m_Name: Taunt
+  m_Name: Wizard Taunt
   m_EditorClassIdentifier: 
   StrengthDamageMultiplier: 0
   CharmDamageMultiplier: 2
@@ -21,9 +21,6 @@ MonoBehaviour:
   AttackDescription: "Taunt someone using <charm>Charm</charm> \xD7 <b>2</b>"
   AttackMessageDescription: taunted
   DialogueChance: 0
-  DialogueOptions:
-  - We're winning!
-  - We've got this, guys!
-  - You don't stand a chance against us!
+  DialogueOptions: []
   DialogueDuration: 2
   CustomAttackSound: {fileID: 0}

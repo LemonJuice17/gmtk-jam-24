@@ -19,9 +19,9 @@ MonoBehaviour:
   D6Damage: 0
   D8Damage: 0
   AttackDescription: 
-  AttackMessageDescription: fights the brainwashing and ignores
+  AttackMessageDescription: is in a trance and ignores
   DialogueChance: 1
   DialogueOptions:
-  - <wave a=0.1>Guhhhh
+  - <wave a=0.1>Guhhhhh
   DialogueDuration: 2
   CustomAttackSound: {fileID: 0}

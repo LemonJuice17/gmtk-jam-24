@@ -54,7 +54,7 @@ PrefabInstance:
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[7].Text
-      value: "BUT! I will return shortly\u2026 Cape swish."
+      value: BUT! I will return shortly... Cape swish.
       objectReference: {fileID: 0}
     - target: {fileID: 1220581904049086502, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
@@ -218,7 +218,7 @@ PrefabInstance:
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
         type: 3}
       propertyPath: DialogueList.Array.data[3].Text
-      value: "He does smell pretty bad\u2026 But that might just be because he\u2019s
+      value: "He does smell pretty bad... But that might just be because he\u2019s
         a goat. "
       objectReference: {fileID: 0}
     - target: {fileID: 2546531012254417142, guid: e61d923b2ace4264e9b1d7f3fac82905,
