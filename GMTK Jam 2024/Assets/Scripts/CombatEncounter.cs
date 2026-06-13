@@ -76,6 +76,7 @@ public class CombatEncounter : MonoBehaviour
 
     public async void StartEncounter()
     {
+        _combatInProgress = true;
         instance.Input.SwitchCurrentActionMap("Combat");
 
         if (_combatCamera != null) _combatCamera.Priority = 100;
