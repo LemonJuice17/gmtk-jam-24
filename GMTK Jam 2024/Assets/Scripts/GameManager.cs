@@ -58,11 +58,15 @@ public class GameManager : MonoBehaviour
     public Color CharmColour;
     public Color MagicColour;
 
+    /// <summary>
+    /// How long the tween to animate HP changes takes.
+    /// </summary>
     public float HPChangeAnimationTime = 0.3f;
 
     [Header("Misc References")]
     public Image BlackScreenReference;
     public DialogueBox DialogueBoxPrefab;
+    public DeathScroll DeathScrollReference;
     /// <summary>
     /// A "poof" particle system effect for when things are instantiated.
     /// </summary>
