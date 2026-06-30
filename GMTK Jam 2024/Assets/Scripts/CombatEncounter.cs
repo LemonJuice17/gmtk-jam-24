@@ -680,6 +680,9 @@ public class CombatEncounter : MonoBehaviour
         RemoveAllEnemyInstances();
 
         OnLoss.Invoke();
+
+        GameManager.instance.DeathScrollReference.gameObject.SetActive(true);
+        GameManager.instance.DeathScrollReference.SetDialogue();
     }
 
     public void RemoveAllEnemyInstances()
